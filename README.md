@@ -7,12 +7,17 @@ Ce projet est une application **Node.js** utilisant **TypeScript** et **Express*
 ### Structure du fichier `.env`
 
 ```env
-CERT_CERT_PATH=src/config/certificates/cert.pem
-CERT_KEY_PATH=src/config/certificates/key.pem
-CLUSTER_URI=mongodb+srv://<user>:<password>@<cluster_name>/<database_name>?retryWrites=true&w=majority
-DB_URI_TEST=mongodb+srv://<user>:<password>@<cluster_name>/<database_name_test>?retryWrites=true&w=majority
-JWT_SECRET=<SECRET>
-NODE_ENV=<test | develop | production>
-PORT=<3000> 
-SESSION_SECRET=<SECRET>
+CERT_CERT_PATH=src/config/certificates/cert.pem 
+CERT_KEY_PATH=src/config/certificates/key.pem 
+CLUSTER_URI=mongodb+srv://raphaelpaquin19:<passwd>@cluster0.sdueo.mongodb.net/home?retryWrites=true&w=majority 
+DB_URI_TEST=mongodb+srv://raphaelpaquin19:<passwd>@cluster0.sdueo.mongodb.net/home_test?retryWrites=true&w=majority 
+JWT_SECRET=DSTYC 
+NODE_ENV=develop 
+PORT=3000 
+SESSION_SECRET=shhhh
+TEST_DB_NAME=home_test
+DB_NAME=home
 ```
+
+<!-- readme: contributors -start --> 
+<!-- readme: contributors -end -->
