@@ -19,5 +19,8 @@ TEST_DB_NAME=home_test
 DB_NAME=home
 ```
 
+### Contributors
+---
+
 <!-- readme: contributors -start --> 
 <!-- readme: contributors -end -->
