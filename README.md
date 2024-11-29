@@ -2,7 +2,7 @@
 
 ## Description
 
-Ce projet est une application **Node.js** utilisant **TypeScript** et **Express** pour créer un serveur API REST. Il est structuré avec des dossiers pour les contrôleurs, les services, les modèles, et utilise Jest pour les tests unitaires.
+Ce projet est une application **Node.js** utilisant **TypeScript** et **Express** pour crC)er un serveur API REST. Il est structurC) avec des dossiers pour les contrC4leurs, les services, les modC(les, et utilise Jest pour les tests unitaires.
 
 ### Structure du fichier `.env`
 
@@ -23,4 +23,14 @@ DB_NAME=home
 ---
 
 <!-- readme: contributors -start --> 
+<table>
+<tr>
+    <td align="center">
+        <a href="https://github.com/Raaphe">
+            <img src="https://avatars.githubusercontent.com/u/120033739?v=4" width="100;" alt="Raaphe"/>
+            <br />
+            <sub><b>Raph</b></sub>
+        </a>
+    </td></tr>
+</table>
 <!-- readme: contributors -end -->
