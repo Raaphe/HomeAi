@@ -7,6 +7,7 @@ import AuthenticationFilter from './middlewares/auth.middleware';
 import authRoute from "./routes/auth.route"
 import { config } from './config/config';
 import { logger } from './utils/logger';
+import {RealtorApi} from "./api/realtor.api.ts";
 
 // Step 1. Create an instance of AuthenticationFilter
 const filter = new AuthenticationFilter();

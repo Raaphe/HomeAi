@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { UserService } from '../services/user.service';
+import { UserService } from '../services/users.service.ts';
 
 export class UserController {
   public async getAllUsers(req: Request, res: Response): Promise<void> {
