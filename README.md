@@ -24,8 +24,7 @@ MODEL_NAME=median-model
 
 ---
 
-<!-- readme: contributors -start -->
-
+<!-- readme: contributors -start --> 
 <table>
 <tr>
     <td align="center">
