@@ -17,12 +17,15 @@ PORT=3000
 SESSION_SECRET=shhhh
 TEST_DB_NAME=home_test
 DB_NAME=home
+MODEL_NAME=median-model
 ```
 
 ### Contributors
+
 ---
 
-<!-- readme: contributors -start --> 
+<!-- readme: contributors -start -->
+
 <table>
 <tr>
     <td align="center">
