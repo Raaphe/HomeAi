@@ -28,7 +28,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: `http://${IP_ADDR}:3000${api_prefix_v1}`,
+        url: `https://${IP_ADDR}:3000${api_prefix_v1}`,
         description: "Development server (HTTP) for v1",
       },
     ],
@@ -61,11 +61,8 @@ app.get('/', (req: Request, res: Response) => {
   res.send(`<h1>Welcome to my Backend</h1>`);
 });
 
-
-
 const filter = new AuthenticationFilter();
 
-// Use auth routes
 app.use(api_prefix_v1, authRoute);
 
 export default app;
