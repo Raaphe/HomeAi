@@ -1,7 +1,7 @@
 import { ListingDetailed, ListingOverview } from "../payloads/dto/listing.dto.ts";
 import axios from "axios";
 
-export class RealtorApi {
+class RealtorApi {
     private baseUrl: string = "https://real-estate-api-xi.vercel.app";
 
     private static endpoints: any = {
@@ -60,3 +60,5 @@ export class RealtorApi {
         }
     }
 }
+
+export default RealtorApi;
