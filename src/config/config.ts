@@ -12,5 +12,6 @@ export const config = {
   CLUSTER_URL : process.env.CLUSTER_URI,
   CLUSTER_URL_TEST: process.env.DB_URI_TEST,
   TEST_DB_NAME: process.env.TEST_DB_NAME,
-  DB_NAME: process.env.DB_NAME
+  DB_NAME: process.env.DB_NAME,
+  MODEL_NAME: process.env.MODEL_NAME,
 };

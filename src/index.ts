@@ -7,6 +7,7 @@ import https from 'https';
 import os from 'os';
 import fs from 'fs';
 import path from 'path';
+import { InferenceSession } from 'onnxruntime-web';
 
 const IP_ADDR = getLocalIPAddress();
 const port = config.PORT || 3000;
