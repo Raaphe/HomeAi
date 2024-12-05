@@ -1,8 +1,6 @@
 import ResponseObject from "../interfaces/response.interface";
 
-export default class CustomRequestParser {
-
-
+export default class Custom_request_parserUtil {
     /**
      * The message has to be under this format : 
      * <CODE> : <RESPONSE MESSAGE>
@@ -12,5 +10,4 @@ export default class CustomRequestParser {
     public static ParseRequest(res: string) : ResponseObject<null> {
         return {code: parseInt(res.split(":")[0]),message: res.split(":")[1]};
     }
-
 }
