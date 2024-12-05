@@ -8,8 +8,9 @@ import os from 'os';
 import fs from 'fs';
 import path from 'path';
 import { InferenceSession } from 'onnxruntime-web';
+import {getLocalIPAddres} from "./utils/security.utils.ts";
 
-const IP_ADDR = getLocalIPAddress();
+const IP_ADDR = getLocalIPAddres();
 const port = config.PORT || 3000;
 const CLUSTER_URL = config.CLUSTER_URL || "";
 const CLUSTER_URL_TEST = config.CLUSTER_URL_TEST || "";
@@ -55,7 +56,6 @@ if (config.ENV === "production") {
     console.log(`Server is running on http://0.0.0.0:${port}`);
   });
 } else {
-
   const httpsOptions: https.ServerOptions = {
     key: fs.readFileSync(path.resolve(config.CERT_KEY ?? "")),
     cert: fs.readFileSync(path.resolve(config.CERT_CERT ?? "")),
@@ -67,17 +67,4 @@ if (config.ENV === "production") {
     console.log(`API docs are running on: https://${IP_ADDR}:3000${api_prefix_v1}/docs`)
   });
 
-}
-
-function getLocalIPAddress() {
-  const networkInterfaces = os.networkInterfaces();
-  for (const interfaceName in networkInterfaces) {
-    const addresses = networkInterfaces[interfaceName];
-    for (const address of addresses ?? []) {
-      if (address.family === 'IPv4' && !address.internal) {
-        return address.address;
-      }
-    }
-  }
-  return 'IP address not found';
 }
