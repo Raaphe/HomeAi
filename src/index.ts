@@ -1,14 +1,12 @@
-import app, {api_prefix_v1} from './app';  // Importer l'application configurée
+import app, { api_prefix_v1 } from './app';
 import 'dotenv/config';
 import mongoose, { connect, ConnectOptions } from 'mongoose';
 import { config } from "./config/config";
-import { logger } from './utils/logger';
+import { loggerUtil } from './utils/logger.util.ts';
 import https from 'https';
-import os from 'os';
 import fs from 'fs';
 import path from 'path';
-import { InferenceSession } from 'onnxruntime-web';
-import {getLocalIPAddres} from "./utils/security.utils.ts";
+import { getLocalIPAddres } from "./utils/security.util.ts";
 
 const IP_ADDR = getLocalIPAddres();
 const port = config.PORT || 3000;
@@ -18,7 +16,6 @@ const TEST_DB_NAME = config.TEST_DB_NAME;
 const DB_NAME = config.DB_NAME;
 
 const run = async () => {
-
   let connectOptions: ConnectOptions;
 
   if (config.ENV === "test") {
@@ -27,22 +24,18 @@ const run = async () => {
       serverApi: { version: "1", deprecationErrors: true, strict: true }
     };
     await connect(CLUSTER_URL_TEST, connectOptions);
-    logger.info(`CONNECTING TO ${CLUSTER_URL_TEST}`);
+    loggerUtil.info(`CONNECTING TO ${CLUSTER_URL_TEST}`);
   } else {
-
     connectOptions = {
       dbName: DB_NAME,
       serverApi: { version: "1", deprecationErrors: true, strict: true }
     };
     await connect(CLUSTER_URL, connectOptions);
-    logger.info(`CONNECTING TO ${CLUSTER_URL}`);
+    loggerUtil.info(`CONNECTING TO ${CLUSTER_URL}`);
   }
+};
 
-  // await seed(); // Run this to seed the database
-}
-
-
-run().catch(err => logger.error(err));
+run().catch(err => loggerUtil.error('Error running server:', err));
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection error to mongo db"));
@@ -64,7 +57,6 @@ if (config.ENV === "production") {
   // Step 10. Create and start the HTTPS server
   https.createServer(httpsOptions, app).listen(port, () => {
     console.log(`Server is running on https://${IP_ADDR}:${port}`);
-    console.log(`API docs are running on: https://${IP_ADDR}:3000${api_prefix_v1}/docs`)
+    console.log(`API docs are running on: https://${IP_ADDR}:3000${api_prefix_v1}/docs`);
   });
-
 }

@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken';
 import RegistrationDTO from '../payloads/dto/register.dto';
 import LoginDTO from '../payloads/dto/login.dto';
-import { verifyPassword } from '../utils/security.utils';
+import { verifyPassword } from '../utils/security.util.ts';
 import { config } from "../config/config"
-import { logger } from '../utils/logger';
+import { loggerUtil } from '../utils/logger.util.ts';
 import ResponseObject from '../interfaces/response.interface';
 import User from '../models/user.model';
 import mongoose from 'mongoose';
@@ -31,7 +31,7 @@ export class AuthService {
                 message: "Successfully Registered."
             };
         } catch (e: any) {
-            logger.error(`Error in register method: ${e.message}`, e);
+            loggerUtil.error(`Error in register method: ${e.message}`, e);
             return {
                 code: 400,
                 data: "",
