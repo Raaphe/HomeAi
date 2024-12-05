@@ -28,17 +28,17 @@ MODEL_NAME=median-model
 <table>
 <tr>
     <td align="center">
-        <a href="https://github.com/Raaphe">
-            <img src="https://avatars.githubusercontent.com/u/120033739?v=4" width="100;" alt="Raaphe"/>
-            <br />
-            <sub><b>Raph</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/hasilon88">
             <img src="https://avatars.githubusercontent.com/u/109122423?v=4" width="100;" alt="hasilon88"/>
             <br />
             <sub><b>Harjot Singh</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Raaphe">
+            <img src="https://avatars.githubusercontent.com/u/120033739?v=4" width="100;" alt="Raaphe"/>
+            <br />
+            <sub><b>Raph</b></sub>
         </a>
     </td></tr>
 </table>
