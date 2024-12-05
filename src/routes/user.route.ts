@@ -22,15 +22,21 @@ const userController = new UserController();
  *               items:
  *                 type: object
  *                 properties:
- *                  id:
+ *                   id:
  *                     type: integer
  *                     example: 1
- *                  name:
+ *                   name:
  *                     type: string
  *                     example: John Doe
- *                  mail:
+ *                   mail:
  *                     type: string
- *                     example : john.doe@example.com
+ *                     example: john.doe@example.com
+ *       400:
+ *         description: Invalid input, please check the request format.
+ *       404:
+ *         description: No users found.
+ *       500:
+ *         description: Internal server error.
  */
 router.get('/users', userController.getAllUsers);
 
