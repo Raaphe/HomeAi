@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { config } from '../config/config';
-import { logger } from '../utils/logger';
+import { loggerUtil } from '../utils/logger.util.ts';
 
 export default class AuthenticationFilter {
 
@@ -19,7 +19,7 @@ export default class AuthenticationFilter {
 
         const authHeader = req.headers['authorization'];
         
-        logger.info(req.headers);
+        loggerUtil.info(req.headers);
 
         if (!authHeader) {
             return res.status(401).json({ message: 'No authorization header provided' });
