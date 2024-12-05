@@ -1,4 +1,4 @@
-import app from './app';  // Importer l'application configurée
+import app, {api_prefix_v1} from './app';  // Importer l'application configurée
 import 'dotenv/config';
 import mongoose, { connect, ConnectOptions } from 'mongoose';
 import { config } from "./config/config";
@@ -14,7 +14,6 @@ const CLUSTER_URL = config.CLUSTER_URL || "";
 const CLUSTER_URL_TEST = config.CLUSTER_URL_TEST || "";
 const TEST_DB_NAME = config.TEST_DB_NAME;
 const DB_NAME = config.DB_NAME;
-
 
 const run = async () => {
 
@@ -64,6 +63,7 @@ if (config.ENV === "production") {
   // Step 10. Create and start the HTTPS server
   https.createServer(httpsOptions, app).listen(port, () => {
     console.log(`Server is running on https://${IP_ADDR}:${port}`);
+    console.log(`API docs are running on: https://${IP_ADDR}:3000${api_prefix_v1}/docs`)
   });
 
 }

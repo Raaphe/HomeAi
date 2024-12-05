@@ -1,19 +1,18 @@
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
 import NodeRSA from 'node-rsa';
-import { config } from '../config/config';
+import {config} from '../config/config';
+import os from "node:os";
 
 const secretKey = config.JWT_SECRET;
 const iv = Buffer.alloc(16, 0);
 
 export async function hashPassword(password: string): Promise<string> {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    return hashedPassword;
+    return await bcrypt.hash(password, 10);
 }
 
 export async function verifyPassword(password: string, hashedPassword: string): Promise<boolean> {
-    const match = await bcrypt.compare(password, hashedPassword);
-    return match;
+    return await bcrypt.compare(password, hashedPassword);
 }
 
 export function encrypt(text: string): string {
@@ -45,4 +44,17 @@ export function encryptWithPublicKey(key: NodeRSA, data: string) {
 
 export function decryptWithPrivateKey(key: NodeRSA, encryptedData: string) {
   return key.decrypt(encryptedData, 'utf8');
+}
+
+export function getLocalIPAddres(): string {
+    const networkInterfaces = os.networkInterfaces();
+    for (const interfaceName in networkInterfaces) {
+        const addresses = networkInterfaces[interfaceName];
+        for (const address of addresses ?? []) {
+            if (address.family === 'IPv4' && !address.internal) {
+                return address.address;
+            }
+        }
+    }
+    return 'IP address not found';
 }

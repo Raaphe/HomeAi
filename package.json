@@ -19,6 +19,7 @@
     "axios": "^1.7.8",
     "bcryptjs": "^2.4.3",
     "chai-http": "^5.1.1",
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "express": "^5.0.0",
     "fs": "^0.0.1-security",

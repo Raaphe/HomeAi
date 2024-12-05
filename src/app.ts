@@ -1,31 +1,23 @@
 import express, { Request, Response } from 'express';
-import os from 'node:os';
 import path from 'path';
-import { errorMiddleware } from './middlewares/error.middleware';
 import swaggerUi from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
+import { errorMiddleware } from './middlewares/error.middleware';
 import AuthenticationFilter from './middlewares/auth.middleware';
-import authRoute from "./routes/auth.route"
-import { config } from './config/config';
-import { logger } from './utils/logger';
-import {RealtorApi} from "./api/realtor.api.ts";
-
-// Step 1. Create an instance of AuthenticationFilter
-const filter = new AuthenticationFilter();
+import authRoute from "./routes/auth.route";
+import { getLocalIPAddres } from "./utils/security.utils.ts";
+import realtorRoute from "./routes/realtor.route.ts";
 
 const version1 = 1;
+export const api_prefix_v1 = `/api/v${version1}`;
+const IP_ADDR = getLocalIPAddres();
 
 const app = express();
 
-export const api_prefix_v1 = `/api/v${version1}`;
-
-const router = express.Router();
-
-// Step 2. Middleware for JSON parsing
 app.use(express.json());
+app.use(errorMiddleware);
 
-const IP_ADDR = getLocalIPAddress();
-
-// Step 3. Define Swagger options for version 1
+// Swagger options
 const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
@@ -36,9 +28,9 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: `https://${IP_ADDR}:3000/${api_prefix_v1}`,
-        description: "Development server (HTTPS) for v1"
-      }
+        url: `http://${IP_ADDR}:3000${api_prefix_v1}`,
+        description: "Development server (HTTP) for v1",
+      },
     ],
     components: {
       securitySchemes: {
@@ -55,45 +47,25 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: [path.resolve(__dirname, './routes/*.route.ts')]
+  apis: [path.join(__dirname, './routes/*.ts')], // Adjust path as needed
 };
 
-app.use(`/api/docs`, swaggerUi.setup(swaggerOptions));
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
+app.use(`${api_prefix_v1}/docs`, swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.use(api_prefix_v1, realtorRoute);
+
+// Test route
 app.get('/', (req: Request, res: Response) => {
-  res.send(`
-    <h1>Welcome to my Backend</h1>
-  `);
+  res.send(`<h1>Welcome to my Backend</h1>`);
 });
 
-app.use('/api/docs', router);
 
 
+const filter = new AuthenticationFilter();
 
-// Example use
-// app.use(api_prefix_v2, productRoutesV2);
-// app.use(api_prefix_v2, filter.authFilter, protectedProductsRouteV2);
-
-// BOTH
-app.use("/api", authRoute);
-
-// Step 8. Error middleware for handling errors globally
-app.use(errorMiddleware);
-
-// Step 9. HTTPS server options
-logger.info(config.CERT_CERT);
-
-function getLocalIPAddress() {
-  const networkInterfaces = os.networkInterfaces();
-  for (const interfaceName in networkInterfaces) {
-    const addresses = networkInterfaces[interfaceName];
-    for (const address of addresses ?? []) {
-      if (address.family === 'IPv4' && !address.internal) {
-        return address.address;
-      }
-    }
-  }
-  return 'IP address not found';
-}
+// Use auth routes
+app.use(api_prefix_v1, authRoute);
 
 export default app;
