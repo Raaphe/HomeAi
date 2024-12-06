@@ -10,6 +10,8 @@ import realtorRoute from './routes/realtor.route';
 import cron from 'node-cron';
 import { runDatasetUpdate } from './utils/update_dataset.util';
 import {SoldPropertyService} from "./services/sold_property.service.ts";
+import { config } from './config/config.ts';
+
 
 const version1 = 1;
 export const api_prefix_v1 = `/api/v${version1}`;
@@ -37,8 +39,8 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: `https://${IP_ADDR}:3000${api_prefix_v1}`,
-        description: 'Development server (HTTP) for v1',
+        url: `http${config.ENV === "test" ? "s" : ""}://${IP_ADDR}:3000${api_prefix_v1}`,
+        description: "Development server (HTTP) for v1",
       },
     ],
     components: {

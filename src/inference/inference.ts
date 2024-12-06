@@ -1,17 +1,18 @@
 import { InferenceSession } from "onnxruntime-web";
 import { config } from "../config/config";
-import { loggerUtil } from "../utils/logger.util.ts";
+import { loggerUtil } from "../utils/logger.util";
+import path from "path";
 
-class Inference {
+export default class Inference {
 
     public hasLoaded = false;
-    public inferenceSession: any;
+    public inferenceSession: InferenceSession | undefined;
 
-    private modelName: string = `./${config.MODEL_NAME}.onnx`
+    private modelName: string = path.resolve(__dirname, `./${config.MODEL_NAME}.onnx`);
     private static instance: Inference;
      
     private constructor() {
-        InferenceSession.create("./inference/median-model.onnx").then(is => {
+        InferenceSession.create(this.modelName).then(is => {
             this.inferenceSession = is;
             this.hasLoaded = true;
             loggerUtil.info("Inference Model Loaded");
