@@ -2,7 +2,7 @@ import { spawn } from 'child_process';
 
 function updateDataset(scriptPath: string): Promise<Buffer> {
     return new Promise<Buffer>((resolve, reject) => {
-        const pyprog = spawn('python', [scriptPath]);
+        const pyprog = spawn('python3.11', [scriptPath]);
 
         pyprog.stdout.on('data', (data: Buffer) => {
             resolve(data);

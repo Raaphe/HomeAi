@@ -11,6 +11,7 @@ import cron from 'node-cron';
 import { runDatasetUpdate } from './utils/update_dataset.util';
 import {SoldPropertyService} from "./services/sold_property.service.ts";
 import { config } from './config/config.ts';
+import fileUtil from './utils/file.util.ts';
 
 
 const version1 = 1;
@@ -21,8 +22,17 @@ cron.schedule('0 3 * * 6', async () => {
   await runDatasetUpdate();
 });
 
-runDatasetUpdate();
-SoldPropertyService.getInstance();
+fileUtil.checkFileExists(config.DATASET_PATH).then(doesFileExist => {
+  if (!doesFileExist) {  
+
+    runDatasetUpdate().then(async () => {
+      SoldPropertyService.getInstance();
+    });
+  } else {
+    SoldPropertyService.getInstance();
+  }
+});
+
 
 const app = express();
 
