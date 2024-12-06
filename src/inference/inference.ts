@@ -1,7 +1,7 @@
 import { InferenceSession } from "onnxruntime-web";
 import { config } from "../config/config";
-import { logger } from "../utils/logger";
-import path from "path"; 
+import { loggerUtil } from "../utils/logger.util";
+import path from "path";
 
 export default class Inference {
 
@@ -15,11 +15,11 @@ export default class Inference {
         InferenceSession.create(this.modelName).then(is => {
             this.inferenceSession = is;
             this.hasLoaded = true;
-            logger.info("Inference Model Loaded");
+            loggerUtil.info("Inference Model Loaded");
         }).catch(e => {
             this.hasLoaded = false;
-            logger.error("Error loading inference model");
-            logger.error(e);
+            loggerUtil.error("Error loading inference model");
+            loggerUtil.error(e);
         });
     }
 
