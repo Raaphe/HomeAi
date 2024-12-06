@@ -25,7 +25,7 @@ export class AuthController {
             const serviceRes = await AuthService.authenticate({ password: req.body.password, username: req.body.email });
 
             res.status(serviceRes.code).json({
-                jwt: serviceRes.data, // the jwt
+                jwt: serviceRes.data, 
                 message: serviceRes.message
             });
         } catch (error) {
