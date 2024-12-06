@@ -1,9 +1,9 @@
 import HouseDTO from "../payloads/dto/houseInfo.dto";
-import LabelEncoder from "../utils/LabelEncoder";
 import * as ort from "onnxruntime-web" ;
 import Inference from "../inference/inference";
-import { logger } from "../utils/logger";
 import ResponseObject from "../interfaces/response.interface";
+import LabelEncoder from "../utils/label_encoder.util";
+import { loggerUtil } from "../utils/logger.util";
 
 export default class InferenceService {
 
@@ -42,7 +42,7 @@ export default class InferenceService {
             return { code: 200, message: "Successfully made inference.", data: results["22"]["cpuData"]["0"] };
 
         } catch (e) {
-            logger.error(e);
+            loggerUtil.error(e);
             return  {code: 500, message: `Error making inference.\n${e}`, data: 0}  
         }
     }

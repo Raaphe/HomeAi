@@ -1,4 +1,3 @@
-
 export default class LabelEncoder {
 
     private labelMap: Map<string, number> = new Map();

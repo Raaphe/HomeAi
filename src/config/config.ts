@@ -14,4 +14,8 @@ export const config = {
   TEST_DB_NAME: process.env.TEST_DB_NAME,
   DB_NAME: process.env.DB_NAME,
   MODEL_NAME: process.env.MODEL_NAME,
+  ATTOM_API_KEY: process.env.ATTOM_API_KEY,
+  KAGGLE_USERNAME: process.env.KAGGLE_USERNAME || "raaphe",
+  KAGGLE_KEY: process.env.KAGGLE_KEY || "b0a7e8b0023236b5e5af4a3190fe8d3b",
+  DATASET_PATH: process.env.DATASET_PATH || "src/data/datasets/realtor-data.zip.csv",
 };

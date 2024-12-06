@@ -6,10 +6,10 @@ const realtorController = new RealtorController();
 
 /**
  * @swagger
- * /api/v1/listings/available/{zip_code}/{number_of_listings}:
- *   get:
+ * /listings/available/{zip_code}:
+ *   post:
  *     summary: Retrieve a list of available properties
- *     description: Retrieve a list of available properties based on zip code and the number of listings. The number of listings is specified as part of the URL path.
+ *     description: Retrieve a list of available properties based on the zip code and optionally the number of listings to retrieve.
  *     tags: [Real Estate API]
  *     parameters:
  *       - name: zip_code
@@ -18,16 +18,21 @@ const realtorController = new RealtorController();
  *         required: true
  *         schema:
  *           type: string
- *       - name: number_of_listings
- *         in: path
- *         description: The number of listings to retrieve.
- *         required: true
- *         schema:
- *           type: integer
- *           example: 25
+ *     requestBody:
+ *       description: Optional body parameter to specify the number of listings to retrieve.
+ *       required: false
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               number_of_listings:
+ *                 type: integer
+ *                 description: The number of listings to retrieve.
+ *                 example: 25
  *     responses:
  *       200:
- *         description: A list of available properties based on the zip code and number of listings.
+ *         description: A list of available properties based on the zip code and optional number of listings.
  *         content:
  *           application/json:
  *             schema:
@@ -82,11 +87,80 @@ const realtorController = new RealtorController();
  *       400:
  *         description: Invalid zip_code or number_of_listings provided.
  *       404:
- *         description: No properties found for the given zip_code and number_of_listings.
+ *         description: No properties found for the given zip_code.
  *       500:
  *         description: Internal server error.
  */
-router.get('/listings/available/:zip_code/:number_of_listings', realtorController.getProperties);
+router.post('/listings/available/:zip_code', realtorController.getProperties);
+
+/**
+ * @swagger
+ * /listings/available/:
+ *   get:
+ *     summary: Fetch property details for a given listing URL.
+ *     description: Retrieves detailed property information using the provided listing URL.
+ *     tags: [Real Estate API]
+ *     parameters:
+ *       - in: query
+ *         name: listingUrl
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The URL of the property listing to fetch details for.
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved property details.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                   description: Unique identifier of the listing.
+ *                 title:
+ *                   type: string
+ *                   description: Title or name of the property listing.
+ *                 price:
+ *                   type: number
+ *                   description: Price of the property.
+ *                 location:
+ *                   type: string
+ *                   description: Location of the property.
+ *                 [other_properties]:
+ *                   description: Other relevant fields of the ListingDetailed object.
+ *       400:
+ *         description: Missing or invalid `listingUrl` query parameter.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Invalid or missing listingUrl parameter.
+ *       404:
+ *         description: No property details found for the given URL.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: No property details found for the given URL.
+ *       500:
+ *         description: Internal server error while fetching property details.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Failed to fetch property details. Please try again later.
+ */
+router.get('/listings/available/', realtorController.getPropertyDetails);
 
 
 /**

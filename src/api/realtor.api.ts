@@ -2,14 +2,14 @@ import { ListingDetailed, ListingOverview } from "../payloads/dto/listing.dto.ts
 import axios from "axios";
 
 class RealtorApi {
-    private baseUrl: string = "https://real-estate-api-xi.vercel.app";
+    static baseUrl: string = "https://real-estate-api-xi.vercel.app";
 
     private static endpoints: any = {
         propertyListings: "/listings?zip_code={zip_code}&listings={number_of_listings}",
         propertyDetails: "/listing_detail?listing_url={listing_url}"
     };
 
-    private getUrl(endpoint: keyof typeof RealtorApi.endpoints, params: Record<string, string | number>) {
+    static getUrl(endpoint: keyof typeof RealtorApi.endpoints, params: Record<string, string | number>) {
         let url = this.baseUrl + RealtorApi.endpoints[endpoint];
         Object.keys(params).forEach(key => {
             url = url.replace(`{${key}}`, String(params[key]));
@@ -17,7 +17,7 @@ class RealtorApi {
         return url;
     }
 
-    async fetchPropertiesList(zipCode: string, number_of_listings: number = 25) {
+    static async fetchPropertiesList(zipCode: string, number_of_listings: number = 25) {
         const url = this.getUrl('propertyListings', { zip_code: zipCode, number_of_listings: number_of_listings });
 
         try {
@@ -39,7 +39,7 @@ class RealtorApi {
         }
     }
 
-    async fetchPropertyDetails(listingUrl: string) {
+    static async fetchPropertyDetails(listingUrl: string) {
         const url = this.getUrl('propertyDetails', { listing_url: listingUrl });
 
         try {
