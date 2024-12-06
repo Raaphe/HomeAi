@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import RealtorApi from "../api/realtor.api.ts";
+import InferenceService from "../services/inference.service.ts";
+import { logger } from "../utils/logger.ts";
 
 export class RealtorController {
     public async getProperties(req: Request, res: Response): Promise<void> {
@@ -8,9 +10,11 @@ export class RealtorController {
 
             if (!zip_code || isNaN(Number(zip_code))) {
                 res.status(400).json({
-                    message: 'Invalid zip_code provided. It must be a numeric string.'
+                    message: 'Invalid zip_code provided. It must be a numeric string.',
+                    "code": 400,
+                    "data": {}
                 });
-                return;  // Prevent further execution if the zip_code is invalid
+                return; 
             }
 
             const realtorApi = new RealtorApi();
@@ -18,9 +22,11 @@ export class RealtorController {
 
             if (!propertiesList.length) {
                 res.status(404).json({
-                    message: `No properties found for the zip code: ${zip_code}`
+                    message: `No properties found for the zip code: ${zip_code}`,
+                    "code": 404,
+                    "data": {}
                 });
-                return;  // Prevent further execution if no properties are found
+                return;
             }
 
             res.status(200).json({
@@ -30,8 +36,35 @@ export class RealtorController {
         } catch (error: any) {
             console.error('Internal server error:', error);
             res.status(500).json({
-                message: 'Internal server error.'
+                message: 'Internal server error.',
+                "code": 500,
+                "data": {}
             });
+        }
+    }
+
+    public async getMarketPrice(req: Request, res: Response): Promise<void> {    
+        try {
+            var {state, zip_code, bedrooms, bathrooms, living_space_size, acres} = req.body;
+
+            if (
+                !state ||
+                !zip_code ||
+                isNaN(Number(zip_code)) || 
+                !bedrooms ||
+                !bathrooms ||
+                !living_space_size ||
+                !acres
+            ) {
+                res.status(400).json({"message":"Invalid input: Some fields are missing or invalid.", "code": 400, "data": 0});
+                return;
+            }
+
+            const result = await InferenceService.GetHouseInference(req.body);
+            res.status(result.code).json(result);
+        } catch (e) {
+            logger.error("Error while making inference.\n" + e);
+            res.status(500).json({"message":"Server Failure.", "code": 500, "data": 0});
         }
     }
 }
