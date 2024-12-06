@@ -1,5 +1,4 @@
-
-class Label_encoderUtil {
+export default class LabelEncoder {
 
     private labelMap: Map<string, number> = new Map();
     private inverseLabelMap: Map<number, string> = new Map();
