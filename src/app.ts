@@ -7,6 +7,7 @@ import AuthenticationFilter from './middlewares/auth.middleware';
 import authRoute from "./routes/auth.route";
 import { getLocalIPAddres } from "./utils/security.utils.ts";
 import realtorRoute from "./routes/realtor.route.ts";
+import { config } from './config/config.ts';
 
 const version1 = 1;
 export const api_prefix_v1 = `/api/v${version1}`;
@@ -28,7 +29,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: `http://${IP_ADDR}:3000${api_prefix_v1}`,
+        url: `http${config.ENV === "test" ? "s" : ""}://${IP_ADDR}:3000${api_prefix_v1}`,
         description: "Development server (HTTP) for v1",
       },
     ],
