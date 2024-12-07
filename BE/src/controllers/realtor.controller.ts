@@ -73,7 +73,7 @@ export class RealtorController {
                 return;
             }
 
-            const result = await InferenceService.GetHouseInference(req.body);
+            const result = await InferenceService.getHouseInference(req.body);
             res.status(result.code).json(result);
         } catch (e) {
             loggerUtil.error("Error while making inference.\n" + e);

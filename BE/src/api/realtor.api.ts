@@ -1,5 +1,7 @@
 import { ListingDetailed, ListingOverview } from "../payloads/dto/listing.dto.ts";
 import axios from "axios";
+import InferenceService from "../services/inference.service.ts";
+import HouseDTO from "../payloads/dto/houseInfo.dto.ts";
 
 class RealtorApi {
     static baseUrl: string = "https://real-estate-api-xi.vercel.app";
@@ -48,8 +50,22 @@ class RealtorApi {
             }>(url);
 
             if (response.data.listing) {
+                let listingDetails = response.data.listing;
+
+                const houseData: HouseDTO = {
+                    state: listingDetails.state || "",
+                    zip_code: Number(listingDetails.zip_code),
+                    acres: listingDetails.land_size || 0,
+                    bathrooms: listingDetails.bathrooms || 0,
+                    bedrooms: listingDetails.bedrooms || 0,
+                    living_space_size: listingDetails.building_size || 0,
+                };
+
+                const marketPrice = await InferenceService.getHouseInference(houseData);
+                listingDetails.estimated_market_price = Number(marketPrice.data);
+
                 console.log('Fetched Property Details:', response.data.listing);
-                return response.data.listing;
+                return listingDetails;
             } else {
                 console.log('No details found for this listing.');
                 return null;
