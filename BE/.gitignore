@@ -14,6 +14,9 @@ yarn-error.log*
 # Environnement local
 # .env
 
+realtor-data.zip.csv
+HomeAi/BE/src/data/datasets/*
+
 # Cache et données temporaires
 *.tsbuildinfo
 .DS_Store
