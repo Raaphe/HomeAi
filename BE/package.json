@@ -4,8 +4,7 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "start": "ts-node-dev --respawn src/index.ts",
-    "dev": "(python src/utils/download_dataset.util.py && ts-node-dev --respawn src/index.ts) || echo 'Please install python to continue'",
+    "dev": "ts-node-dev --respawn src/index.ts",
     "test:load": "artillery run load-test.yml",
     "test": "cross-env NODE_ENV=test mocha -r ts-node/register './src/tests/*.test.ts' --exit",
     "build": "tsc"
