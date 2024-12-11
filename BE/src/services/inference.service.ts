@@ -16,7 +16,7 @@ export default class InferenceService {
         "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"
     ];
 
-    public static async GetHouseInference(houseInfo: HouseDTO) : Promise<ResponseObject<number>> {
+    public static async getHouseInference(houseInfo: HouseDTO) : Promise<ResponseObject<number>> {
         try {
             this.labelEncoder.fit(this.stateCodes);
             const inputData: number[] = [

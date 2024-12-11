@@ -1,7 +1,4 @@
-
-
 import fs from 'fs/promises';
-
 
 export default class fileUtil {
     static async checkFileExists(filePath: string): Promise<boolean> {

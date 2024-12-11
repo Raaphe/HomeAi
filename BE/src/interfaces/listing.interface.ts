@@ -2,6 +2,7 @@ import { ObjectId } from 'mongodb';
 
 export interface IProperty {
   _id: string;
+  user_id: string;
   property_id: string;
   address: string;
   city: string;
