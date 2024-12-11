@@ -9,24 +9,28 @@ import User from '../models/user.model';
 import mongoose from 'mongoose';
 import Role from '../models/roles.enum';
 import { UserService } from './users.service';
+import bcrypt from "bcryptjs";
 
 export class AuthService {
-    
+
+    private static saltRounds = 10;
+
     static async register(registrationDto: RegistrationDTO): Promise<ResponseObject<string>> {
         try {
-            User.create({
+            let res = await User.create({
                 _id: new mongoose.Types.ObjectId(),
                 id: await User.countDocuments() + 1,
                 listings: [],
                 name: registrationDto.name,
-                password: registrationDto.password,
+                username: registrationDto.username,
+                password: await bcrypt.hash(registrationDto.password, this.saltRounds),
                 role: Role.Guest
-            })
+            });
 
             const token = jwt.sign({ username: registrationDto.username }, config.JWT_SECRET ?? "", { expiresIn: '1h' });
     
             return {
-                code: 200,
+                code: 201,
                 data: token,
                 message: "Successfully Registered."
             };
@@ -47,8 +51,8 @@ export class AuthService {
         if (!user) {
             return {code : 400, message: 'Utilisateur non trouvé', data:""}
         }
-        
-        const isValidPassword = await verifyPassword(loginDto.password.trim(), user.password);
+
+        const isValidPassword = await bcrypt.compare(loginDto.password.trim(), user.password);
         if (!isValidPassword) {
             return {code : 400, message: 'Mot de passe incorrect', data: ""}
         }
