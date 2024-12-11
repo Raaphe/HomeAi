@@ -9,7 +9,6 @@ import path from 'path';
 import Inference from "./inference/inference"
 import { getLocalIPAddres } from "./utils/security.util.ts";
 
-
 const IP_ADDR = getLocalIPAddres();
 const port = config.PORT || 3000;
 const CLUSTER_URL = config.CLUSTER_URL || "";
@@ -46,7 +45,6 @@ db.once('open', () => {
 });
 
 if (config.ENV === "production") {
-  // Démarrer le serveur
   app.listen(port, () => {
     console.log(`Server is running on http://0.0.0.0:${port}`);
     Inference.GetInferenceSession();
@@ -57,7 +55,6 @@ if (config.ENV === "production") {
     cert: fs.readFileSync(path.resolve(config.CERT_CERT ?? "")),
   };
   
-  // Step 10. Create and start the HTTPS server
   https.createServer(httpsOptions, app).listen(port, async () => {
     console.log(`Server is running on https://${IP_ADDR}:${port}`);
     console.log(`API docs are running on: https://${IP_ADDR}:3000${api_prefix_v1}/docs`)

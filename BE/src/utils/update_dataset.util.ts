@@ -1,4 +1,5 @@
 import { spawn } from 'child_process';
+import {SoldPropertyService} from "../services/sold-property.service.ts";
 
 function updateDataset(scriptPath: string): Promise<Buffer> {
     return new Promise<Buffer>((resolve, reject) => {

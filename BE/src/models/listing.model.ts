@@ -3,6 +3,7 @@ import { IProperty } from '../interfaces/listing.interface';
 
 const propertySchema = new mongoose.Schema<IProperty>({
   _id: { type: String, required: true },
+  user_id: { type: String, required: true },
   property_id: { type: String, required: true, unique: true },
   address: { type: String, required: true },
   city: { type: String, required: true },
