@@ -82,7 +82,7 @@ export class RealtorController {
         }
     }
 
-    public async getPropertyDetails (req: Request, res: Response) {
+    public async  getPropertyDetails (req: Request, res: Response) {
         const {listingUrl} = req.query;
 
         if (!listingUrl || typeof listingUrl !== 'string') {

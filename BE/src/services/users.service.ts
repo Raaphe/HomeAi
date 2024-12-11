@@ -55,6 +55,23 @@ export class UserService {
         }
     }
 
+    static async getUserByEmail(email: string): Promise<ResponseObject<IUser | null>> {
+        try {
+            const user = await User.findOne({ email });
+            return {
+                code: 200,
+                message: "Successfully fetched user",
+                data: user
+            }
+        } catch (e: any) {
+            return {
+                code: 500,
+                message: "Error getting user.",
+                data: null
+            }
+        }
+    }
+
     static async deleteUserByOID(objectId: string): Promise<ResponseObject<IUser | null>> {
         try {
             const user = await User.findByIdAndDelete(objectId);

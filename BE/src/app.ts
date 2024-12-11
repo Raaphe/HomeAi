@@ -5,6 +5,7 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import { errorMiddleware } from './middlewares/error.middleware';
 import AuthenticationFilter from './middlewares/auth.middleware';
 import authRoute from './routes/auth.route';
+import listingRoute from "./routes/listings.route.ts"
 import { getLocalIPAddres } from './utils/security.util.ts';
 import realtorRoute from './routes/realtor.route';
 import cron from 'node-cron';
@@ -12,8 +13,6 @@ import { runDatasetUpdate } from './utils/update_dataset.util';
 import {SoldPropertyService} from "./services/sold_property.service.ts";
 import { config } from './config/config.ts';
 import fileUtil from './utils/file.util.ts';
-
-
 
 const version1 = 1;
 export const api_prefix_v1 = `/api/v${version1}`;
@@ -77,6 +76,7 @@ const swaggerSpec = swaggerJsdoc(swaggerOptions);
 app.use(`${api_prefix_v1}/docs`, swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(api_prefix_v1, realtorRoute);
+app.use(api_prefix_v1, listingRoute);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('<h1>Welcome to my Backend</h1>');
