@@ -1,4 +1,4 @@
-import {Price} from "../payloads/dto/listing.dto.ts";
+import { ObjectId } from 'mongodb';
 
 export interface IProperty {
   property_id?: string;

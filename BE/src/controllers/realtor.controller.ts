@@ -3,8 +3,8 @@ import RealtorApi from "../api/realtor.api.ts";
 import InferenceService from "../services/inference.service.ts";
 import { loggerUtil } from "../utils/logger.util.ts";
 import realtorApi from "../api/realtor.api.ts";
-
-
+import {UserService} from "../services/users.service.ts";
+import {SoldPropertyService} from "../services/sold-property.service.ts";
 
 export class RealtorController {
 
@@ -56,33 +56,7 @@ export class RealtorController {
         }
     }
 
-    public async getMarketPrice(req: Request, res: Response): Promise<void> {    
-        try {
-            var {state, zip_code, bedrooms, bathrooms, living_space_size, acres} = req.body;
-
-            if (
-                !state ||
-                !zip_code ||
-                isNaN(Number(zip_code)) || 
-                !bedrooms ||
-                !bathrooms ||
-                !living_space_size ||
-                !acres
-            ) {
-                res.status(400).json({"message":"Invalid input: Some fields are missing or invalid.", "code": 400, "data": 0});
-                return;
-            }
-
-            const result = await InferenceService.GetHouseInference(req.body);
-            res.status(result.code).json(result);
-        } catch (e) {
-            loggerUtil.error("Error while making inference.\n" + e);
-            res.status(500).json({"message":"Server Failure.", "code": 500, "data": 0});
-
-        }
-    }
-
-    public async  getPropertyDetails (req: Request, res: Response) {
+    public async getPropertyDetails (req: Request, res: Response) {
         const {listingUrl} = req.query;
 
         if (!listingUrl || typeof listingUrl !== 'string') {

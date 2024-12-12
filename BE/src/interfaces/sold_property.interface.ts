@@ -8,4 +8,5 @@ export interface ISoldProperty {
     state?: string;
     zip_code?: string;
     house_size?: number;
+    prev_sold_data?: Date
 }

@@ -30,6 +30,7 @@ export interface ListingDetailed extends ListingBase {
         company?: string;
         company_url?: string;
     };
+    estimated_market_price?: number;
 }
 
 export interface ListingOverview extends ListingBase {

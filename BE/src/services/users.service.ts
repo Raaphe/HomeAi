@@ -3,7 +3,6 @@ import { IUser } from "../interfaces/user.interface";
 import User from "../models/user.model";
 
 export class UserService {
-    
     static async getAllUsers(): Promise<ResponseObject<IUser[] | null>> {
         try {
             const users = await User.find().select("-listings");
@@ -28,13 +27,13 @@ export class UserService {
                 code: 200,
                 message: "Successfully fetched users",
                 data: users
-            }
+            };
         } catch (e: any) {
             return {
                 code: 500,
                 message: "Error getting users.",
                 data: null
-            }
+            };
         }
     }
 
@@ -119,6 +118,26 @@ export class UserService {
                 code: 500,
                 message: "Error updating user",
                 data: null
+            };
+
+            if (user.password !== password) {
+                return {
+                    code: 401,
+                    data: undefined,
+                    message: "Incorrect password"
+                };
+            }
+
+            return {
+                code: 200,
+                data: user,
+                message: "User found"
+            };
+        } catch (e: any) {
+            return {
+                code: 500,
+                message: "Error retrieving user.",
+                data: undefined
             };
         }
     }
