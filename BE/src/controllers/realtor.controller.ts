@@ -7,6 +7,7 @@ import {UserService} from "../services/users.service.ts";
 import {SoldPropertyService} from "../services/sold-property.service.ts";
 
 export class RealtorController {
+
     public async getProperties(req: Request, res: Response): Promise<void> {
         try {
             const { zip_code } = req.params;
