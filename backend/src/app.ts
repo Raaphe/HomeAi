@@ -15,6 +15,7 @@ import { config } from './config/config.ts';
 import fileUtil from './utils/file.util.ts';
 import soldPropertyRoute from "./routes/sold-property.route.ts";
 import fs from "fs";
+import cors from "cors";
 const version1 = 1;
 export const api_prefix_v1 = `/api/v${version1}`;
 const IP_ADDR = getLocalIPAddres();
@@ -52,6 +53,7 @@ const app = express();
 
 app.use(express.json());
 app.use(errorMiddleware);
+app.use(cors<Request>);
 
 const swaggerOptions = {
   definition: {
