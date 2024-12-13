@@ -14,6 +14,7 @@ import { SoldPropertyService } from './services/sold-property.service.ts';
 import { config } from './config/config.ts';
 import fileUtil from './utils/file.util.ts';
 import soldPropertyRoute from "./routes/sold-property.route.ts";
+import fs from "fs";
 const version1 = 1;
 export const api_prefix_v1 = `/api/v${version1}`;
 const IP_ADDR = getLocalIPAddres();
@@ -29,7 +30,6 @@ async function updateAndWriteGraphFunctions(): Promise<void> {
 
     console.log('Graph functions have been written successfully.');
   } catch (err) {
-    // Log any error that occurs during the process
     console.error('Error in the dataset update or graph function write:', err);
   }
 }
@@ -46,7 +46,7 @@ fileUtil.checkFileExists(config.DATASET_PATH)
     })
     .catch((err) => {
       console.error('Error checking if file exists:', err);
-    });
+});
 
 const app = express();
 
@@ -86,6 +86,7 @@ const swaggerOptions = {
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
+fs.writeFileSync('./swagger.json', JSON.stringify(swaggerSpec, null, 2));
 
 app.use(`${api_prefix_v1}/docs`, swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

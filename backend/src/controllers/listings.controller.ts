@@ -20,7 +20,6 @@ export class ListingsController {
         } catch (error: any) {
             console.error('Error in createListing:', error.message);
 
-            // Handle unexpected errors
             return res.status(500).json({
                 code: 500,
                 message: "Internal Server Error",
