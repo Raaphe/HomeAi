@@ -18,19 +18,14 @@ const version1 = 1;
 export const api_prefix_v1 = `/api/v${version1}`;
 const IP_ADDR = getLocalIPAddres();
 
+export const soldPropertyService = new SoldPropertyService();
+
 async function updateAndWriteGraphFunctions(): Promise<void> {
   try {
-    // Ensure dataset update completes successfully
     await runDatasetUpdate();
 
-    // Initialize SoldPropertyService instance
-    await SoldPropertyService.getInstance();
-
-    // Wait for properties to load
-    await SoldPropertyService.waitForPropertiesToLoad();
-
-    // Write graph functions to the specified file
-    await SoldPropertyService.writeGraphFunctionsToFile('../data/graph-data.json');
+    await soldPropertyService.loadProperties(config.DATASET_PATH);
+    await soldPropertyService.writeGraphFunctionsToFile('../data/graph-data.json');
 
     console.log('Graph functions have been written successfully.');
   } catch (err) {
