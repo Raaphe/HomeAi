@@ -10,13 +10,13 @@ export class UserService {
                 code: 200,
                 message: "Successfully fetched users",
                 data: users
-            }
+            };
         } catch (e: any) {
             return {
                 code: 500,
                 message: "Error getting users.",
                 data: null
-            }
+            };
         }
     }
 
@@ -44,13 +44,13 @@ export class UserService {
                 code: 200,
                 message: "Successfully fetched user",
                 data: user
-            }
+            };
         } catch (e: any) {
             return {
                 code: 500,
                 message: "Error getting user.",
                 data: null
-            }
+            };
         }
     }
 
@@ -61,13 +61,13 @@ export class UserService {
                 code: 200,
                 message: "Successfully fetched user",
                 data: user
-            }
+            };
         } catch (e: any) {
             return {
                 code: 500,
                 message: "Error getting user.",
                 data: null
-            }
+            };
         }
     }
 
@@ -78,13 +78,13 @@ export class UserService {
                 code: 200,
                 message: "Successfully deleted user",
                 data: user
-            }
+            };
         } catch (e: any) {
             return {
                 code: 500,
-                message: "Error getting user.",
+                message: "Error deleting user.",
                 data: null
-            }
+            };
         }
     }
 
@@ -108,36 +108,17 @@ export class UserService {
                 };
             }
 
+            const updatedUser = await User.findById(user._id);
             return {
                 code: 200,
                 message: "Successfully updated user",
-                data: user
+                data: updatedUser
             };
         } catch (e: any) {
             return {
                 code: 500,
                 message: "Error updating user",
                 data: null
-            };
-
-            if (user.password !== password) {
-                return {
-                    code: 401,
-                    data: undefined,
-                    message: "Incorrect password"
-                };
-            }
-
-            return {
-                code: 200,
-                data: user,
-                message: "User found"
-            };
-        } catch (e: any) {
-            return {
-                code: 500,
-                message: "Error retrieving user.",
-                data: undefined
             };
         }
     }

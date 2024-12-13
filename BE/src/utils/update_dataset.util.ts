@@ -1,33 +1,71 @@
-import { spawn } from 'child_process';
-import {SoldPropertyService} from "../services/sold-property.service.ts";
+import axios from 'axios';
+import fs from 'fs';
+import path from 'path';
+import unzipper from 'unzipper';
+import { config } from '../config/config';
 
-function updateDataset(scriptPath: string): Promise<Buffer> {
-    return new Promise<Buffer>((resolve, reject) => {
-        const pyprog = spawn('python', [scriptPath]);
+async function updateDataset(datasetPath: string): Promise<void> {
+    const datasetUrl = `https://www.kaggle.com/api/v1/datasets/download/ahmedshahriarsakib/usa-real-estate-dataset`;
+    const dataPath = path.join(__dirname, datasetPath);
+    const zipPath = path.join(dataPath, 'dataset.zip');
 
-        pyprog.stdout.on('data', (data: Buffer) => {
-            resolve(data);
+    try {
+        if (!fs.existsSync(dataPath)) {
+            fs.mkdirSync(dataPath, { recursive: true });
+        }
+
+        console.log('Downloading dataset...');
+        const response = await axios({
+            method: 'get',
+            url: datasetUrl,
+            responseType: 'stream',
+            auth: {
+                username: config.KAGGLE_USERNAME,
+                password: config.KAGGLE_KEY,
+            },
         });
 
-        pyprog.stderr.on('data', (data: Buffer) => {
-            reject(new Error(data.toString()));
+        await new Promise<void>((resolve, reject) => {
+            const fileStream = fs.createWriteStream(zipPath);
+            response.data.pipe(fileStream);
+            fileStream.on('finish', resolve);
+            fileStream.on('error', reject);
         });
 
-        pyprog.on('exit', (code) => {
-            if (code !== 0) {
-                reject(new Error(`Python script exited with code ${code}`));
+        console.log('Dataset downloaded successfully. Extracting...');
+
+        await new Promise<void>((resolve, reject) => {
+            fs.createReadStream(zipPath)
+                .pipe(unzipper.Extract({ path: dataPath }))
+                .on('close', resolve)
+                .on('error', reject);
+        });
+
+        console.log('Dataset extracted successfully.');
+
+        const files = fs.readdirSync(dataPath);
+        for (const file of files) {
+            const oldFilePath = path.join(dataPath, file);
+            if (fs.lstatSync(oldFilePath).isFile() && file !== 'dataset.zip') {
+                const newFilePath = path.join(dataPath, `realtor-data.zip.csv`);
+                fs.renameSync(oldFilePath, newFilePath);
+                console.log(`Renamed ${file} to renamed_${file}`);
             }
-        });
+        }
 
-        pyprog.on('error', (err) => {
-            reject(err);
-        });
-    });
+        fs.unlinkSync(zipPath);
+        console.log('Temporary ZIP file deleted.');
+    } catch (error) {
+        console.error(`Error during dataset update: ${(error as Error).message}`);
+        if (fs.existsSync(zipPath)) {
+            fs.unlinkSync(zipPath);
+        }
+    }
 }
 
-export async function runDatasetUpdate () {
+export async function runDatasetUpdate(): Promise<void> {
     try {
-        await updateDataset('src/utils/download_dataset.util.py');
+        await updateDataset('../data/datasets');
         console.log('Dataset update job completed successfully');
     } catch (error) {
         console.error('Error updating dataset:', error);
