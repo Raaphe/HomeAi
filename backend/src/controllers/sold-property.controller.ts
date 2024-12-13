@@ -1,12 +1,12 @@
-import { SoldPropertyService } from "../services/sold-property.service.ts";
 import { Request, Response } from 'express';
+import {soldPropertyService} from "../app.ts";
 
 export class SoldPropertyController {
     private static GRAPH_DATA_PATH = '../data/graph-data.json'
 
     public async getCountByState(req: Request, res: Response): Promise<void> {
         try {
-            const data = await SoldPropertyService.readPropertyCountByStateFromFile(SoldPropertyController.GRAPH_DATA_PATH);
+            const data = await soldPropertyService.readPropertyCountByStateFromFile(SoldPropertyController.GRAPH_DATA_PATH);
             res.status(200).json(data);
         } catch (error) {
             console.error("Error getting price range by state", error);
@@ -16,7 +16,7 @@ export class SoldPropertyController {
 
     public async getAveragePriceByState(req: Request, res: Response): Promise<void> {
         try {
-            const data = await SoldPropertyService.readAveragePriceByStateFromFile(SoldPropertyController.GRAPH_DATA_PATH);
+            const data = await soldPropertyService.readAveragePriceByStateFromFile(SoldPropertyController.GRAPH_DATA_PATH);
             res.status(200).json(data);
         } catch (error) {
             console.error("Error getting average price by state", error);
@@ -26,7 +26,7 @@ export class SoldPropertyController {
 
     public async getPropertyCountByState(req: Request, res: Response): Promise<void> {
         try {
-            const data = await SoldPropertyService.readPropertyCountByStateFromFile(SoldPropertyController.GRAPH_DATA_PATH);
+            const data = await soldPropertyService.readPropertyCountByStateFromFile(SoldPropertyController.GRAPH_DATA_PATH);
             res.status(200).json(data);
         } catch (error) {
             console.error("Error getting property count by state", error);
@@ -36,7 +36,7 @@ export class SoldPropertyController {
 
     public async getPropertyCountBySize(req: Request, res: Response): Promise<void> {
         try {
-            const data = await SoldPropertyService.readPropertyCountBySizeFromFile(SoldPropertyController.GRAPH_DATA_PATH);
+            const data = await soldPropertyService.readPropertyCountBySizeFromFile(SoldPropertyController.GRAPH_DATA_PATH);
             res.status(200).json(data);
         } catch (error) {
             console.error("Error getting property count by size", error);
@@ -46,7 +46,7 @@ export class SoldPropertyController {
 
     public async getAveragePriceByBedrooms(req: Request, res: Response): Promise<void> {
         try {
-            const data = await SoldPropertyService.readAveragePriceByBedroomsFromFile(SoldPropertyController.GRAPH_DATA_PATH);
+            const data = await soldPropertyService.readAveragePriceByBedroomsFromFile(SoldPropertyController.GRAPH_DATA_PATH);
             res.status(200).json(data);
         } catch (error) {
             console.error("Error getting average price by bedrooms", error);
@@ -56,7 +56,7 @@ export class SoldPropertyController {
 
     public async getAveragePriceByBathrooms(req: Request, res: Response): Promise<void> {
         try {
-            const data = await SoldPropertyService.readAveragePriceByBathroomsFromFile(SoldPropertyController.GRAPH_DATA_PATH);
+            const data = await soldPropertyService.readAveragePriceByBathroomsFromFile(SoldPropertyController.GRAPH_DATA_PATH);
             res.status(200).json(data);
         } catch (error) {
             console.error("Error getting average price by bathrooms", error);
@@ -66,7 +66,7 @@ export class SoldPropertyController {
 
     public async getSalesByYear(req: Request, res: Response): Promise<void> {
         try {
-            const data = await SoldPropertyService.readSalesByYearFromFile(SoldPropertyController.GRAPH_DATA_PATH);
+            const data = await soldPropertyService.readSalesByYearFromFile(SoldPropertyController.GRAPH_DATA_PATH);
             res.status(200).json(data);
         } catch (error) {
             console.error("Error getting sales by year", error);

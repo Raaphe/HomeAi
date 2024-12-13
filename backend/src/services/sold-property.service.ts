@@ -1,45 +1,20 @@
 import fs from 'fs';
 import csv from 'csv-parser';
 import { ISoldProperty } from "../interfaces/sold_property.interface.ts";
-import { config } from "../config/config.ts";
 import path from "path";
 
 export class SoldPropertyService {
     private properties?: ISoldProperty[];
-    private static instance: SoldPropertyService;
-
-    private constructor() {
-        this.loadProperties(config.DATASET_PATH)
-            .then(() => {
-                console.log('Loaded Sold Property Service');
-            })
-            .catch(err => console.error('Error loading properties:', err));
-    }
-
-    static async getInstance(): Promise<SoldPropertyService> {
-        if (!SoldPropertyService.instance) {
-            SoldPropertyService.instance = new SoldPropertyService();
-        }
-        return SoldPropertyService.instance;
-    }
 
     getProperties(): ISoldProperty[] | undefined {
         return this.properties;
     }
 
-    arePropertiesLoaded(): boolean {
+    public arePropertiesLoaded(): boolean {
         return !!this.properties && this.properties.length > 0;
     }
 
-    static async waitForPropertiesToLoad(): Promise<void> {
-        while (!(await SoldPropertyService.getInstance()).arePropertiesLoaded()) {
-            console.log('Waiting for properties to load...');
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-        }
-        console.log('Properties loaded successfully');
-    }
-
-    private async loadProperties(filePath: string): Promise<void> {
+    public async loadProperties(filePath: string): Promise<void> {
         const properties: ISoldProperty[] = [];
         return new Promise<void>((resolve, reject) => {
             fs.createReadStream(filePath)
@@ -104,12 +79,12 @@ export class SoldPropertyService {
         return new Date(start + Math.random() * (end - start));
     }
 
-    private static getPropertiesBySize(numberOfBins: number = 5): { min: number; max: number; count: number }[] {
-        if (!SoldPropertyService.instance || !SoldPropertyService.instance.arePropertiesLoaded()) {
+    private getPropertiesBySize(numberOfBins: number = 5): { min: number; max: number; count: number }[] {
+        if (!this.arePropertiesLoaded()) {
             throw new Error("SoldPropertyService is not ready or properties are not loaded yet.");
         }
 
-        const allProperties = SoldPropertyService.instance.getProperties();
+        const allProperties = this.getProperties();
         if (!allProperties || allProperties.length === 0) {
             return [];
         }
@@ -146,8 +121,8 @@ export class SoldPropertyService {
         return bins;
     }
 
-    private static getAveragePriceByBedrooms(): { bed: number; averagePrice: number }[] {
-        const properties = SoldPropertyService.instance?.getProperties();
+    private getAveragePriceByBedrooms(): { bed: number; averagePrice: number }[] {
+        const properties = this?.getProperties();
 
         if (!properties)
             return [];
@@ -166,8 +141,8 @@ export class SoldPropertyService {
         });
     }
 
-    private static getAveragePriceByBathrooms(): { bath: number; averagePrice: number }[] {
-        const properties = SoldPropertyService.instance?.getProperties();
+    private getAveragePriceByBathrooms(): { bath: number; averagePrice: number }[] {
+        const properties = this?.getProperties();
 
         if (!properties)
             return [];
@@ -186,8 +161,8 @@ export class SoldPropertyService {
         });
     }
 
-    private static getPropertyCountByState(): { state: string; count: number }[] {
-        const properties = SoldPropertyService.instance?.getProperties();
+    private getPropertyCountByState(): { state: string; count: number }[] {
+        const properties = this?.getProperties();
 
         if (!properties)
             return [];
@@ -202,8 +177,8 @@ export class SoldPropertyService {
         return Object.entries(countByState).map(([state, count]) => ({ state, count }));
     }
 
-    private static getAveragePriceByState(): { state: string; averagePrice: number }[] {
-        const properties = SoldPropertyService.instance?.getProperties();
+    private getAveragePriceByState(): { state: string; averagePrice: number }[] {
+        const properties = this?.getProperties();
 
         if (!properties)
             return [];
@@ -222,8 +197,8 @@ export class SoldPropertyService {
         });
     }
 
-    private static getSalesByYear(): { year: string; count: number }[] {
-        const properties = SoldPropertyService.instance?.getProperties();
+    private getSalesByYear(): { year: string; count: number }[] {
+        const properties = this?.getProperties();
 
         if (!properties)
             return [];
@@ -241,8 +216,8 @@ export class SoldPropertyService {
             .map(([year, count]) => ({ year, count }));
     }
 
-    private static getPriceRangeByState(): { state: string; minPrice: number; maxPrice: number }[] {
-        const properties = SoldPropertyService.instance?.getProperties();
+    private getPriceRangeByState(): { state: string; minPrice: number; maxPrice: number }[] {
+        const properties = this?.getProperties();
 
         if (!properties)
             return [];
@@ -266,21 +241,21 @@ export class SoldPropertyService {
         }));
     }
 
-    public static async writeGraphFunctionsToFile(relativePath: string): Promise<void> {
-        if (!SoldPropertyService.instance || !SoldPropertyService.instance.arePropertiesLoaded()) {
+    public async writeGraphFunctionsToFile(relativePath: string): Promise<void> {
+        if (!this || !this.arePropertiesLoaded()) {
             throw new Error("SoldPropertyService is not ready or properties are not loaded yet.");
         }
 
         console.log("Got into writing graph function");
 
         const data = {
-            priceRangeByState: SoldPropertyService.getPriceRangeByState(),
-            averagePriceByState: SoldPropertyService.getAveragePriceByState(),
-            propertyCountByState: SoldPropertyService.getPropertyCountByState(),
-            propertyCountBySize: SoldPropertyService.getPropertiesBySize(),
-            averagePriceByBedrooms: SoldPropertyService.getAveragePriceByBedrooms(),
-            averagePriceByBathrooms: SoldPropertyService.getAveragePriceByBathrooms(),
-            salesByYear: SoldPropertyService.getSalesByYear(),
+            priceRangeByState: this.getPriceRangeByState(),
+            averagePriceByState: this.getAveragePriceByState(),
+            propertyCountByState: this.getPropertyCountByState(),
+            propertyCountBySize: this.getPropertiesBySize(),
+            averagePriceByBedrooms: this.getAveragePriceByBedrooms(),
+            averagePriceByBathrooms: this.getAveragePriceByBathrooms(),
+            salesByYear: this.getSalesByYear(),
         };
 
         const filePath = path.join(__dirname, relativePath);
@@ -288,7 +263,7 @@ export class SoldPropertyService {
         console.log("Graph functions written successfully.");
     }
 
-    public static async readPriceRangeByStateFromFile(relativePath: string): Promise<{ state: string; minPrice: number; maxPrice: number }[]> {
+    public async readPriceRangeByStateFromFile(relativePath: string): Promise<{ state: string; minPrice: number; maxPrice: number }[]> {
         const filePath = path.join(__dirname, relativePath);
 
         try {
@@ -301,7 +276,7 @@ export class SoldPropertyService {
         }
     }
 
-    public static async readAveragePriceByStateFromFile(relativePath: string): Promise<{ state: string; averagePrice: number }[]> {
+    public async readAveragePriceByStateFromFile(relativePath: string): Promise<{ state: string; averagePrice: number }[]> {
         const filePath = path.join(__dirname, relativePath);
 
         try {
@@ -314,7 +289,7 @@ export class SoldPropertyService {
         }
     }
 
-    public static async readPropertyCountByStateFromFile(relativePath: string): Promise<{ state: string; count: number }[]> {
+    public async readPropertyCountByStateFromFile(relativePath: string): Promise<{ state: string; count: number }[]> {
         const filePath = path.join(__dirname, relativePath);
 
         try {
@@ -327,7 +302,7 @@ export class SoldPropertyService {
         }
     }
 
-    public static async readPropertyCountBySizeFromFile(relativePath: string): Promise<{ min: number; max: number; count: number }[]> {
+    public async readPropertyCountBySizeFromFile(relativePath: string): Promise<{ min: number; max: number; count: number }[]> {
         const filePath = path.join(__dirname, relativePath);
 
         try {
@@ -340,7 +315,7 @@ export class SoldPropertyService {
         }
     }
 
-    public static async readAveragePriceByBedroomsFromFile(relativePath: string): Promise<{ bed: number; averagePrice: number }[]> {
+    public async readAveragePriceByBedroomsFromFile(relativePath: string): Promise<{ bed: number; averagePrice: number }[]> {
         const filePath = path.join(__dirname, relativePath);
 
         try {
@@ -353,7 +328,7 @@ export class SoldPropertyService {
         }
     }
 
-    public static async readAveragePriceByBathroomsFromFile(relativePath: string): Promise<{ bath: number; averagePrice: number }[]> {
+    public async readAveragePriceByBathroomsFromFile(relativePath: string): Promise<{ bath: number; averagePrice: number }[]> {
         const filePath = path.join(__dirname, relativePath);
 
         try {
@@ -366,7 +341,7 @@ export class SoldPropertyService {
         }
     }
 
-    public static async readSalesByYearFromFile(relativePath: string): Promise<{ year: string; count: number }[]> {
+    public async readSalesByYearFromFile(relativePath: string): Promise<{ year: string; count: number }[]> {
         const filePath = path.join(__dirname, relativePath);
 
         try {

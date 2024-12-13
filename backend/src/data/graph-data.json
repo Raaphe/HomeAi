@@ -1,0 +1,1155 @@
+{
+  "priceRangeByState": [
+    {
+      "state": "Puerto Rico",
+      "minPrice": 19900,
+      "maxPrice": 19500000
+    },
+    {
+      "state": "Virgin Islands",
+      "minPrice": 99000,
+      "maxPrice": 16999000
+    },
+    {
+      "state": "Massachusetts",
+      "minPrice": 10000,
+      "maxPrice": 30000000
+    },
+    {
+      "state": "Connecticut",
+      "minPrice": 34900,
+      "maxPrice": 100000000
+    },
+    {
+      "state": "New Jersey",
+      "minPrice": 1,
+      "maxPrice": 25000000
+    },
+    {
+      "state": "New York",
+      "minPrice": 1,
+      "maxPrice": 169000000
+    },
+    {
+      "state": "New Hampshire",
+      "minPrice": 9000,
+      "maxPrice": 19500000
+    },
+    {
+      "state": "Vermont",
+      "minPrice": 1500,
+      "maxPrice": 8000000
+    },
+    {
+      "state": "Rhode Island",
+      "minPrice": 67900,
+      "maxPrice": 10800000
+    },
+    {
+      "state": "Wyoming",
+      "minPrice": 10000,
+      "maxPrice": 44000000
+    },
+    {
+      "state": "Maine",
+      "minPrice": 10000,
+      "maxPrice": 9000000
+    },
+    {
+      "state": "Pennsylvania",
+      "minPrice": 1,
+      "maxPrice": 29900000
+    },
+    {
+      "state": "West Virginia",
+      "minPrice": 1,
+      "maxPrice": 110000000
+    },
+    {
+      "state": "Delaware",
+      "minPrice": 19900,
+      "maxPrice": 4850000
+    },
+    {
+      "state": "Ohio",
+      "minPrice": 1,
+      "maxPrice": 6900000
+    },
+    {
+      "state": "Maryland",
+      "minPrice": 1000,
+      "maxPrice": 19995000
+    },
+    {
+      "state": "Virginia",
+      "minPrice": 10000,
+      "maxPrice": 60000000
+    },
+    {
+      "state": "Colorado",
+      "minPrice": 4500,
+      "maxPrice": 55000000
+    },
+    {
+      "state": "District of Columbia",
+      "minPrice": 150000,
+      "maxPrice": 20000000
+    },
+    {
+      "state": "North Carolina",
+      "minPrice": 1,
+      "maxPrice": 13900000
+    },
+    {
+      "state": "Kentucky",
+      "minPrice": 1,
+      "maxPrice": 13900000
+    },
+    {
+      "state": "South Carolina",
+      "minPrice": 12500,
+      "maxPrice": 13900000
+    },
+    {
+      "state": "Tennessee",
+      "minPrice": 7700,
+      "maxPrice": 16500000
+    },
+    {
+      "state": "Georgia",
+      "minPrice": 1,
+      "maxPrice": 281500000
+    },
+    {
+      "state": "Alabama",
+      "minPrice": 4300,
+      "maxPrice": 12000000
+    },
+    {
+      "state": "Florida",
+      "minPrice": 100,
+      "maxPrice": 115000000
+    },
+    {
+      "state": "Mississippi",
+      "minPrice": 7000,
+      "maxPrice": 6495000
+    },
+    {
+      "state": "Texas",
+      "minPrice": 1,
+      "maxPrice": 45000000
+    },
+    {
+      "state": "Missouri",
+      "minPrice": 1,
+      "maxPrice": 20000000
+    },
+    {
+      "state": "Arkansas",
+      "minPrice": 1,
+      "maxPrice": 8000000
+    },
+    {
+      "state": "Louisiana",
+      "minPrice": 3900,
+      "maxPrice": 14000000
+    },
+    {
+      "state": "Indiana",
+      "minPrice": 1,
+      "maxPrice": 30000000
+    },
+    {
+      "state": "Illinois",
+      "minPrice": 1,
+      "maxPrice": 18000000
+    },
+    {
+      "state": "Michigan",
+      "minPrice": 1,
+      "maxPrice": 18000000
+    },
+    {
+      "state": "Idaho",
+      "minPrice": 1,
+      "maxPrice": 19750000
+    },
+    {
+      "state": "Wisconsin",
+      "minPrice": 1,
+      "maxPrice": 20750000
+    },
+    {
+      "state": "Iowa",
+      "minPrice": 1,
+      "maxPrice": 4789860
+    },
+    {
+      "state": "Minnesota",
+      "minPrice": 1,
+      "maxPrice": 10995000
+    },
+    {
+      "state": "South Dakota",
+      "minPrice": 1,
+      "maxPrice": 8500000
+    },
+    {
+      "state": "Nebraska",
+      "minPrice": 1000,
+      "maxPrice": 16800000
+    },
+    {
+      "state": "North Dakota",
+      "minPrice": 9500,
+      "maxPrice": 4999900
+    },
+    {
+      "state": "Montana",
+      "minPrice": 24999,
+      "maxPrice": 30000000
+    },
+    {
+      "state": "Kansas",
+      "minPrice": 1,
+      "maxPrice": 10000000
+    },
+    {
+      "state": "Oklahoma",
+      "minPrice": 1,
+      "maxPrice": 14000000
+    },
+    {
+      "state": "New Mexico",
+      "minPrice": 1,
+      "maxPrice": 14900000
+    },
+    {
+      "state": "Utah",
+      "minPrice": 12000,
+      "maxPrice": 48000000
+    },
+    {
+      "state": "Nevada",
+      "minPrice": 55000,
+      "maxPrice": 47500000
+    },
+    {
+      "state": "Washington",
+      "minPrice": 515,
+      "maxPrice": 36000000
+    },
+    {
+      "state": "Oregon",
+      "minPrice": 1,
+      "maxPrice": 65000000
+    },
+    {
+      "state": "Arizona",
+      "minPrice": 8000,
+      "maxPrice": 30600000
+    },
+    {
+      "state": "California",
+      "minPrice": 2550,
+      "maxPrice": 515000000
+    },
+    {
+      "state": "Hawaii",
+      "minPrice": 2500,
+      "maxPrice": 59500000
+    },
+    {
+      "state": "Guam",
+      "minPrice": 163000,
+      "maxPrice": 3900000
+    },
+    {
+      "state": "Alaska",
+      "minPrice": 42000,
+      "maxPrice": 9000000
+    }
+  ],
+  "averagePriceByState": [
+    {
+      "state": "Puerto Rico",
+      "averagePrice": 628570.1222587719
+    },
+    {
+      "state": "Virgin Islands",
+      "averagePrice": 1568050.6621004567
+    },
+    {
+      "state": "Massachusetts",
+      "averagePrice": 746685.1151084277
+    },
+    {
+      "state": "Connecticut",
+      "averagePrice": 785651.2119732512
+    },
+    {
+      "state": "New Jersey",
+      "averagePrice": 597287.4890289187
+    },
+    {
+      "state": "New York",
+      "averagePrice": 695865.4175446747
+    },
+    {
+      "state": "New Hampshire",
+      "averagePrice": 638512.6362586605
+    },
+    {
+      "state": "Vermont",
+      "averagePrice": 553562.9627279936
+    },
+    {
+      "state": "Rhode Island",
+      "averagePrice": 506824.47086638195
+    },
+    {
+      "state": "Wyoming",
+      "averagePrice": 761972.4224330357
+    },
+    {
+      "state": "Maine",
+      "averagePrice": 512828.4393471548
+    },
+    {
+      "state": "Pennsylvania",
+      "averagePrice": 338719.86465694604
+    },
+    {
+      "state": "West Virginia",
+      "averagePrice": 278871.80633608816
+    },
+    {
+      "state": "Delaware",
+      "averagePrice": 424868.83736473584
+    },
+    {
+      "state": "Ohio",
+      "averagePrice": 239585.48460111316
+    },
+    {
+      "state": "Maryland",
+      "averagePrice": 502260.6783124191
+    },
+    {
+      "state": "Virginia",
+      "averagePrice": 545375.487753073
+    },
+    {
+      "state": "Colorado",
+      "averagePrice": 946336.8955841766
+    },
+    {
+      "state": "District of Columbia",
+      "averagePrice": 1199997.308259587
+    },
+    {
+      "state": "North Carolina",
+      "averagePrice": 417245.21309634775
+    },
+    {
+      "state": "Kentucky",
+      "averagePrice": 295286.6996634211
+    },
+    {
+      "state": "South Carolina",
+      "averagePrice": 448560.18043920293
+    },
+    {
+      "state": "Tennessee",
+      "averagePrice": 458179.15716422093
+    },
+    {
+      "state": "Georgia",
+      "averagePrice": 436744.95102063054
+    },
+    {
+      "state": "Alabama",
+      "averagePrice": 329256.7240887803
+    },
+    {
+      "state": "Florida",
+      "averagePrice": 650532.9397862186
+    },
+    {
+      "state": "Mississippi",
+      "averagePrice": 292791.83535460057
+    },
+    {
+      "state": "Texas",
+      "averagePrice": 451086.3611620228
+    },
+    {
+      "state": "Missouri",
+      "averagePrice": 305802.3009819593
+    },
+    {
+      "state": "Arkansas",
+      "averagePrice": 335589.99944557383
+    },
+    {
+      "state": "Louisiana",
+      "averagePrice": 317201.62309021776
+    },
+    {
+      "state": "Indiana",
+      "averagePrice": 324058.0418517253
+    },
+    {
+      "state": "Illinois",
+      "averagePrice": 363897.28229405143
+    },
+    {
+      "state": "Michigan",
+      "averagePrice": 314787.8277915633
+    },
+    {
+      "state": "Idaho",
+      "averagePrice": 692955.1451362539
+    },
+    {
+      "state": "Wisconsin",
+      "averagePrice": 335089.79372731707
+    },
+    {
+      "state": "Iowa",
+      "averagePrice": 255733.37853859182
+    },
+    {
+      "state": "Minnesota",
+      "averagePrice": 399962.5015748754
+    },
+    {
+      "state": "South Dakota",
+      "averagePrice": 447335.7820954255
+    },
+    {
+      "state": "Nebraska",
+      "averagePrice": 322061.80037011334
+    },
+    {
+      "state": "North Dakota",
+      "averagePrice": 327210.7024552642
+    },
+    {
+      "state": "Montana",
+      "averagePrice": 868095.6843756126
+    },
+    {
+      "state": "Kansas",
+      "averagePrice": 295287.76630290126
+    },
+    {
+      "state": "Oklahoma",
+      "averagePrice": 285907.032973489
+    },
+    {
+      "state": "New Mexico",
+      "averagePrice": 415965.72902801743
+    },
+    {
+      "state": "Utah",
+      "averagePrice": 913138.1257646449
+    },
+    {
+      "state": "Nevada",
+      "averagePrice": 742207.8008369035
+    },
+    {
+      "state": "Washington",
+      "averagePrice": 725795.977233188
+    },
+    {
+      "state": "Oregon",
+      "averagePrice": 642527.9889381542
+    },
+    {
+      "state": "Arizona",
+      "averagePrice": 552596.1009796673
+    },
+    {
+      "state": "California",
+      "averagePrice": 1087721.5247447756
+    },
+    {
+      "state": "Hawaii",
+      "averagePrice": 1485770.5783609804
+    },
+    {
+      "state": "Guam",
+      "averagePrice": 679030.8584070796
+    },
+    {
+      "state": "Alaska",
+      "averagePrice": 545889.2081784387
+    }
+  ],
+  "propertyCountByState": [
+    {
+      "state": "Puerto Rico",
+      "count": 1824
+    },
+    {
+      "state": "Virgin Islands",
+      "count": 219
+    },
+    {
+      "state": "Massachusetts",
+      "count": 27991
+    },
+    {
+      "state": "Connecticut",
+      "count": 9421
+    },
+    {
+      "state": "New Jersey",
+      "count": 35548
+    },
+    {
+      "state": "New York",
+      "count": 60269
+    },
+    {
+      "state": "New Hampshire",
+      "count": 1732
+    },
+    {
+      "state": "Vermont",
+      "count": 1261
+    },
+    {
+      "state": "Rhode Island",
+      "count": 6556
+    },
+    {
+      "state": "Wyoming",
+      "count": 1792
+    },
+    {
+      "state": "Maine",
+      "count": 2267
+    },
+    {
+      "state": "Pennsylvania",
+      "count": 55895
+    },
+    {
+      "state": "West Virginia",
+      "count": 7260
+    },
+    {
+      "state": "Delaware",
+      "count": 6284
+    },
+    {
+      "state": "Ohio",
+      "count": 43120
+    },
+    {
+      "state": "Maryland",
+      "count": 33231
+    },
+    {
+      "state": "Virginia",
+      "count": 44256
+    },
+    {
+      "state": "Colorado",
+      "count": 19566
+    },
+    {
+      "state": "District of Columbia",
+      "count": 2712
+    },
+    {
+      "state": "North Carolina",
+      "count": 47204
+    },
+    {
+      "state": "Kentucky",
+      "count": 16638
+    },
+    {
+      "state": "South Carolina",
+      "count": 24590
+    },
+    {
+      "state": "Tennessee",
+      "count": 21398
+    },
+    {
+      "state": "Georgia",
+      "count": 55064
+    },
+    {
+      "state": "Alabama",
+      "count": 14733
+    },
+    {
+      "state": "Florida",
+      "count": 126765
+    },
+    {
+      "state": "Mississippi",
+      "count": 7586
+    },
+    {
+      "state": "Texas",
+      "count": 145677
+    },
+    {
+      "state": "Missouri",
+      "count": 30653
+    },
+    {
+      "state": "Arkansas",
+      "count": 10822
+    },
+    {
+      "state": "Louisiana",
+      "count": 14465
+    },
+    {
+      "state": "Indiana",
+      "count": 11708
+    },
+    {
+      "state": "Illinois",
+      "count": 51542
+    },
+    {
+      "state": "Michigan",
+      "count": 22165
+    },
+    {
+      "state": "Idaho",
+      "count": 11596
+    },
+    {
+      "state": "Wisconsin",
+      "count": 18461
+    },
+    {
+      "state": "Iowa",
+      "count": 16532
+    },
+    {
+      "state": "Minnesota",
+      "count": 32701
+    },
+    {
+      "state": "South Dakota",
+      "count": 2033
+    },
+    {
+      "state": "Nebraska",
+      "count": 4323
+    },
+    {
+      "state": "North Dakota",
+      "count": 2403
+    },
+    {
+      "state": "Montana",
+      "count": 5101
+    },
+    {
+      "state": "Kansas",
+      "count": 11271
+    },
+    {
+      "state": "Oklahoma",
+      "count": 27234
+    },
+    {
+      "state": "New Mexico",
+      "count": 12171
+    },
+    {
+      "state": "Utah",
+      "count": 9645
+    },
+    {
+      "state": "Nevada",
+      "count": 10037
+    },
+    {
+      "state": "Washington",
+      "count": 46559
+    },
+    {
+      "state": "Oregon",
+      "count": 21877
+    },
+    {
+      "state": "Arizona",
+      "count": 54100
+    },
+    {
+      "state": "California",
+      "count": 171026
+    },
+    {
+      "state": "Hawaii",
+      "count": 4039
+    },
+    {
+      "state": "Guam",
+      "count": 113
+    },
+    {
+      "state": "Alaska",
+      "count": 807
+    }
+  ],
+  "propertyCountBySize": [
+    {
+      "min": 100,
+      "max": 312236,
+      "count": 1353290
+    },
+    {
+      "min": 312236,
+      "max": 624372,
+      "count": 17
+    },
+    {
+      "min": 624372,
+      "max": 936508,
+      "count": 14
+    },
+    {
+      "min": 936508,
+      "max": 1248644,
+      "count": 0
+    },
+    {
+      "min": 1248644,
+      "max": 1560780,
+      "count": 2
+    }
+  ],
+  "averagePriceByBedrooms": [
+    {
+      "bed": 1,
+      "averagePrice": 342061.78371815453
+    },
+    {
+      "bed": 2,
+      "averagePrice": 356298.7162670181
+    },
+    {
+      "bed": 3,
+      "averagePrice": 430347.6983002116
+    },
+    {
+      "bed": 4,
+      "averagePrice": 644302.589107773
+    },
+    {
+      "bed": 5,
+      "averagePrice": 1055508.6500683122
+    },
+    {
+      "bed": 6,
+      "averagePrice": 1555170.9751881508
+    },
+    {
+      "bed": 7,
+      "averagePrice": 2364659.525010335
+    },
+    {
+      "bed": 8,
+      "averagePrice": 1891093.7423076923
+    },
+    {
+      "bed": 9,
+      "averagePrice": 1945338.6479809976
+    },
+    {
+      "bed": 10,
+      "averagePrice": 2343627.608619173
+    },
+    {
+      "bed": 11,
+      "averagePrice": 2134946.304093567
+    },
+    {
+      "bed": 12,
+      "averagePrice": 1815548.1679104478
+    },
+    {
+      "bed": 13,
+      "averagePrice": 2573577.5282051284
+    },
+    {
+      "bed": 14,
+      "averagePrice": 2200525.5454545454
+    }
+  ],
+  "averagePriceByBathrooms": [
+    {
+      "bath": 1,
+      "averagePrice": 251650.7895511027
+    },
+    {
+      "bath": 2,
+      "averagePrice": 387583.0922938835
+    },
+    {
+      "bath": 3,
+      "averagePrice": 586256.9473219765
+    },
+    {
+      "bath": 4,
+      "averagePrice": 870699.4833341764
+    },
+    {
+      "bath": 5,
+      "averagePrice": 1493939.3168693378
+    },
+    {
+      "bath": 6,
+      "averagePrice": 2353741.775437024
+    },
+    {
+      "bath": 7,
+      "averagePrice": 3546929.2898859316
+    },
+    {
+      "bath": 8,
+      "averagePrice": 4333060.577445276
+    },
+    {
+      "bath": 9,
+      "averagePrice": 6189776.467101363
+    },
+    {
+      "bath": 10,
+      "averagePrice": 7727990.013377926
+    },
+    {
+      "bath": 11,
+      "averagePrice": 9026852.730310263
+    },
+    {
+      "bath": 12,
+      "averagePrice": 7730164.864640884
+    },
+    {
+      "bath": 13,
+      "averagePrice": 14923393.7375
+    },
+    {
+      "bath": 14,
+      "averagePrice": 11729873.577235773
+    }
+  ],
+  "salesByYear": [
+    {
+      "year": "1950",
+      "count": 18940
+    },
+    {
+      "year": "1951",
+      "count": 19000
+    },
+    {
+      "year": "1952",
+      "count": 19289
+    },
+    {
+      "year": "1953",
+      "count": 18893
+    },
+    {
+      "year": "1954",
+      "count": 18916
+    },
+    {
+      "year": "1955",
+      "count": 19094
+    },
+    {
+      "year": "1956",
+      "count": 19167
+    },
+    {
+      "year": "1957",
+      "count": 18876
+    },
+    {
+      "year": "1958",
+      "count": 18729
+    },
+    {
+      "year": "1959",
+      "count": 18907
+    },
+    {
+      "year": "1960",
+      "count": 18960
+    },
+    {
+      "year": "1961",
+      "count": 18982
+    },
+    {
+      "year": "1962",
+      "count": 19022
+    },
+    {
+      "year": "1963",
+      "count": 18997
+    },
+    {
+      "year": "1964",
+      "count": 19030
+    },
+    {
+      "year": "1965",
+      "count": 19179
+    },
+    {
+      "year": "1966",
+      "count": 18934
+    },
+    {
+      "year": "1967",
+      "count": 19081
+    },
+    {
+      "year": "1968",
+      "count": 19473
+    },
+    {
+      "year": "1969",
+      "count": 18716
+    },
+    {
+      "year": "1970",
+      "count": 18825
+    },
+    {
+      "year": "1971",
+      "count": 19043
+    },
+    {
+      "year": "1972",
+      "count": 18987
+    },
+    {
+      "year": "1973",
+      "count": 19017
+    },
+    {
+      "year": "1974",
+      "count": 19014
+    },
+    {
+      "year": "1975",
+      "count": 18774
+    },
+    {
+      "year": "1976",
+      "count": 19064
+    },
+    {
+      "year": "1977",
+      "count": 19182
+    },
+    {
+      "year": "1978",
+      "count": 18960
+    },
+    {
+      "year": "1979",
+      "count": 18875
+    },
+    {
+      "year": "1980",
+      "count": 19040
+    },
+    {
+      "year": "1981",
+      "count": 18785
+    },
+    {
+      "year": "1982",
+      "count": 18977
+    },
+    {
+      "year": "1983",
+      "count": 18980
+    },
+    {
+      "year": "1984",
+      "count": 19033
+    },
+    {
+      "year": "1985",
+      "count": 18918
+    },
+    {
+      "year": "1986",
+      "count": 18989
+    },
+    {
+      "year": "1987",
+      "count": 19066
+    },
+    {
+      "year": "1988",
+      "count": 19029
+    },
+    {
+      "year": "1989",
+      "count": 19126
+    },
+    {
+      "year": "1990",
+      "count": 18861
+    },
+    {
+      "year": "1991",
+      "count": 19121
+    },
+    {
+      "year": "1992",
+      "count": 18809
+    },
+    {
+      "year": "1993",
+      "count": 18843
+    },
+    {
+      "year": "1994",
+      "count": 19121
+    },
+    {
+      "year": "1995",
+      "count": 18900
+    },
+    {
+      "year": "1996",
+      "count": 19061
+    },
+    {
+      "year": "1997",
+      "count": 18944
+    },
+    {
+      "year": "1998",
+      "count": 19290
+    },
+    {
+      "year": "1999",
+      "count": 19089
+    },
+    {
+      "year": "2000",
+      "count": 18939
+    },
+    {
+      "year": "2001",
+      "count": 18928
+    },
+    {
+      "year": "2002",
+      "count": 18727
+    },
+    {
+      "year": "2003",
+      "count": 18870
+    },
+    {
+      "year": "2004",
+      "count": 18954
+    },
+    {
+      "year": "2005",
+      "count": 18723
+    },
+    {
+      "year": "2006",
+      "count": 18889
+    },
+    {
+      "year": "2007",
+      "count": 19145
+    },
+    {
+      "year": "2008",
+      "count": 19296
+    },
+    {
+      "year": "2009",
+      "count": 19219
+    },
+    {
+      "year": "2010",
+      "count": 19052
+    },
+    {
+      "year": "2011",
+      "count": 18942
+    },
+    {
+      "year": "2012",
+      "count": 19239
+    },
+    {
+      "year": "2013",
+      "count": 19011
+    },
+    {
+      "year": "2014",
+      "count": 19068
+    },
+    {
+      "year": "2015",
+      "count": 19325
+    },
+    {
+      "year": "2016",
+      "count": 18899
+    },
+    {
+      "year": "2017",
+      "count": 19149
+    },
+    {
+      "year": "2018",
+      "count": 18876
+    },
+    {
+      "year": "2019",
+      "count": 18876
+    },
+    {
+      "year": "2020",
+      "count": 18995
+    },
+    {
+      "year": "2021",
+      "count": 19028
+    },
+    {
+      "year": "2022",
+      "count": 19208
+    },
+    {
+      "year": "2023",
+      "count": 18954
+    },
+    {
+      "year": "2024",
+      "count": 18023
+    }
+  ]
+}
