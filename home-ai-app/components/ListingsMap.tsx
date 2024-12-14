@@ -51,7 +51,7 @@ const ListingsMap = () => {
 
         try {
             const response = await axios.post(
-                `https://192.168.56.1:3000/api/v1/listings/available/10001`,
+                `https://homeaiservice.onrender.com/api/v1/listings/available/10001`,
                 { number_of_listings: 25 },
                 {
                     headers: {
