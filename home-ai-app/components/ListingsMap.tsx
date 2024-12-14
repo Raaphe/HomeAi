@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import { Text, View, StyleSheet } from "react-native";
 import MapView from "react-native-maps";
-import * as api from "../api/generated-client/api";
-import { Configuration } from "@/api/generated-client";
+import axios from "axios";
 
 const ListingsMap = () => {
     const [location, setLocation] = useState<Location.LocationObject | null>(null);
@@ -44,14 +43,26 @@ const ListingsMap = () => {
 
     // Fetch listings based on zip code
     const getListings = async (zip: string) => {
+        console.log("Getting list of location:");
+
         if (!zip) return;
 
-        try {
-            const config = new Configuration({ basePath: "https://192.168.56.1:3000/api/v1/" });
-            const realEstateAPIApi = new api.RealEstateAPIApi(config);
+        console.log(`zip ${zip}`);
 
-            const response = await realEstateAPIApi.listingsAvailableZipCodePost(zip);
-            console.log("Fetched Listings:", response);
+        try {
+            const response = await axios.post(
+                `https://homeaiservice.onrender.com/api/v1/listings/available/10001`,
+                { number_of_listings: 25 },
+                {
+                    headers: {
+                        accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+
+
+            console.log("Fetched Listings:", response.data);
             setListings(response.data || []);
         } catch (error) {
             console.error("Error fetching listings:", error);
