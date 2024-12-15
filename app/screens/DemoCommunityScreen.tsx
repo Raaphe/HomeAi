@@ -1,136 +1,288 @@
-import { FC } from "react"
-import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { ListItem, Screen, Text } from "../components"
-import { DemoTabScreenProps } from "../navigators/DemoNavigator"
-import { $styles } from "../theme"
-import { openLinkInBrowser } from "../utils/openLinkInBrowser"
-import { isRTL } from "../i18n"
-import type { ThemedStyle } from "@/theme"
-import { useAppTheme } from "@/utils/useAppTheme"
+import { useEffect, useState } from "react";
+import * as Location from "expo-location";
+import { Text, View, StyleSheet, TouchableOpacity, TextInput, Image as RNImage } from "react-native";
+import MapView, { Marker } from "react-native-maps";
+import { RealEstateAPIApi } from "@/api/generated-client";
+import { useAppTheme } from "@/utils/useAppTheme";
+import { useNavigation } from "@react-navigation/native";
 
-const chainReactLogo = require("../../assets/images/demo/cr-logo.png")
-const reactNativeLiveLogo = require("../../assets/images/demo/rnl-logo.png")
-const reactNativeRadioLogo = require("../../assets/images/demo/rnr-logo.png")
-const reactNativeNewsletterLogo = require("../../assets/images/demo/rnn-logo.png")
+export const DemoCommunityScreen = () => {
+  const { theme } = useAppTheme();
+  const navigation = useNavigation();
+  const [location, setLocation] = useState<Location.LocationObject | null>(null);
+  const [zipCode, setZipCode] = useState<string>("");
+  const [listings, setListings] = useState<any[any]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [selectedListingIndex, setSelectedListingIndex] = useState<number>(0);
+  const [error, setError] = useState<string | null>(null);
 
-export const DemoCommunityScreen: FC<DemoTabScreenProps<"DemoCommunity">> =
-  function DemoCommunityScreen(_props) {
-    const { themed } = useAppTheme()
+  const getUserPosition = async (): Promise<void> => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setError("Location permission not granted");
+        return;
+      }
+      const tempLocation = await Location.getCurrentPositionAsync({});
+      setLocation(tempLocation);
+    } catch (error) {
+      setError("Error fetching user location");
+      console.error(error);
+    }
+  };
+
+  const getZipCode = async (): Promise<void> => {
+    if (!location) return;
+
+    try {
+      const { latitude, longitude } = location.coords;
+      const response = await Location.reverseGeocodeAsync({ latitude, longitude });
+      const tempZip = response[0]?.postalCode || "";
+      setZipCode(tempZip);
+    } catch (error) {
+      setError("Error fetching zip code");
+      console.error(error);
+    }
+  };
+
+  const getListings = async (zipCode: string): Promise<void> => {
+    if (!zipCode) return;
+
+    try {
+      const response = await new RealEstateAPIApi().listingsAvailableZipCodePost(zipCode, { number_of_listings: 50 });
+      const listingsData = response.data.listings || [];
+
+      const listingsWithCoords = await Promise.all(
+        listingsData.map(async (listing: any) => {
+          const address = `${listing.address}, ${listing.city}, ${listing.state} ${listing.zip}`;
+          const geocodeResults = await Location.geocodeAsync(address);
+          const coords = geocodeResults[0] || null;
+          return { ...listing, coords };
+        })
+      );
+
+      setListings(listingsWithCoords.filter(listing => listing.coords));
+    } catch (error) {
+      setError("Error fetching listings");
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      await getUserPosition();
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (location) {
+      getZipCode();
+    }
+  }, [location]);
+
+  useEffect(() => {
+    if (zipCode) {
+      getListings("10012").finally(() => setLoading(false));
+    }
+  }, [zipCode]);
+
+  if (loading) {
     return (
-      <Screen preset="scroll" contentContainerStyle={$styles.container} safeAreaEdges={["top"]}>
-        <Text preset="heading" tx="demoCommunityScreen:title" style={themed($title)} />
-        <Text tx="demoCommunityScreen:tagLine" style={themed($tagline)} />
-
-        <Text preset="subheading" tx="demoCommunityScreen:joinUsOnSlackTitle" />
-        <Text tx="demoCommunityScreen:joinUsOnSlack" style={themed($description)} />
-        <ListItem
-          tx="demoCommunityScreen:joinSlackLink"
-          leftIcon="slack"
-          rightIcon={isRTL ? "caretLeft" : "caretRight"}
-          onPress={() => openLinkInBrowser("https://community.infinite.red/")}
-        />
-        <Text
-          preset="subheading"
-          tx="demoCommunityScreen:makeIgniteEvenBetterTitle"
-          style={themed($sectionTitle)}
-        />
-        <Text tx="demoCommunityScreen:makeIgniteEvenBetter" style={themed($description)} />
-        <ListItem
-          tx="demoCommunityScreen:contributeToIgniteLink"
-          leftIcon="github"
-          rightIcon={isRTL ? "caretLeft" : "caretRight"}
-          onPress={() => openLinkInBrowser("https://github.com/infinitered/ignite")}
-        />
-
-        <Text
-          preset="subheading"
-          tx="demoCommunityScreen:theLatestInReactNativeTitle"
-          style={themed($sectionTitle)}
-        />
-        <Text tx="demoCommunityScreen:theLatestInReactNative" style={themed($description)} />
-        <ListItem
-          tx="demoCommunityScreen:reactNativeRadioLink"
-          bottomSeparator
-          rightIcon={isRTL ? "caretLeft" : "caretRight"}
-          LeftComponent={
-            <View style={[$styles.row, themed($logoContainer)]}>
-              <Image source={reactNativeRadioLogo} style={$logo} />
-            </View>
-          }
-          onPress={() => openLinkInBrowser("https://reactnativeradio.com/")}
-        />
-        <ListItem
-          tx="demoCommunityScreen:reactNativeNewsletterLink"
-          bottomSeparator
-          rightIcon={isRTL ? "caretLeft" : "caretRight"}
-          LeftComponent={
-            <View style={[$styles.row, themed($logoContainer)]}>
-              <Image source={reactNativeNewsletterLogo} style={$logo} />
-            </View>
-          }
-          onPress={() => openLinkInBrowser("https://reactnativenewsletter.com/")}
-        />
-        <ListItem
-          tx="demoCommunityScreen:reactNativeLiveLink"
-          bottomSeparator
-          rightIcon={isRTL ? "caretLeft" : "caretRight"}
-          LeftComponent={
-            <View style={[$styles.row, themed($logoContainer)]}>
-              <Image source={reactNativeLiveLogo} style={$logo} />
-            </View>
-          }
-          onPress={() => openLinkInBrowser("https://rn.live/")}
-        />
-        <ListItem
-          tx="demoCommunityScreen:chainReactConferenceLink"
-          rightIcon={isRTL ? "caretLeft" : "caretRight"}
-          LeftComponent={
-            <View style={[$styles.row, themed($logoContainer)]}>
-              <Image source={chainReactLogo} style={$logo} />
-            </View>
-          }
-          onPress={() => openLinkInBrowser("https://cr.infinite.red/")}
-        />
-        <Text
-          preset="subheading"
-          tx="demoCommunityScreen:hireUsTitle"
-          style={themed($sectionTitle)}
-        />
-        <Text tx="demoCommunityScreen:hireUs" style={themed($description)} />
-        <ListItem
-          tx="demoCommunityScreen:hireUsLink"
-          leftIcon="clap"
-          rightIcon={isRTL ? "caretLeft" : "caretRight"}
-          onPress={() => openLinkInBrowser("https://infinite.red/contact")}
-        />
-      </Screen>
-    )
+      <View style={styles.loadingContainer}>
+        <Text style={[styles.loadingText, { color: theme.colors.text }]}>Loading...</Text>
+      </View>
+    );
   }
 
-const $title: ThemedStyle<TextStyle> = ({ spacing }) => ({
-  marginBottom: spacing.sm,
-})
+  const selectedListing = listings[selectedListingIndex];
 
-const $tagline: ThemedStyle<TextStyle> = ({ spacing }) => ({
-  marginBottom: spacing.xxl,
-})
+  return (
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
 
-const $description: ThemedStyle<TextStyle> = ({ spacing }) => ({
-  marginBottom: spacing.lg,
-})
+      <View style={styles.searchBarContainer}>
+        <TextInput
+          value={zipCode}
+          onChangeText={setZipCode}
+          placeholder="Enter zip code"
+          placeholderTextColor={theme.colors.text}
+          style={[styles.searchBar, { color: theme.colors.text, backgroundColor: theme.colors.background, textAlign: "center" }]}
+        />
+      </View>
 
-const $sectionTitle: ThemedStyle<TextStyle> = ({ spacing }) => ({
-  marginTop: spacing.xxl,
-})
+      <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: location?.coords.latitude || 37.7749,
+          longitude: location?.coords.longitude || -122.4194,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+        showsUserLocation={true}
+        provider="google"
+      >
+        {listings.map((listing: { coords: { latitude: any; longitude: any; }; address: any; }, index: string | number | bigint | ((prevState: number) => number) | null | undefined) => {
+          const isSelected = index === selectedListingIndex;
+          const iconColor = isSelected ? theme.colors.background : "#008CBA";
 
-const $logoContainer: ThemedStyle<ViewStyle> = ({ spacing }) => ({
-  marginEnd: spacing.md,
-  flexWrap: "wrap",
-  alignContent: "center",
-  alignSelf: "stretch",
-})
+          return (
+            <Marker
+              key={index}
+              coordinate={{
+                latitude: listing?.coords?.latitude || 0,
+                longitude: listing?.coords?.longitude || 0,
+              }}
+              title={`${listing.address}`}
+              onPress={() => {
+                setSelectedListingIndex(index);
 
-const $logo: ImageStyle = {
-  height: 38,
-  width: 38,
-}
+              }}
+            >
+              <RNImage
+                source={require('../../assets/images/house-icon.png')}
+                style={[styles.icon, { width: 20, height: 20, tintColor: iconColor }]} // Dynamic icon color based on theme
+              />
+            </Marker>
+          );
+        })}
+      </MapView>
+
+      <View style={[styles.detailContainer, { backgroundColor: theme.colors.background }]}>
+        {selectedListing && (
+          <>
+            <Text style={[styles.detailTitle, { color: theme.colors.text }]}>
+              {selectedListing.address}, {" "}
+              <Text style={[styles.detailLocation, { color: theme.colors.text }]}>
+                {selectedListing.city}, {selectedListing.state}
+              </Text>
+            </Text>
+
+            <View style={styles.infoContainer}>
+              <RNImage source={{ uri: selectedListing.image }} style={styles.listingImage} />
+              <View style={styles.textContainer}>
+                <Text style={[styles.priceText, { color: theme.colors.text }]}>
+                  ${selectedListing.prices.USD.toLocaleString()} USD
+                </Text>
+                <Text style={[styles.propertyType, { color: theme.colors.text }]}>
+                  {selectedListing.property_type}
+                </Text>
+                <Text style={[styles.propertyDetails, { color: theme.colors.text }]}>
+                  {selectedListing.bedrooms} Beds - {selectedListing.bathrooms} Baths
+                </Text>
+              </View>
+            </View>
+
+            <TouchableOpacity
+              style={[styles.viewButton, { backgroundColor: theme.colors.text }]}
+              onPress={() => {
+                navigation.navigate('ListingDetails', { url: listings[selectedListingIndex].url });
+              }}
+            >
+              <Text style={[styles.viewButtonText, { color: theme.colors.background }]}>View Details</Text>
+            </TouchableOpacity>
+          </>
+        )}
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  searchBarContainer: {
+    position: "absolute",
+    marginTop: "12%",
+    top: 10,
+    left: 20,
+    right: 20,
+    zIndex: 1,
+  },
+  searchBar: {
+    height: 40,
+    borderRadius: 20,
+    paddingLeft: 10,
+    borderWidth: 1,
+    fontWeight: "bold",
+    fontSize: 18
+  },
+  map: {
+    flex: 1
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loadingText: {
+    fontSize: 20,
+  },
+  detailContainer: {
+    position: "absolute",
+    bottom: 20,
+    left: 20,
+    right: 20,
+    padding: 16,
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  detailTitle: {
+    fontSize: 22,
+    fontWeight: "bold",
+    marginBottom: 8,
+  },
+  detailLocation: {
+    fontSize: 16,
+  },
+  infoContainer: {
+    flexDirection: "row",
+    marginBottom: 16,
+    alignItems: "center",
+  },
+  listingImage: {
+    width: 100,
+    height: 75,
+    borderRadius: 8,
+    marginRight: 16,
+    borderWidth: 1,
+    borderColor: "#ddd",
+  },
+  textContainer: {
+    flex: 1,
+  },
+  priceText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 4,
+  },
+  propertyType: {
+    fontSize: 16,
+    marginBottom: 4,
+  },
+  propertyDetails: {
+    fontSize: 14,
+  },
+  viewButton: {
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  viewButtonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  icon: {
+    width: 20,
+    height: 20,
+  },
+});
