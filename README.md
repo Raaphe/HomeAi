@@ -23,7 +23,7 @@
         <a href="https://github.com/Schn777">
             <img src="https://avatars.githubusercontent.com/u/120033739?v=4" width="100;" alt="Schn777"/>
             <br />
-            <sub><b>Raph</b></sub>
+            <sub><b>Schn777</b></sub>
         </a>
     </td>
 </tr>
