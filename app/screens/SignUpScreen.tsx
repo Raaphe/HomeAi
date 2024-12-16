@@ -5,15 +5,13 @@ import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "
 import { useStores } from "../models"
 import { AppStackScreenProps } from "../navigators"
 import type { ThemedStyle } from "@/theme"
-import { useNavigation } from '@react-navigation/native';
 import { useAppTheme } from "@/utils/useAppTheme"
+import { useNavigation } from '@react-navigation/native';
+import { integer, number } from "mobx-state-tree/dist/internal"
 
-interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
-
-export const LoginScreen: FC<any> = observer(function LoginScreen(_props) {
+export const SignUpScreen: FC<any> = observer(function SignUpScreen(_props) {
   const authPasswordInput = useRef<TextInput>(null)
-  const navigation = useNavigation()
-
+  const navigation = useNavigation();
   const [authPassword, setAuthPassword] = useState("")
   const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -21,11 +19,21 @@ export const LoginScreen: FC<any> = observer(function LoginScreen(_props) {
   const {
     authenticationStore: { authEmail, setAuthEmail, setAuthToken, validationError },
   } = useStores()
-
   const {
     themed,
     theme: { colors },
   } = useAppTheme()
+
+  const [firstName, setFirstName] = useState("")
+  const firstNameInput = useRef<TextInput>(null)
+  const [lastName, setLastName] = useState("")
+  const lastNameInput = useRef<TextInput>(null)
+  const [phoneNumber, setPhoneNumber] = useState("")
+  const phoneNumberInput = useRef<TextInput>(null)
+  const [companyName, setCompanyName] = useState("")
+  const companyNameInput = useRef<TextInput>(null)
+  const [profilePic, setProfilePic] = useState("")
+  const profilePicInput = useRef<TextInput>(null)
 
   useEffect(() => {
     // Here is where you could fetch credentials from keychain or storage
@@ -42,7 +50,7 @@ export const LoginScreen: FC<any> = observer(function LoginScreen(_props) {
 
   const error = isSubmitted ? validationError : ""
 
-  function login() {
+  function signUp() {
     setIsSubmitted(true)
     setAttemptsCount(attemptsCount + 1)
 
@@ -80,8 +88,8 @@ export const LoginScreen: FC<any> = observer(function LoginScreen(_props) {
       contentContainerStyle={themed($screenContentContainer)}
       safeAreaEdges={["top", "bottom"]}
     >
-      <Text testID="login-heading" tx="loginScreen:logIn" preset="heading" style={themed($logIn)} />
-      <Text preset="subheading" style={themed($enterDetails)}>Enter your details to get access to your profile and discover more about Home AI</Text>
+      <Text testID="login-heading" preset="heading" style={themed($logIn)}>Sign Up</Text>
+      <Text preset="subheading" style={themed($enterDetails)}>Please enter your information to get started</Text>
       {attemptsCount > 2 && (
         <Text tx="loginScreen:hint" size="sm" weight="light" style={themed($hint)} />
       )}
@@ -94,8 +102,35 @@ export const LoginScreen: FC<any> = observer(function LoginScreen(_props) {
         autoComplete="email"
         autoCorrect={false}
         keyboardType="email-address"
-        labelTx="loginScreen:emailFieldLabel"
-        placeholderTx="loginScreen:emailFieldPlaceholder"
+        label="Email"
+        helper={error}
+        status={error ? "error" : undefined}
+        onSubmitEditing={() => firstNameInput.current?.focus()}
+      />
+
+      <TextField
+        ref={firstNameInput}
+        value={firstName}
+        onChangeText={setFirstName}
+        containerStyle={themed($textField)}
+        autoCapitalize="none"
+        autoCorrect={false}
+        label="First Name"
+        placeholder="Your first name"
+        helper={error}
+        status={error ? "error" : undefined}
+        onSubmitEditing={() => lastNameInput.current?.focus()}
+      />
+
+      <TextField
+        ref={lastNameInput}
+        value={lastName}
+        onChangeText={setLastName}
+        containerStyle={themed($textField)}
+        autoCapitalize="none"
+        autoCorrect={false}
+        label="Last Name"
+        placeholder="Your last name"
         helper={error}
         status={error ? "error" : undefined}
         onSubmitEditing={() => authPasswordInput.current?.focus()}
@@ -110,28 +145,72 @@ export const LoginScreen: FC<any> = observer(function LoginScreen(_props) {
         autoComplete="password"
         autoCorrect={false}
         secureTextEntry={isAuthPasswordHidden}
-        labelTx="loginScreen:passwordFieldLabel"
-        placeholderTx="loginScreen:passwordFieldPlaceholder"
-        onSubmitEditing={login}
+        label="Password"
+        onSubmitEditing={() => phoneNumberInput.current?.focus()}
         RightAccessory={PasswordRightAccessory}
+      />
+
+      <TextField
+        ref={phoneNumberInput}
+        value={phoneNumber}
+        onChangeText={setPhoneNumber}
+        containerStyle={themed($textField)}
+        autoCapitalize="none"
+        autoCorrect={false}
+        maxLength={10}
+        keyboardType="number-pad"
+        label="Phone Number"
+        placeholder="0123456789"
+        helper={error}
+        status={error ? "error" : undefined}
+        onSubmitEditing={() => companyNameInput.current?.focus()}
+      />
+
+      <TextField
+        ref={companyNameInput}
+        value={companyName}
+        onChangeText={setCompanyName}
+        containerStyle={themed($textField)}
+        autoCapitalize="none"
+        autoCorrect={false}
+        label="Company Name"
+        placeholder="Your company"
+        helper={error}
+        status={error ? "error" : undefined}
+        onSubmitEditing={() => profilePicInput.current?.focus()}
+      />
+
+      <TextField
+        ref={profilePicInput}
+        value={profilePic}
+        onChangeText={setProfilePic}
+        containerStyle={themed($textField)}
+        autoCapitalize="none"
+        autoCorrect={false}
+        label="Profile Picture"
+        placeholder="Your profile picture's URL"
+        helper={error}
+        status={error ? "error" : undefined}
+        onSubmitEditing={signUp}
       />
 
       <Button
         testID="login-button"
-        tx="loginScreen:tapToLogIn"
         style={themed($tapButton)}
         preset="reversed"
-        onPress={login}
-      />
+        onPress={signUp}
+      >
+        Sign Up
+      </Button>
 
       <Button
-        testID="signup-button"
+        testID="go-back"
         style={themed($tapButton)}
         onPress={() => {
-          navigation.navigate('SignUpScreen')
+          navigation.goBack()
         }}
       >
-        Don't have an account? Sign up
+          Go back
       </Button>
     </Screen>
   )
