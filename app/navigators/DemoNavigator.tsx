@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Icon } from "../components"
 import { translate } from "../i18n"
 import { DemoCommunityScreen, DemoShowroomScreen, DemoDebugScreen, LoginScreen } from "../screens"
+import { StatisticScreen } from "@/screens/StatisticScreen"
 import { DemoPodcastListScreen } from "../screens/DemoPodcastListScreen"
 import type { ThemedStyle } from "@/theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
@@ -16,6 +17,7 @@ export type DemoTabParamList = {
   DemoDebug: undefined
   DemoPodcastList: undefined
   DemoLogin: undefined
+  DemoStatistic : undefined
 }
 
 /**
@@ -87,6 +89,17 @@ export function DemoNavigator() {
           tabBarLabel: "Profile",
           tabBarIcon: ({ focused }) => (
             <Icon icon="heart" color={focused ? colors.tint : colors.tintInactive} size={30} />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="DemoStatistic"
+        component={StatisticScreen}
+        options={{
+          tabBarLabel: "Statistic",
+          tabBarIcon: ({ focused }) => (
+            <Icon icon="podcast" color={focused ? colors.tint : colors.tintInactive} size={30} />
           ),
         }}
       />
