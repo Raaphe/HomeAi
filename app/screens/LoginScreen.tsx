@@ -9,7 +9,7 @@ import { useAppTheme } from "@/utils/useAppTheme"
 
 interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
 
-export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_props) {
+export const LoginScreen: FC<any> = observer(function LoginScreen(_props) {
   const authPasswordInput = useRef<TextInput>(null)
 
   const [authPassword, setAuthPassword] = useState("")

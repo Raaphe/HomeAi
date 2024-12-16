@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image, ScrollView, StyleSheet, ActivityIndicator, TouchableOpacity } from "react-native";
 import { useAppTheme } from "@/utils/useAppTheme";
 import { RealEstateAPIApi } from "app/api/generated-client/api";
+import { useNavigation } from '@react-navigation/native';
 
 export const ListingDetails = ({ route }: any) => {
+  const navigation = useNavigation();
   const { url } = route.params;
   const { theme } = useAppTheme();
   const [listingDetails, setListingDetails] = useState<any>(null);
@@ -27,6 +29,7 @@ export const ListingDetails = ({ route }: any) => {
   if (loading) {
     return (
       <View style={[styles.center, { backgroundColor: theme.colors.background }]}>
+        <ActivityIndicator size="large" color={theme.colors.background} />
         <Text style={{ color: theme.colors.text }}>Loading...</Text>
       </View>
     );
@@ -66,6 +69,7 @@ export const ListingDetails = ({ route }: any) => {
         {address}, {city}, {state} {zip_code}
       </Text>
 
+      {/* Image Carousel */}
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.imageCarousel}>
         {images.length > 0 ? (
           images.map((image: string, index: number) => (
@@ -76,6 +80,7 @@ export const ListingDetails = ({ route }: any) => {
         )}
       </ScrollView>
 
+      {/* Details Section */}
       <View style={[styles.card, { backgroundColor: theme.colors.border }]}>
         <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Details</Text>
         <View style={styles.detailsGrid}>
@@ -96,6 +101,20 @@ export const ListingDetails = ({ route }: any) => {
         <Text style={[styles.marketPrice, { color: theme.colors.text }]}>
           Estimated Market Price: ${estimated_market_price?.toLocaleString() || "N/A"}
         </Text>
+        {prices?.USD && estimated_market_price && (
+          <Text
+            style={{
+              color: estimated_market_price > prices.USD ? 'green' : 'red',
+              fontWeight: 'bold',
+              fontSize: 16,
+              marginTop: 8,
+            }}
+          >
+            {estimated_market_price > prices.USD 
+              ? `+${((estimated_market_price - prices.USD) / prices.USD * 100).toFixed(2)}%`
+              : `-${((prices.USD - estimated_market_price) / prices.USD * 100).toFixed(2)}%`}
+          </Text>
+        )}
       </View>
 
       {/* Description Section */}
@@ -109,21 +128,32 @@ export const ListingDetails = ({ route }: any) => {
       {/* Contact Section */}
       <View style={[styles.card, { backgroundColor: theme.colors.border }]}>
         <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Contact</Text>
-        <Text style={[styles.contactText, { color: theme.colors.text }]}>
-          {contact?.first_name} {contact?.last_name}
-        </Text>
-        <Text style={[styles.contactText, { color: theme.colors.text }]}>
-          Agent: {contact?.first_name || "N/A"} {"\n"}Phone: {contact?.phone_number || "N/A"}
-        </Text>
-        <TouchableOpacity style={[styles.contactButton, { backgroundColor: theme.colors.background }]}>
-          <Text style={[styles.contactButtonText, { color: theme.colors.text }]}>Contact Agent</Text>
-        </TouchableOpacity>
+        {contact ? (
+          <>
+            <Text style={[styles.contactText, { color: theme.colors.text }]}>
+              {contact?.first_name} {contact?.last_name}
+            </Text>
+            <Text style={[styles.contactText, { color: theme.colors.text }]}>
+              Agent: {contact?.first_name || "N/A"} {"\n"}Phone: {contact?.phone_number || "N/A"}
+            </Text>
+            <TouchableOpacity style={[styles.contactButton, { backgroundColor: theme.colors.background }]}>
+              <Text style={[styles.contactButtonText, { color: theme.colors.text }]}>Contact Agent</Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <Text style={[styles.contactText, { color: theme.colors.text }]}>
+            No contact for this listing
+          </Text>
+        )}
       </View>
+      <TouchableOpacity style={[styles.contactButton, { backgroundColor: theme.colors.background }]} onPress={() => navigation.goBack()}>
+        <Text style={[styles.contactButtonText, { color: theme.colors.text }]}>Go back</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
 
-// Reusable Info Block
+// Reusable Info Block Component
 const InfoBlock = ({ label, value }: { label: string; value: any }) => (
   <View style={styles.infoBlock}>
     <Text style={styles.infoLabel}>{label}</Text>
@@ -143,53 +173,54 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 22,
-    fontWeight: "bold",
-    marginTop: 40,
+    fontSize: 24,
+    fontWeight: "700",
+    marginTop: 20,
     marginBottom: 16,
-    textAlign: "center", // This centers the title text
+    textAlign: "center",
   },
   imageCarousel: {
-    marginBottom: 16,
+    marginBottom: 20,
   },
   image: {
     width: 300,
     height: 200,
     borderRadius: 12,
-    marginRight: 10,
+    marginRight: 12,
+    elevation: 5,
   },
   noImageText: {
     fontSize: 16,
-    textAlign: "center", // This centers the no image text
+    textAlign: "center",
   },
   card: {
     borderRadius: 12,
     padding: 16,
     marginBottom: 16,
-    elevation: 2,
+    elevation: 5,
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
   },
   sectionTitle: {
     textAlign: "center",
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: "600",
     marginBottom: 12,
   },
   price: {
-    fontSize: 16,
-    fontWeight: "600",
+    fontSize: 18,
+    fontWeight: "700",
   },
   marketPrice: {
+    fontSize: 16,
     marginTop: 8,
-    fontSize: 14,
   },
   description: {
-    alignSelf: "stretch",
-    fontSize: 14,
-    lineHeight: 20,
+    fontSize: 16,
+    lineHeight: 22,
   },
   contactText: {
     textAlign: "center",
-    fontSize: 14,
+    fontSize: 16,
     marginBottom: 8,
   },
   contactButton: {
@@ -200,7 +231,7 @@ const styles = StyleSheet.create({
   },
   contactButtonText: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: "700",
   },
   infoBlock: {
     textAlign: "center",
@@ -208,45 +239,16 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   infoLabel: {
-    textAlign: "center",
     fontSize: 14,
     fontWeight: "600",
     marginBottom: 4,
   },
   infoValue: {
-    textAlign: "center",
-    fontSize: 14,
+    fontSize: 16,
   },
   detailsGrid: {
-    textAlign: "center",
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-  },
-  skeletonContainer: {
-    width: "100%",
-    padding: 16,
-    backgroundColor: "#ddd",
-    borderRadius: 8,
-    marginBottom: 16,
-  },
-  skeletonImage: {
-    width: "100%",
-    height: 150,
-    backgroundColor: "#ccc",
-    borderRadius: 8,
-  },
-  skeletonText: {
-    height: 20,
-    backgroundColor: "#eee",
-    borderRadius: 4,
-    marginVertical: 8,
-  },
-  skeletonButton: {
-    height: 40,
-    width: "50%",
-    backgroundColor: "#bbb",
-    borderRadius: 8,
-    alignSelf: "center",
   },
 });
