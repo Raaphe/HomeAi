@@ -30,7 +30,7 @@
 
 **Components**
 This is where your reusable components live which help you build your screens.
----
+
 **i18n**
 This is where your translations will live if you are using `react-native-i18n`.
 
