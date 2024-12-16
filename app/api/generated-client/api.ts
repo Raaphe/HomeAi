@@ -1295,6 +1295,31 @@ export const Role = {
 export type Role = typeof Role[keyof typeof Role];
 
 
+/**
+ * 
+ * @export
+ * @interface UserTokenGet200Response
+ */
+export interface UserTokenGet200Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UserTokenGet200Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserTokenGet200Response
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {IUser}
+     * @memberof UserTokenGet200Response
+     */
+    'data'?: IUser;
+}
 
 /**
  * AuthenticationApi - axios parameter creator
@@ -2515,6 +2540,44 @@ export class RealEstateAPIApi extends BaseAPI {
 export const UsersApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * Retrieves a specific user from values in an access token.
+         * @summary Gets a user by a valid token.
+         * @param {string} token JWT
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userTokenGet: async (token: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'token' is not null or undefined
+            assertParamExists('userTokenGet', 'token', token)
+            const localVarPath = `/user/{token}`
+                .replace(`{${"token"}}`, encodeURIComponent(String(token)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Retrieve a list of users from the API. Can be used to populate a list of users in your system.
          * @summary Retrieve a list of users
          * @param {*} [options] Override http request option.
@@ -2555,6 +2618,19 @@ export const UsersApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = UsersApiAxiosParamCreator(configuration)
     return {
         /**
+         * Retrieves a specific user from values in an access token.
+         * @summary Gets a user by a valid token.
+         * @param {string} token JWT
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async userTokenGet(token: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserTokenGet200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.userTokenGet(token, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UsersApi.userTokenGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Retrieve a list of users from the API. Can be used to populate a list of users in your system.
          * @summary Retrieve a list of users
          * @param {*} [options] Override http request option.
@@ -2577,6 +2653,16 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
     const localVarFp = UsersApiFp(configuration)
     return {
         /**
+         * Retrieves a specific user from values in an access token.
+         * @summary Gets a user by a valid token.
+         * @param {string} token JWT
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userTokenGet(token: string, options?: RawAxiosRequestConfig): AxiosPromise<UserTokenGet200Response> {
+            return localVarFp.userTokenGet(token, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Retrieve a list of users from the API. Can be used to populate a list of users in your system.
          * @summary Retrieve a list of users
          * @param {*} [options] Override http request option.
@@ -2595,6 +2681,18 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
  * @extends {BaseAPI}
  */
 export class UsersApi extends BaseAPI {
+    /**
+     * Retrieves a specific user from values in an access token.
+     * @summary Gets a user by a valid token.
+     * @param {string} token JWT
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApi
+     */
+    public userTokenGet(token: string, options?: RawAxiosRequestConfig) {
+        return UsersApiFp(this.configuration).userTokenGet(token, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * Retrieve a list of users from the API. Can be used to populate a list of users in your system.
      * @summary Retrieve a list of users
