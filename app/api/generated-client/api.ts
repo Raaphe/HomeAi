@@ -26,31 +26,6 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
- * @interface ApiV1UsersGet200ResponseInner
- */
-export interface ApiV1UsersGet200ResponseInner {
-    /**
-     * 
-     * @type {number}
-     * @memberof ApiV1UsersGet200ResponseInner
-     */
-    'id'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ApiV1UsersGet200ResponseInner
-     */
-    'name'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ApiV1UsersGet200ResponseInner
-     */
-    'mail'?: string;
-}
-/**
- * 
- * @export
  * @interface AuthPost200Response
  */
 export interface AuthPost200Response {
@@ -104,6 +79,723 @@ export interface AuthPostRequest {
      * @memberof AuthPostRequest
      */
     'password'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface AuthenticationDTO
+ */
+export interface AuthenticationDTO {
+    /**
+     * 
+     * @type {string}
+     * @memberof AuthenticationDTO
+     */
+    'password'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AuthenticationDTO
+     */
+    'username'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateListingDTO
+ */
+export interface CreateListingDTO {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateListingDTO
+     */
+    'address'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateListingDTO
+     */
+    'bathrooms'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateListingDTO
+     */
+    'bedrooms'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateListingDTO
+     */
+    'building_size'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateListingDTO
+     */
+    'city'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateListingDTO
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateListingDTO
+     */
+    'email'?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof CreateListingDTO
+     */
+    'images'?: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateListingDTO
+     */
+    'land_size'?: number;
+    /**
+     * 
+     * @type {Price}
+     * @memberof CreateListingDTO
+     */
+    'prices'?: Price;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateListingDTO
+     */
+    'property_id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateListingDTO
+     */
+    'property_type'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateListingDTO
+     */
+    'state'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateListingDTO
+     */
+    'url'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateListingDTO
+     */
+    'zip_code'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface HouseDTO
+ */
+export interface HouseDTO {
+    /**
+     * 
+     * @type {number}
+     * @memberof HouseDTO
+     */
+    'acres'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof HouseDTO
+     */
+    'bathrooms'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof HouseDTO
+     */
+    'bedrooms'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof HouseDTO
+     */
+    'living_space_size'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof HouseDTO
+     */
+    'state'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof HouseDTO
+     */
+    'zip_code'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface IProperty
+ */
+export interface IProperty {
+    /**
+     * 
+     * @type {string}
+     * @memberof IProperty
+     */
+    'address'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof IProperty
+     */
+    'bathrooms'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof IProperty
+     */
+    'bedrooms'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof IProperty
+     */
+    'building_size'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof IProperty
+     */
+    'city'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof IProperty
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof IProperty
+     */
+    'images'?: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof IProperty
+     */
+    'land_size'?: number;
+    /**
+     * 
+     * @type {Price}
+     * @memberof IProperty
+     */
+    'prices'?: Price;
+    /**
+     * 
+     * @type {string}
+     * @memberof IProperty
+     */
+    'property_id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof IProperty
+     */
+    'property_type'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof IProperty
+     */
+    'state'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof IProperty
+     */
+    'url'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof IProperty
+     */
+    'zip_code'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ISoldProperty
+ */
+export interface ISoldProperty {
+    /**
+     * 
+     * @type {number}
+     * @memberof ISoldProperty
+     */
+    'acre_lot'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ISoldProperty
+     */
+    'bath'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ISoldProperty
+     */
+    'bed'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ISoldProperty
+     */
+    'city'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ISoldProperty
+     */
+    'house_size'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ISoldProperty
+     */
+    'prev_sold_data'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ISoldProperty
+     */
+    'price'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ISoldProperty
+     */
+    'state'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ISoldProperty
+     */
+    'street'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ISoldProperty
+     */
+    'zip_code'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface IUser
+ */
+export interface IUser {
+    /**
+     * 
+     * @type {string}
+     * @memberof IUser
+     */
+    '_id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof IUser
+     */
+    'company'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof IUser
+     */
+    'company_url'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof IUser
+     */
+    'email'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof IUser
+     */
+    'first_name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof IUser
+     */
+    'last_name'?: string;
+    /**
+     * 
+     * @type {Array<IProperty>}
+     * @memberof IUser
+     */
+    'listings'?: Array<IProperty>;
+    /**
+     * 
+     * @type {string}
+     * @memberof IUser
+     */
+    'password'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof IUser
+     */
+    'phone_number'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof IUser
+     */
+    'profile_pic'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof IUser
+     */
+    'role'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof IUser
+     */
+    'userName'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListingDetailed
+ */
+export interface ListingDetailed {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingDetailed
+     */
+    'address'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingDetailed
+     */
+    'bathrooms'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingDetailed
+     */
+    'bedrooms'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingDetailed
+     */
+    'building_size'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingDetailed
+     */
+    'city'?: string;
+    /**
+     * 
+     * @type {ListingDetailedContact}
+     * @memberof ListingDetailed
+     */
+    'contact'?: ListingDetailedContact;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingDetailed
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingDetailed
+     */
+    'estimated_market_price'?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ListingDetailed
+     */
+    'images'?: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingDetailed
+     */
+    'land_size'?: number;
+    /**
+     * 
+     * @type {Price}
+     * @memberof ListingDetailed
+     */
+    'prices'?: Price;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingDetailed
+     */
+    'property_id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingDetailed
+     */
+    'property_type'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingDetailed
+     */
+    'state'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingDetailed
+     */
+    'url'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingDetailed
+     */
+    'zip_code'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListingDetailedContact
+ */
+export interface ListingDetailedContact {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingDetailedContact
+     */
+    'company'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingDetailedContact
+     */
+    'company_url'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingDetailedContact
+     */
+    'first_name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingDetailedContact
+     */
+    'last_name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingDetailedContact
+     */
+    'phone_number'?: string;
+    /**
+     * 
+     * @type {any}
+     * @memberof ListingDetailedContact
+     */
+    'profile_pic'?: any;
+}
+/**
+ * 
+ * @export
+ * @interface ListingIdDelete200Response
+ */
+export interface ListingIdDelete200Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingIdDelete200Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingIdDelete200Response
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListingIdDelete200Response
+     */
+    'data'?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface ListingIdDelete400Response
+ */
+export interface ListingIdDelete400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingIdDelete400Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingIdDelete400Response
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListingIdDelete400Response
+     */
+    'data'?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface ListingIdDelete404Response
+ */
+export interface ListingIdDelete404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingIdDelete404Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingIdDelete404Response
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListingIdDelete404Response
+     */
+    'data'?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface ListingIdDelete500Response
+ */
+export interface ListingIdDelete500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingIdDelete500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingIdDelete500Response
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListingIdDelete500Response
+     */
+    'data'?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface ListingIdGet200Response
+ */
+export interface ListingIdGet200Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingIdGet200Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingIdGet200Response
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {ListingDetailed}
+     * @memberof ListingIdGet200Response
+     */
+    'data'?: ListingDetailed;
+}
+/**
+ * 
+ * @export
+ * @interface ListingIdGet404Response
+ */
+export interface ListingIdGet404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingIdGet404Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingIdGet404Response
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {object}
+     * @memberof ListingIdGet404Response
+     */
+    'data'?: object;
+}
+/**
+ * 
+ * @export
+ * @interface ListingIdGet500Response
+ */
+export interface ListingIdGet500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingIdGet500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingIdGet500Response
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {any}
+     * @memberof ListingIdGet500Response
+     */
+    'data'?: any;
 }
 /**
  * 
@@ -183,136 +875,77 @@ export interface ListingPost500Response {
 /**
  * 
  * @export
- * @interface ListingPostRequest
+ * @interface ListingPut200Response
  */
-export interface ListingPostRequest {
-    /**
-     * Email of the user to associate the listing with.
-     * @type {string}
-     * @memberof ListingPostRequest
-     */
-    'email'?: string;
-    /**
-     * Zip code of the property.
-     * @type {string}
-     * @memberof ListingPostRequest
-     */
-    'zip_code'?: string;
-    /**
-     * Number of bathrooms.
-     * @type {number}
-     * @memberof ListingPostRequest
-     */
-    'bathrooms'?: number;
-    /**
-     * Size of the land in square meters.
-     * @type {number}
-     * @memberof ListingPostRequest
-     */
-    'land_size'?: number;
-    /**
-     * State where the property is located.
-     * @type {string}
-     * @memberof ListingPostRequest
-     */
-    'state'?: string;
-    /**
-     * City where the property is located.
-     * @type {string}
-     * @memberof ListingPostRequest
-     */
-    'city'?: string;
-    /**
-     * Size of the building in square meters.
-     * @type {number}
-     * @memberof ListingPostRequest
-     */
-    'building_size'?: number;
-    /**
-     * Type of the property.
-     * @type {string}
-     * @memberof ListingPostRequest
-     */
-    'property_type'?: string;
-    /**
-     * Address of the property.
-     * @type {string}
-     * @memberof ListingPostRequest
-     */
-    'address'?: string;
-    /**
-     * Unique identifier for the property.
-     * @type {string}
-     * @memberof ListingPostRequest
-     */
-    'property_id'?: string;
+export interface ListingPut200Response {
     /**
      * 
-     * @type {Array<string>}
-     * @memberof ListingPostRequest
-     */
-    'images'?: Array<string>;
-    /**
-     * Number of bedrooms.
      * @type {number}
-     * @memberof ListingPostRequest
+     * @memberof ListingPut200Response
      */
-    'bedrooms'?: number;
+    'code'?: number;
     /**
-     * URL of the property listing.
+     * 
      * @type {string}
-     * @memberof ListingPostRequest
+     * @memberof ListingPut200Response
      */
-    'url'?: string;
+    'message'?: string;
     /**
-     * Description of the property.
-     * @type {string}
-     * @memberof ListingPostRequest
+     * 
+     * @type {boolean}
+     * @memberof ListingPut200Response
      */
-    'description'?: string;
-    /**
-     * Pricing information for the property.
-     * @type {object}
-     * @memberof ListingPostRequest
-     */
-    'prices'?: object;
+    'data'?: boolean;
 }
 /**
  * 
  * @export
- * @interface ListingsAvailableGet200Response
+ * @interface ListingPut404Response
  */
-export interface ListingsAvailableGet200Response {
+export interface ListingPut404Response {
     /**
-     * Unique identifier of the listing.
-     * @type {string}
-     * @memberof ListingsAvailableGet200Response
-     */
-    'id'?: string;
-    /**
-     * Title or name of the property listing.
-     * @type {string}
-     * @memberof ListingsAvailableGet200Response
-     */
-    'title'?: string;
-    /**
-     * Price of the property.
+     * 
      * @type {number}
-     * @memberof ListingsAvailableGet200Response
+     * @memberof ListingPut404Response
      */
-    'price'?: number;
+    'code'?: number;
     /**
-     * Location of the property.
+     * 
      * @type {string}
-     * @memberof ListingsAvailableGet200Response
+     * @memberof ListingPut404Response
      */
-    'location'?: string;
+    'message'?: string;
     /**
-     * Other relevant fields of the ListingDetailed object.
-     * @type {any}
-     * @memberof ListingsAvailableGet200Response
+     * 
+     * @type {boolean}
+     * @memberof ListingPut404Response
      */
-    '[ other_properties ]'?: any;
+    'data'?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface ListingPut500Response
+ */
+export interface ListingPut500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingPut500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingPut500Response
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListingPut500Response
+     */
+    'data'?: boolean;
 }
 /**
  * 
@@ -367,89 +1000,10 @@ export interface ListingsAvailableZipCodePost200Response {
     'total_number_of_listings'?: number;
     /**
      * 
-     * @type {Array<ListingsAvailableZipCodePost200ResponseListingsInner>}
+     * @type {Array<ListingDetailed>}
      * @memberof ListingsAvailableZipCodePost200Response
      */
-    'listings'?: Array<ListingsAvailableZipCodePost200ResponseListingsInner>;
-}
-/**
- * 
- * @export
- * @interface ListingsAvailableZipCodePost200ResponseListingsInner
- */
-export interface ListingsAvailableZipCodePost200ResponseListingsInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof ListingsAvailableZipCodePost200ResponseListingsInner
-     */
-    'id'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ListingsAvailableZipCodePost200ResponseListingsInner
-     */
-    'address'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ListingsAvailableZipCodePost200ResponseListingsInner
-     */
-    'city'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ListingsAvailableZipCodePost200ResponseListingsInner
-     */
-    'state'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ListingsAvailableZipCodePost200ResponseListingsInner
-     */
-    'zip_code'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ListingsAvailableZipCodePost200ResponseListingsInner
-     */
-    'property_type'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ListingsAvailableZipCodePost200ResponseListingsInner
-     */
-    'bedrooms'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ListingsAvailableZipCodePost200ResponseListingsInner
-     */
-    'bathrooms'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ListingsAvailableZipCodePost200ResponseListingsInner
-     */
-    'building_size'?: number;
-    /**
-     * 
-     * @type {{ [key: string]: number; }}
-     * @memberof ListingsAvailableZipCodePost200ResponseListingsInner
-     */
-    'prices'?: { [key: string]: number; };
-    /**
-     * 
-     * @type {string}
-     * @memberof ListingsAvailableZipCodePost200ResponseListingsInner
-     */
-    'image'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ListingsAvailableZipCodePost200ResponseListingsInner
-     */
-    'url'?: string;
+    'listings'?: Array<ListingDetailed>;
 }
 /**
  * 
@@ -463,6 +1017,100 @@ export interface ListingsAvailableZipCodePostRequest {
      * @memberof ListingsAvailableZipCodePostRequest
      */
     'number_of_listings'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface ListingsGet200Response
+ */
+export interface ListingsGet200Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingsGet200Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingsGet200Response
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {Array<ListingDetailed>}
+     * @memberof ListingsGet200Response
+     */
+    'data'?: Array<ListingDetailed>;
+}
+/**
+ * 
+ * @export
+ * @interface ListingsGet500Response
+ */
+export interface ListingsGet500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingsGet500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingsGet500Response
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {any}
+     * @memberof ListingsGet500Response
+     */
+    'data'?: any;
+}
+/**
+ * 
+ * @export
+ * @interface LoginDTO
+ */
+export interface LoginDTO {
+    /**
+     * 
+     * @type {string}
+     * @memberof LoginDTO
+     */
+    'password'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LoginDTO
+     */
+    'username'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface Price
+ */
+export interface Price {
+    /**
+     * 
+     * @type {number}
+     * @memberof Price
+     */
+    'CAD'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Price
+     */
+    'EUR'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Price
+     */
+    'USD'?: number;
 }
 /**
  * 
@@ -557,6 +1205,96 @@ export interface RegisterPostRequest {
      */
     'pfp'?: string;
 }
+/**
+ * 
+ * @export
+ * @interface RegistrationDTO
+ */
+export interface RegistrationDTO {
+    /**
+     * 
+     * @type {string}
+     * @memberof RegistrationDTO
+     */
+    'company_name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RegistrationDTO
+     */
+    'first_name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RegistrationDTO
+     */
+    'last_name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RegistrationDTO
+     */
+    'password'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RegistrationDTO
+     */
+    'phone_number'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RegistrationDTO
+     */
+    'profile_picture'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RegistrationDTO
+     */
+    'username'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ResponseObject
+ */
+export interface ResponseObject {
+    /**
+     * 
+     * @type {number}
+     * @memberof ResponseObject
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {object}
+     * @memberof ResponseObject
+     */
+    'data'?: object;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResponseObject
+     */
+    'message'?: string;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const Role = {
+    Admin: 'admin',
+    User: 'user',
+    Moderator: 'moderator',
+    Guest: 'guest'
+} as const;
+
+export type Role = typeof Role[keyof typeof Role];
+
+
 
 /**
  * AuthenticationApi - axios parameter creator
@@ -734,111 +1472,6 @@ export class AuthenticationApi extends BaseAPI {
      */
     public registerPost(registerPostRequest: RegisterPostRequest, options?: RawAxiosRequestConfig) {
         return AuthenticationApiFp(this.configuration).registerPost(registerPostRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-
-/**
- * DefaultApi - axios parameter creator
- * @export
- */
-export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * Retrieve a list of users from the API. Can be used to populate a list of users in your system.
-         * @summary Retrieve a list of users
-         * @param {*} [options] Override http request option.
-         * @deprecated
-         * @throws {RequiredError}
-         */
-        apiV1UsersGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/v1/users`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * DefaultApi - functional programming interface
- * @export
- */
-export const DefaultApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * Retrieve a list of users from the API. Can be used to populate a list of users in your system.
-         * @summary Retrieve a list of users
-         * @param {*} [options] Override http request option.
-         * @deprecated
-         * @throws {RequiredError}
-         */
-        async apiV1UsersGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1UsersGet200ResponseInner>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersGet(options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['DefaultApi.apiV1UsersGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-    }
-};
-
-/**
- * DefaultApi - factory interface
- * @export
- */
-export const DefaultApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = DefaultApiFp(configuration)
-    return {
-        /**
-         * Retrieve a list of users from the API. Can be used to populate a list of users in your system.
-         * @summary Retrieve a list of users
-         * @param {*} [options] Override http request option.
-         * @deprecated
-         * @throws {RequiredError}
-         */
-        apiV1UsersGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<ApiV1UsersGet200ResponseInner>> {
-            return localVarFp.apiV1UsersGet(options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * DefaultApi - object-oriented interface
- * @export
- * @class DefaultApi
- * @extends {BaseAPI}
- */
-export class DefaultApi extends BaseAPI {
-    /**
-     * Retrieve a list of users from the API. Can be used to populate a list of users in your system.
-     * @summary Retrieve a list of users
-     * @param {*} [options] Override http request option.
-     * @deprecated
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public apiV1UsersGet(options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).apiV1UsersGet(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1286,15 +1919,91 @@ export class HistoricDataApi extends BaseAPI {
 export const ListingsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Adds a new property listing to a user\'s profile.
-         * @summary Create a new listing for a user
-         * @param {ListingPostRequest} listingPostRequest 
+         * Deletes a specific listing from the database using the provided listing ID.
+         * @summary Delete a listing by its ID
+         * @param {string} id The ID of the listing to be deleted.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listingPost: async (listingPostRequest: ListingPostRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'listingPostRequest' is not null or undefined
-            assertParamExists('listingPost', 'listingPostRequest', listingPostRequest)
+        listingIdDelete: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('listingIdDelete', 'id', id)
+            const localVarPath = `/listing/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Retrieves a specific property listing using its unique identifier.
+         * @summary Get a specific listing by ID
+         * @param {string} id Unique identifier for the listing.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listingIdGet: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('listingIdGet', 'id', id)
+            const localVarPath = `/listing/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Adds a new property listing to a user\'s profile.
+         * @summary Create a new listing for a user
+         * @param {CreateListingDTO} createListingDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listingPost: async (createListingDTO: CreateListingDTO, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createListingDTO' is not null or undefined
+            assertParamExists('listingPost', 'createListingDTO', createListingDTO)
             const localVarPath = `/listing`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1318,7 +2027,81 @@ export const ListingsApiAxiosParamCreator = function (configuration?: Configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(listingPostRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(createListingDTO, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Updates an existing property listing with the provided details.
+         * @summary Edit an existing listing
+         * @param {CreateListingDTO} createListingDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listingPut: async (createListingDTO: CreateListingDTO, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createListingDTO' is not null or undefined
+            assertParamExists('listingPut', 'createListingDTO', createListingDTO)
+            const localVarPath = `/listing`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createListingDTO, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Fetches all the property listings from the system.
+         * @summary Retrieve all listings
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listingsGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/listings`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1336,16 +2119,67 @@ export const ListingsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ListingsApiAxiosParamCreator(configuration)
     return {
         /**
-         * Adds a new property listing to a user\'s profile.
-         * @summary Create a new listing for a user
-         * @param {ListingPostRequest} listingPostRequest 
+         * Deletes a specific listing from the database using the provided listing ID.
+         * @summary Delete a listing by its ID
+         * @param {string} id The ID of the listing to be deleted.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listingPost(listingPostRequest: ListingPostRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListingPost201Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listingPost(listingPostRequest, options);
+        async listingIdDelete(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListingIdDelete200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listingIdDelete(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ListingsApi.listingIdDelete']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Retrieves a specific property listing using its unique identifier.
+         * @summary Get a specific listing by ID
+         * @param {string} id Unique identifier for the listing.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listingIdGet(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListingIdGet200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listingIdGet(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ListingsApi.listingIdGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Adds a new property listing to a user\'s profile.
+         * @summary Create a new listing for a user
+         * @param {CreateListingDTO} createListingDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listingPost(createListingDTO: CreateListingDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListingPost201Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listingPost(createListingDTO, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ListingsApi.listingPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Updates an existing property listing with the provided details.
+         * @summary Edit an existing listing
+         * @param {CreateListingDTO} createListingDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listingPut(createListingDTO: CreateListingDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListingPut200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listingPut(createListingDTO, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ListingsApi.listingPut']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Fetches all the property listings from the system.
+         * @summary Retrieve all listings
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listingsGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListingsGet200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listingsGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ListingsApi.listingsGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -1359,14 +2193,53 @@ export const ListingsApiFactory = function (configuration?: Configuration, baseP
     const localVarFp = ListingsApiFp(configuration)
     return {
         /**
-         * Adds a new property listing to a user\'s profile.
-         * @summary Create a new listing for a user
-         * @param {ListingPostRequest} listingPostRequest 
+         * Deletes a specific listing from the database using the provided listing ID.
+         * @summary Delete a listing by its ID
+         * @param {string} id The ID of the listing to be deleted.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listingPost(listingPostRequest: ListingPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListingPost201Response> {
-            return localVarFp.listingPost(listingPostRequest, options).then((request) => request(axios, basePath));
+        listingIdDelete(id: string, options?: RawAxiosRequestConfig): AxiosPromise<ListingIdDelete200Response> {
+            return localVarFp.listingIdDelete(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Retrieves a specific property listing using its unique identifier.
+         * @summary Get a specific listing by ID
+         * @param {string} id Unique identifier for the listing.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listingIdGet(id: string, options?: RawAxiosRequestConfig): AxiosPromise<ListingIdGet200Response> {
+            return localVarFp.listingIdGet(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Adds a new property listing to a user\'s profile.
+         * @summary Create a new listing for a user
+         * @param {CreateListingDTO} createListingDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listingPost(createListingDTO: CreateListingDTO, options?: RawAxiosRequestConfig): AxiosPromise<ListingPost201Response> {
+            return localVarFp.listingPost(createListingDTO, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates an existing property listing with the provided details.
+         * @summary Edit an existing listing
+         * @param {CreateListingDTO} createListingDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listingPut(createListingDTO: CreateListingDTO, options?: RawAxiosRequestConfig): AxiosPromise<ListingPut200Response> {
+            return localVarFp.listingPut(createListingDTO, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Fetches all the property listings from the system.
+         * @summary Retrieve all listings
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listingsGet(options?: RawAxiosRequestConfig): AxiosPromise<ListingsGet200Response> {
+            return localVarFp.listingsGet(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1379,15 +2252,62 @@ export const ListingsApiFactory = function (configuration?: Configuration, baseP
  */
 export class ListingsApi extends BaseAPI {
     /**
-     * Adds a new property listing to a user\'s profile.
-     * @summary Create a new listing for a user
-     * @param {ListingPostRequest} listingPostRequest 
+     * Deletes a specific listing from the database using the provided listing ID.
+     * @summary Delete a listing by its ID
+     * @param {string} id The ID of the listing to be deleted.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListingsApi
      */
-    public listingPost(listingPostRequest: ListingPostRequest, options?: RawAxiosRequestConfig) {
-        return ListingsApiFp(this.configuration).listingPost(listingPostRequest, options).then((request) => request(this.axios, this.basePath));
+    public listingIdDelete(id: string, options?: RawAxiosRequestConfig) {
+        return ListingsApiFp(this.configuration).listingIdDelete(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Retrieves a specific property listing using its unique identifier.
+     * @summary Get a specific listing by ID
+     * @param {string} id Unique identifier for the listing.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ListingsApi
+     */
+    public listingIdGet(id: string, options?: RawAxiosRequestConfig) {
+        return ListingsApiFp(this.configuration).listingIdGet(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Adds a new property listing to a user\'s profile.
+     * @summary Create a new listing for a user
+     * @param {CreateListingDTO} createListingDTO 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ListingsApi
+     */
+    public listingPost(createListingDTO: CreateListingDTO, options?: RawAxiosRequestConfig) {
+        return ListingsApiFp(this.configuration).listingPost(createListingDTO, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Updates an existing property listing with the provided details.
+     * @summary Edit an existing listing
+     * @param {CreateListingDTO} createListingDTO 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ListingsApi
+     */
+    public listingPut(createListingDTO: CreateListingDTO, options?: RawAxiosRequestConfig) {
+        return ListingsApiFp(this.configuration).listingPut(createListingDTO, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Fetches all the property listings from the system.
+     * @summary Retrieve all listings
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ListingsApi
+     */
+    public listingsGet(options?: RawAxiosRequestConfig) {
+        return ListingsApiFp(this.configuration).listingsGet(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1499,7 +2419,7 @@ export const RealEstateAPIApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listingsAvailableGet(listingUrl: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListingsAvailableGet200Response>> {
+        async listingsAvailableGet(listingUrl: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListingDetailed>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listingsAvailableGet(listingUrl, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['RealEstateAPIApi.listingsAvailableGet']?.[localVarOperationServerIndex]?.url;
@@ -1536,7 +2456,7 @@ export const RealEstateAPIApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listingsAvailableGet(listingUrl: string, options?: RawAxiosRequestConfig): AxiosPromise<ListingsAvailableGet200Response> {
+        listingsAvailableGet(listingUrl: string, options?: RawAxiosRequestConfig): AxiosPromise<ListingDetailed> {
             return localVarFp.listingsAvailableGet(listingUrl, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1583,6 +2503,107 @@ export class RealEstateAPIApi extends BaseAPI {
      */
     public listingsAvailableZipCodePost(zipCode: string, listingsAvailableZipCodePostRequest?: ListingsAvailableZipCodePostRequest, options?: RawAxiosRequestConfig) {
         return RealEstateAPIApiFp(this.configuration).listingsAvailableZipCodePost(zipCode, listingsAvailableZipCodePostRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * UsersApi - axios parameter creator
+ * @export
+ */
+export const UsersApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Retrieve a list of users from the API. Can be used to populate a list of users in your system.
+         * @summary Retrieve a list of users
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/users`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * UsersApi - functional programming interface
+ * @export
+ */
+export const UsersApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = UsersApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Retrieve a list of users from the API. Can be used to populate a list of users in your system.
+         * @summary Retrieve a list of users
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<IUser>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UsersApi.usersGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * UsersApi - factory interface
+ * @export
+ */
+export const UsersApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = UsersApiFp(configuration)
+    return {
+        /**
+         * Retrieve a list of users from the API. Can be used to populate a list of users in your system.
+         * @summary Retrieve a list of users
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<IUser>> {
+            return localVarFp.usersGet(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * UsersApi - object-oriented interface
+ * @export
+ * @class UsersApi
+ * @extends {BaseAPI}
+ */
+export class UsersApi extends BaseAPI {
+    /**
+     * Retrieve a list of users from the API. Can be used to populate a list of users in your system.
+     * @summary Retrieve a list of users
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApi
+     */
+    public usersGet(options?: RawAxiosRequestConfig) {
+        return UsersApiFp(this.configuration).usersGet(options).then((request) => request(this.axios, this.basePath));
     }
 }
 

@@ -7,6 +7,7 @@ import { AppStackScreenProps } from "../navigators"
 import type { ThemedStyle } from "@/theme"
 import { useNavigation } from '@react-navigation/native';
 import { useAppTheme } from "@/utils/useAppTheme"
+import { AuthenticationApi } from "@/api/generated-client"
 
 interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
 
@@ -27,35 +28,26 @@ export const LoginScreen: FC<any> = observer(function LoginScreen(_props) {
     theme: { colors },
   } = useAppTheme()
 
-  useEffect(() => {
-    // Here is where you could fetch credentials from keychain or storage
-    // and pre-fill the form fields.
-    setAuthEmail("ignite@infinite.red")
-    setAuthPassword("ign1teIsAwes0m3")
-
-    // Return a "cleanup" function that React will run when the component unmounts
-    return () => {
-      setAuthPassword("")
-      setAuthEmail("")
-    }
-  }, [setAuthEmail])
-
   const error = isSubmitted ? validationError : ""
 
-  function login() {
+  async function login() {
     setIsSubmitted(true)
     setAttemptsCount(attemptsCount + 1)
 
-    if (validationError) return
+    const response = await new AuthenticationApi().authPost({
+      email: authEmail,
+      password: authPassword
+    })
 
-    // Make a request to your server to get an authentication token.
-    // If successful, reset the fields and set the token.
+    if (response.status !== 200) return
+
     setIsSubmitted(false)
     setAuthPassword("")
     setAuthEmail("")
 
-    // We'll mock this with a fake token.
-    setAuthToken(String(Date.now()))
+    setAuthToken(response.data.data)
+
+    navigation.navigate('UserListings')
   }
 
   const PasswordRightAccessory: ComponentType<TextFieldAccessoryProps> = useMemo(

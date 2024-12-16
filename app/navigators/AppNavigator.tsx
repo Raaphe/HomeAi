@@ -16,6 +16,7 @@ import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { useAppTheme, useThemeProvider } from "@/utils/useAppTheme"
 import { ComponentProps } from "react"
 import { SignUpScreen } from "@/screens/SignUpScreen"
+import { UserListings } from "@/screens/UserListings"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -36,6 +37,7 @@ export type AppStackParamList = {
   Demo: NavigatorScreenParams<DemoTabParamList>
   ListingDetails: { url: string }
   SignUpScreen: undefined
+  UserListings: undefined
   
   // 🔥 Your screens go here
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
@@ -81,6 +83,7 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="Demo" component={DemoNavigator} />
           <Stack.Screen name="ListingDetails" component={ListingDetails}/>
           <Stack.Screen name="SignUpScreen" component={SignUpScreen}/>
+          <Stack.Screen name="UserListings" component={UserListings}/>
         </>
       }
 

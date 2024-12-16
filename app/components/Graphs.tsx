@@ -1,23 +1,28 @@
-import { BarChart, LineChart } from "react-native-chart-kit"
+import { BarChart, LineChart } from "react-native-chart-kit";
+import { useAppTheme } from "@/utils/useAppTheme";
 
 type ChartData = {
-  labels: string[]
+  labels: string[];
   datasets: {
-    data: number[]
-  }[]
-}
-const chartConfig = {
-    backgroundGradientFrom: "#000",
-    backgroundGradientTo: "#333", 
-    color: (opacity = 1) => `rgba(255, 255, 0, ${opacity})`,
+    data: number[];
+  }[];
+};
+
+export const GraphBar = ({ data, screenWidth }: { data: ChartData; screenWidth: number }) => {
+  const { theme } = useAppTheme();
+
+  const chartConfig = {
+    backgroundGradientFrom: theme.colors.background,
+    backgroundGradientTo: theme.colors.background,
+    color: (opacity = 1) => theme.colors.text,
     strokeWidth: 0.2,
     barPercentage: 1,
     propsForLabels: {
       fontSize: 10,
-      color: "#FFD700",
+      color: theme.colors.text,
     },
-  }
-export const GraphBar = ({ data, screenWidth }: { data: ChartData; screenWidth: number }) => {
+  };
+
   return (
     <BarChart
       data={data}
@@ -33,10 +38,24 @@ export const GraphBar = ({ data, screenWidth }: { data: ChartData; screenWidth: 
       yAxisInterval={1}
       fromZero={false}
     />
-  )
-}
+  );
+};
 
 export const GraphLine = ({ data, screenWidth }: { data: ChartData; screenWidth: number }) => {
+  const { theme } = useAppTheme();
+
+  const chartConfig = {
+    backgroundGradientFrom: theme.colors.background,
+    backgroundGradientTo: theme.colors.background,
+    color: (opacity = 1) => theme.colors.text,
+    strokeWidth: 0.2,
+    barPercentage: 1,
+    propsForLabels: {
+      fontSize: 10,
+      color: theme.colors.text,
+    },
+  };
+
   return (
     <LineChart
       data={data}
@@ -44,5 +63,5 @@ export const GraphLine = ({ data, screenWidth }: { data: ChartData; screenWidth:
       height={520}
       chartConfig={chartConfig}
     />
-  )
-}
+  );
+};

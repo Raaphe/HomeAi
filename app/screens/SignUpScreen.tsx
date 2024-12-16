@@ -1,71 +1,48 @@
-import { observer } from "mobx-react-lite"
-import { ComponentType, FC, useEffect, useMemo, useRef, useState } from "react"
-import { TextInput, TextStyle, ViewStyle } from "react-native"
-import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "../components"
-import { useStores } from "../models"
-import { AppStackScreenProps } from "../navigators"
-import type { ThemedStyle } from "@/theme"
-import { useAppTheme } from "@/utils/useAppTheme"
-import { useNavigation } from '@react-navigation/native';
-import { integer, number } from "mobx-state-tree/dist/internal"
+import { observer } from "mobx-react-lite";
+import { ComponentType, FC, useEffect, useMemo, useRef, useState } from "react";
+import { TextInput, TextStyle, ViewStyle } from "react-native";
+import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "../components";
+import { useStores } from "../models";
+import type { ThemedStyle } from "@/theme";
+import { useAppTheme } from "@/utils/useAppTheme";
+import { useNavigation } from "@react-navigation/native";
+import { AuthenticationApi } from "../api/generated-client/api";
 
-export const SignUpScreen: FC<any> = observer(function SignUpScreen(_props) {
-  const authPasswordInput = useRef<TextInput>(null)
-  const navigation = useNavigation();
-  const [authPassword, setAuthPassword] = useState("")
-  const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [attemptsCount, setAttemptsCount] = useState(0)
+export const SignUpScreen: FC = observer(function SignUpScreen() {
+  // References to text inputs
+  const firstNameInput = useRef<TextInput>(null);
+  const lastNameInput = useRef<TextInput>(null);
+  const emailInput = useRef<TextInput>(null);
+  const passwordInput = useRef<TextInput>(null);
+  const phoneNumberInput = useRef<TextInput>(null);
+  const companyNameInput = useRef<TextInput>(null);
+  const profilePicInput = useRef<TextInput>(null);
+
+  // State management
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [authEmail, setAuthEmail] = useState("");
+  const [authPassword, setAuthPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [profilePic, setProfilePic] = useState("");
+  const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   const {
-    authenticationStore: { authEmail, setAuthEmail, setAuthToken, validationError },
-  } = useStores()
-  const {
-    themed,
     theme: { colors },
-  } = useAppTheme()
+    themed,
+  } = useAppTheme();
 
-  const [firstName, setFirstName] = useState("")
-  const firstNameInput = useRef<TextInput>(null)
-  const [lastName, setLastName] = useState("")
-  const lastNameInput = useRef<TextInput>(null)
-  const [phoneNumber, setPhoneNumber] = useState("")
-  const phoneNumberInput = useRef<TextInput>(null)
-  const [companyName, setCompanyName] = useState("")
-  const companyNameInput = useRef<TextInput>(null)
-  const [profilePic, setProfilePic] = useState("")
-  const profilePicInput = useRef<TextInput>(null)
+  const navigation = useNavigation();
+  const {
+    authenticationStore: { setAuthToken },
+  } = useStores();
 
-  useEffect(() => {
-    // Here is where you could fetch credentials from keychain or storage
-    // and pre-fill the form fields.
-    setAuthEmail("ignite@infinite.red")
-    setAuthPassword("ign1teIsAwes0m3")
+  // Validation error logic (placeholder for real validation)
+  const validationError = isSubmitted && !authEmail ? "Email is required" : "";
 
-    // Return a "cleanup" function that React will run when the component unmounts
-    return () => {
-      setAuthPassword("")
-      setAuthEmail("")
-    }
-  }, [setAuthEmail])
-
-  const error = isSubmitted ? validationError : ""
-
-  function signUp() {
-    setIsSubmitted(true)
-    setAttemptsCount(attemptsCount + 1)
-
-    if (validationError) return
-
-    // Make a request to your server to get an authentication token.
-    // If successful, reset the fields and set the token.
-    setIsSubmitted(false)
-    setAuthPassword("")
-    setAuthEmail("")
-
-    // We'll mock this with a fake token.
-    setAuthToken(String(Date.now()))
-  }
-
+  // Password toggle icon logic
   const PasswordRightAccessory: ComponentType<TextFieldAccessoryProps> = useMemo(
     () =>
       function PasswordRightAccessory(props: TextFieldAccessoryProps) {
@@ -77,10 +54,49 @@ export const SignUpScreen: FC<any> = observer(function SignUpScreen(_props) {
             size={20}
             onPress={() => setIsAuthPasswordHidden(!isAuthPasswordHidden)}
           />
-        )
+        );
       },
-    [isAuthPasswordHidden, colors.palette.neutral800],
-  )
+    [isAuthPasswordHidden, colors.palette.neutral800]
+  );
+
+  // Sign-up function
+  async function signUp() {
+    setIsSubmitted(true);
+
+    if (!authEmail || !authPassword || !firstName || !lastName) {
+      return; // Basic validation
+    }
+
+    try {
+      const response = await new AuthenticationApi().registerPost({
+        first_name: firstName,
+        last_name: lastName,
+        company_name: companyName,
+        email: authEmail,
+        password: authPassword,
+        phone: phoneNumber,
+        pfp: profilePic,
+      });
+
+      if (response.status === 200) {
+        setAuthToken(response.data.data);
+        resetForm();
+      }
+    } catch (error) {
+      console.error("Sign-up error:", error);
+    }
+  }
+
+  function resetForm() {
+    setFirstName("");
+    setLastName("");
+    setAuthEmail("");
+    setAuthPassword("");
+    setPhoneNumber("");
+    setCompanyName("");
+    setProfilePic("");
+    setIsSubmitted(false);
+  }
 
   return (
     <Screen
@@ -88,23 +104,25 @@ export const SignUpScreen: FC<any> = observer(function SignUpScreen(_props) {
       contentContainerStyle={themed($screenContentContainer)}
       safeAreaEdges={["top", "bottom"]}
     >
-      <Text testID="login-heading" preset="heading" style={themed($logIn)}>Sign Up</Text>
-      <Text preset="subheading" style={themed($enterDetails)}>Please enter your information to get started</Text>
-      {attemptsCount > 2 && (
-        <Text tx="loginScreen:hint" size="sm" weight="light" style={themed($hint)} />
-      )}
+      <Text preset="heading" style={themed($heading)}>
+        Sign Up
+      </Text>
+      <Text preset="subheading" style={themed($subheading)}>
+        Please enter your information to create an account.
+      </Text>
 
       <TextField
+        ref={emailInput}
         value={authEmail}
         onChangeText={setAuthEmail}
         containerStyle={themed($textField)}
         autoCapitalize="none"
         autoComplete="email"
-        autoCorrect={false}
         keyboardType="email-address"
         label="Email"
-        helper={error}
-        status={error ? "error" : undefined}
+        placeholder="Your email"
+        helper={validationError}
+        status={validationError ? "error" : undefined}
         onSubmitEditing={() => firstNameInput.current?.focus()}
       />
 
@@ -113,12 +131,8 @@ export const SignUpScreen: FC<any> = observer(function SignUpScreen(_props) {
         value={firstName}
         onChangeText={setFirstName}
         containerStyle={themed($textField)}
-        autoCapitalize="none"
-        autoCorrect={false}
         label="First Name"
         placeholder="Your first name"
-        helper={error}
-        status={error ? "error" : undefined}
         onSubmitEditing={() => lastNameInput.current?.focus()}
       />
 
@@ -127,27 +141,20 @@ export const SignUpScreen: FC<any> = observer(function SignUpScreen(_props) {
         value={lastName}
         onChangeText={setLastName}
         containerStyle={themed($textField)}
-        autoCapitalize="none"
-        autoCorrect={false}
         label="Last Name"
         placeholder="Your last name"
-        helper={error}
-        status={error ? "error" : undefined}
-        onSubmitEditing={() => authPasswordInput.current?.focus()}
+        onSubmitEditing={() => passwordInput.current?.focus()}
       />
 
       <TextField
-        ref={authPasswordInput}
+        ref={passwordInput}
         value={authPassword}
         onChangeText={setAuthPassword}
         containerStyle={themed($textField)}
-        autoCapitalize="none"
-        autoComplete="password"
-        autoCorrect={false}
         secureTextEntry={isAuthPasswordHidden}
         label="Password"
-        onSubmitEditing={() => phoneNumberInput.current?.focus()}
         RightAccessory={PasswordRightAccessory}
+        onSubmitEditing={() => phoneNumberInput.current?.focus()}
       />
 
       <TextField
@@ -155,14 +162,9 @@ export const SignUpScreen: FC<any> = observer(function SignUpScreen(_props) {
         value={phoneNumber}
         onChangeText={setPhoneNumber}
         containerStyle={themed($textField)}
-        autoCapitalize="none"
-        autoCorrect={false}
-        maxLength={10}
         keyboardType="number-pad"
         label="Phone Number"
         placeholder="0123456789"
-        helper={error}
-        status={error ? "error" : undefined}
         onSubmitEditing={() => companyNameInput.current?.focus()}
       />
 
@@ -171,12 +173,8 @@ export const SignUpScreen: FC<any> = observer(function SignUpScreen(_props) {
         value={companyName}
         onChangeText={setCompanyName}
         containerStyle={themed($textField)}
-        autoCapitalize="none"
-        autoCorrect={false}
         label="Company Name"
-        placeholder="Your company"
-        helper={error}
-        status={error ? "error" : undefined}
+        placeholder="Your company (optional)"
         onSubmitEditing={() => profilePicInput.current?.focus()}
       />
 
@@ -185,18 +183,13 @@ export const SignUpScreen: FC<any> = observer(function SignUpScreen(_props) {
         value={profilePic}
         onChangeText={setProfilePic}
         containerStyle={themed($textField)}
-        autoCapitalize="none"
-        autoCorrect={false}
         label="Profile Picture"
-        placeholder="Your profile picture's URL"
-        helper={error}
-        status={error ? "error" : undefined}
+        placeholder="Your profile picture's URL (optional)"
         onSubmitEditing={signUp}
       />
 
       <Button
-        testID="login-button"
-        style={themed($tapButton)}
+        style={themed($button)}
         preset="reversed"
         onPress={signUp}
       >
@@ -204,40 +197,33 @@ export const SignUpScreen: FC<any> = observer(function SignUpScreen(_props) {
       </Button>
 
       <Button
-        testID="go-back"
-        style={themed($tapButton)}
-        onPress={() => {
-          navigation.goBack()
-        }}
+        style={themed($button)}
+        onPress={() => navigation.goBack()}
       >
-          Go back
+        Go Back
       </Button>
     </Screen>
-  )
-})
+  );
+});
 
+// Styles
 const $screenContentContainer: ThemedStyle<ViewStyle> = ({ spacing }) => ({
   paddingVertical: spacing.xxl,
   paddingHorizontal: spacing.lg,
-})
+});
 
-const $logIn: ThemedStyle<TextStyle> = ({ spacing }) => ({
+const $heading: ThemedStyle<TextStyle> = ({ spacing }) => ({
   marginBottom: spacing.sm,
-})
+});
 
-const $enterDetails: ThemedStyle<TextStyle> = ({ spacing }) => ({
+const $subheading: ThemedStyle<TextStyle> = ({ spacing }) => ({
   marginBottom: spacing.lg,
-})
-
-const $hint: ThemedStyle<TextStyle> = ({ colors, spacing }) => ({
-  color: colors.tint,
-  marginBottom: spacing.md,
-})
+});
 
 const $textField: ThemedStyle<ViewStyle> = ({ spacing }) => ({
   marginBottom: spacing.lg,
-})
+});
 
-const $tapButton: ThemedStyle<ViewStyle> = ({ spacing }) => ({
-  marginTop: spacing.xs,
-})
+const $button: ThemedStyle<ViewStyle> = ({ spacing }) => ({
+  marginTop: spacing.sm,
+});

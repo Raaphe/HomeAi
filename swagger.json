@@ -1,0 +1,1331 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Your API v1",
+    "version": "1.0.0",
+    "description": "API v1 documentation with JWT authentication"
+  },
+  "servers": [
+    {
+      "url": "https://homeaiservice.onrender.com/api/v1",
+      "description": "Development server (HTTP) for v1"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "AuthenticationDTO": {
+        "properties": {
+          "password": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "CreateListingDTO": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "bathrooms": {
+            "type": "number"
+          },
+          "bedrooms": {
+            "type": "number"
+          },
+          "building_size": {
+            "type": "number"
+          },
+          "city": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "images": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "land_size": {
+            "type": "number"
+          },
+          "prices": {
+            "$ref": "#/definitions/Price"
+          },
+          "property_id": {
+            "type": "string"
+          },
+          "property_type": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "zip_code": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "HouseDTO": {
+        "properties": {
+          "acres": {
+            "type": "number"
+          },
+          "bathrooms": {
+            "type": "number"
+          },
+          "bedrooms": {
+            "type": "number"
+          },
+          "living_space_size": {
+            "type": "number"
+          },
+          "state": {
+            "type": "string"
+          },
+          "zip_code": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "IProperty": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "bathrooms": {
+            "type": "number"
+          },
+          "bedrooms": {
+            "type": "number"
+          },
+          "building_size": {
+            "type": "number"
+          },
+          "city": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "images": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "land_size": {
+            "type": "number"
+          },
+          "prices": {
+            "$ref": "#/definitions/Price"
+          },
+          "property_id": {
+            "type": "string"
+          },
+          "property_type": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "zip_code": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ISoldProperty": {
+        "properties": {
+          "acre_lot": {
+            "type": "number"
+          },
+          "bath": {
+            "type": "number"
+          },
+          "bed": {
+            "type": "number"
+          },
+          "city": {
+            "type": "string"
+          },
+          "house_size": {
+            "type": "number"
+          },
+          "prev_sold_data": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "state": {
+            "type": "string"
+          },
+          "street": {
+            "type": "number"
+          },
+          "zip_code": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "IUser": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "company": {
+            "type": "string"
+          },
+          "company_url": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "listings": {
+            "items": {
+              "$ref": "#/definitions/IProperty"
+            },
+            "type": "array"
+          },
+          "password": {
+            "type": "string"
+          },
+          "phone_number": {
+            "type": "string"
+          },
+          "profile_pic": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "userName": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ListingDetailed": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "bathrooms": {
+            "type": "number"
+          },
+          "bedrooms": {
+            "type": "number"
+          },
+          "building_size": {
+            "type": "number"
+          },
+          "city": {
+            "type": "string"
+          },
+          "contact": {
+            "properties": {
+              "company": {
+                "type": "string"
+              },
+              "company_url": {
+                "type": "string"
+              },
+              "first_name": {
+                "type": "string"
+              },
+              "last_name": {
+                "type": "string"
+              },
+              "phone_number": {
+                "type": "string"
+              },
+              "profile_pic": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            },
+            "type": "object"
+          },
+          "description": {
+            "type": "string"
+          },
+          "estimated_market_price": {
+            "type": "number"
+          },
+          "images": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "land_size": {
+            "type": "number"
+          },
+          "prices": {
+            "$ref": "#/definitions/Price"
+          },
+          "property_id": {
+            "type": "string"
+          },
+          "property_type": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "zip_code": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "LoginDTO": {
+        "properties": {
+          "password": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Price": {
+        "properties": {
+          "CAD": {
+            "type": "number"
+          },
+          "EUR": {
+            "type": "number"
+          },
+          "USD": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "RegistrationDTO": {
+        "properties": {
+          "company_name": {
+            "type": "string"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "phone_number": {
+            "type": "string"
+          },
+          "profile_picture": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ResponseObject": {
+        "properties": {
+          "code": {
+            "type": "number"
+          },
+          "data": {
+            "$ref": "#/definitions/T"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Role": {
+        "enum": [
+          "admin",
+          "user",
+          "moderator",
+          "guest"
+        ],
+        "type": "string"
+      },
+      "T": {
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/auth": {
+      "post": {
+        "summary": "Authenticate user",
+        "security": [],
+        "description": "Authenticates a user with email and password, returning a JWT token upon success.",
+        "tags": [
+          "Authentication"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "User's email address",
+                    "example": "user@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "User's password",
+                    "example": "P@ssw0rd123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully authenticated user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Logged in Successfully"
+                    },
+                    "data": {
+                      "type": "string",
+                      "description": "JWT token for the authenticated user"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "example": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing required fields or incorrect credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Missing required fields"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "summary": "Register a new user",
+        "security": [],
+        "description": "Creates a new user account with the provided details.",
+        "tags": [
+          "Authentication"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string",
+                    "description": "User's first name",
+                    "example": "John"
+                  },
+                  "last_name": {
+                    "type": "string",
+                    "description": "User's last name",
+                    "example": "Doe"
+                  },
+                  "company_name": {
+                    "type": "string",
+                    "description": "Name of the user's company (optional)",
+                    "example": "Acme Corp"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "User's email address",
+                    "example": "user@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "User's password",
+                    "example": "P@ssw0rd123"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "description": "User's phone number (optional)",
+                    "example": "+1234567890"
+                  },
+                  "pfp": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "URL to the user's profile picture (optional)",
+                    "example": "https://example.com/profile.jpg"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully registered new user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "string",
+                      "description": "JWT token for the registered user"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully Registered."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing required fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Missing required fields"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "example": 400
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/listing": {
+      "post": {
+        "tags": [
+          "Listings"
+        ],
+        "summary": "Create a new listing for a user",
+        "description": "Adds a new property listing to a user's profile.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateListingDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Listing created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Created listing"
+                    },
+                    "data": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Missing required fields or email not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Error adding listing, provided email does not exist."
+                    },
+                    "data": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Error creating listing."
+                    },
+                    "data": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Listings"
+        ],
+        "summary": "Edit an existing listing",
+        "description": "Updates an existing property listing with the provided details.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateListingDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Listing updated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Listing edited successfully"
+                    },
+                    "data": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Listing or user not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Error editing listing, provided email does not exist or user has no listings."
+                    },
+                    "data": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Error editing listing."
+                    },
+                    "data": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/listings": {
+      "get": {
+        "tags": [
+          "Listings"
+        ],
+        "summary": "Retrieve all listings",
+        "description": "Fetches all the property listings from the system.",
+        "responses": {
+          "200": {
+            "description": "Listings fetched successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully fetched listings"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ListingDetailed"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Error fetching listings."
+                    },
+                    "data": {
+                      "type": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/listing/{id}": {
+      "get": {
+        "tags": [
+          "Listings"
+        ],
+        "summary": "Get a specific listing by ID",
+        "description": "Retrieves a specific property listing using its unique identifier.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Unique identifier for the listing."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listing retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Listing fetched successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/ListingDetailed"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Listing not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "No listing found."
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Error fetching listing."
+                    },
+                    "data": {
+                      "type": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Listings"
+        ],
+        "summary": "Delete a listing by its ID",
+        "description": "Deletes a specific listing from the database using the provided listing ID.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "The ID of the listing to be deleted.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listing successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Listing deleted successfully"
+                    },
+                    "data": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid listing ID or bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Listing ID is required"
+                    },
+                    "data": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Listing not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Listing not found"
+                    },
+                    "data": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal Server Error"
+                    },
+                    "data": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/listings/available/{zip_code}": {
+      "post": {
+        "summary": "Retrieve a list of available properties",
+        "description": "Retrieve a list of available properties based on the zip code and optionally the number of listings to retrieve.",
+        "tags": [
+          "Real Estate API"
+        ],
+        "parameters": [
+          {
+            "name": "zip_code",
+            "in": "path",
+            "description": "The zip code to search for properties in.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Optional body parameter to specify the number of listings to retrieve.",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "number_of_listings": {
+                    "type": "integer",
+                    "description": "The number of listings to retrieve.",
+                    "example": 25
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A list of available properties based on the zip code and optional number of listings.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "total_number_of_listings": {
+                      "type": "integer",
+                      "example": 25
+                    },
+                    "listings": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ListingDetailed"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid zip_code or number_of_listings provided."
+          },
+          "404": {
+            "description": "No properties found for the given zip_code."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/listings/available/": {
+      "get": {
+        "summary": "Fetch property details for a given listing URL.",
+        "description": "Retrieves detailed property information using the provided listing URL.",
+        "tags": [
+          "Real Estate API"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "listingUrl",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The URL of the property listing to fetch details for."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved property details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListingDetailed"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid `listingUrl` query parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Invalid or missing listingUrl parameter."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No property details found for the given URL.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "No property details found for the given URL."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error while fetching property details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Failed to fetch property details. Please try again later."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/history/average-price-by-bathrooms": {
+      "get": {
+        "tags": [
+          "Historic data"
+        ],
+        "summary": "Get average price by bathrooms",
+        "description": "Returns the average price of properties grouped by the number of bathrooms.",
+        "responses": {
+          "200": {
+            "description": "A list of properties with average prices by bathrooms."
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/history/average-price-by-bedrooms": {
+      "get": {
+        "tags": [
+          "Historic data"
+        ],
+        "summary": "Get average price by bedrooms",
+        "description": "Returns the average price of properties grouped by the number of bedrooms.",
+        "responses": {
+          "200": {
+            "description": "A list of properties with average prices by bedrooms."
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/history/average-price-by-state": {
+      "get": {
+        "tags": [
+          "Historic data"
+        ],
+        "summary": "Get average price by state",
+        "description": "Returns the average price of properties for each state.",
+        "responses": {
+          "200": {
+            "description": "A list of properties with average prices by state."
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/history/properties-count-by-size": {
+      "get": {
+        "tags": [
+          "Historic data"
+        ],
+        "summary": "Get property count by size",
+        "description": "Returns the count of properties grouped by their size.",
+        "responses": {
+          "200": {
+            "description": "A list of properties grouped by size."
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/history/properties-count-by-state": {
+      "get": {
+        "tags": [
+          "Historic data"
+        ],
+        "summary": "Get property count by state",
+        "description": "Returns the count of properties for each state.",
+        "responses": {
+          "200": {
+            "description": "A list of properties grouped by state."
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/history/sales-by-year": {
+      "get": {
+        "tags": [
+          "Historic data"
+        ],
+        "summary": "Get sales by year",
+        "description": "Returns the number of sales of properties grouped by year.",
+        "responses": {
+          "200": {
+            "description": "A list of property sales by year."
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Retrieve a list of users",
+        "security": [],
+        "description": "Retrieve a list of users from the API. Can be used to populate a list of users in your system.",
+        "responses": {
+          "200": {
+            "description": "A list of users.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IUser"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input, please check the request format."
+          },
+          "404": {
+            "description": "No users found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}
