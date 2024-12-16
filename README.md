@@ -22,29 +22,34 @@
 </table>
 <!-- readme: contributors -end -->
 
+**Needed commands**
+- npm i -g yarn
+- yarn install
+- npm i -g expo-cli
+- yarn start
 
-**components**
+**Components**
 This is where your reusable components live which help you build your screens.
 ---
 **i18n**
 This is where your translations will live if you are using `react-native-i18n`.
 
-**models**
+**Models**
 This is where your app's models will live. Each model has a directory which will contain the `mobx-state-tree` model file, test file, and any other supporting files like actions, types, etc.
 
-**navigators**
+**Navigators**
 This is where your `react-navigation` navigators will live.
 
-**screens**
+**Screens**
 This is where your screen components will live. A screen is a React component which will take up the entire screen and be part of the navigation hierarchy. Each screen will have a directory containing the `.tsx` file, along with any assets or other helper files.
 
-**services**
+**Services**
 Any services that interface with the outside world will live here (think REST APIs, Push Notifications, etc.).
 
-**theme**
+**Theme**
 Here lives the theme for your application, including spacing, colors, and typography.
 
-**utils**
+**Utils**
 This is a great place to put miscellaneous helpers and utilities. Things like date helpers, formatters, etc. are often found here. However, it should only be used for things that are truly shared across your application. If a helper or utility is only used by a specific component or model, consider co-locating your helper with that component or model.
 
 **app.tsx** This is the entry point to your app. This is where you will find the main App component which renders the rest of the application.
@@ -59,12 +64,12 @@ assets
 └── images
 ```
 
-**icons**
+**Icons**
 This is where your icon assets will live. These icons can be used for buttons, navigation elements, or any other UI components. The recommended format for icons is PNG, but other formats can be used as well.
 
 Ignite comes with a built-in `Icon` component. You can find detailed usage instructions in the [docs](https://github.com/infinitered/ignite/blob/master/docs/Components-Icon.md).
 
-**images**
+**Images**
 This is where your images will live, such as background images, logos, or any other graphics. You can use various formats such as PNG, JPEG, or GIF for your images.
 
 Another valuable built-in component within Ignite is the `AutoImage` component. You can find detailed usage instructions in the [docs](https://github.com/infinitered/ignite/blob/master/docs/Components-AutoImage.md).
