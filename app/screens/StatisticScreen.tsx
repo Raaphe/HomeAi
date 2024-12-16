@@ -8,7 +8,6 @@ import { Screen } from "../components";
 import { useAppTheme } from "@/utils/useAppTheme";
 import type { ThemedStyle } from "@/theme";
 
-// Type pour les données de chaque maison
 type Data = {
   brokered_by: string;
   status: string;
@@ -59,10 +58,10 @@ export const StatisticScreen: FC<any> = observer(function StatisticScreen(_props
     if (!priceBySize) return { labels: [], datasets: [] };
     const currentData = priceBySize.slice(0, 3);
     return {
-      labels: currentData.map((e) => `${formatNumber(e.min)} - ${formatNumber(e.max)} houses`),
+      labels: currentData.map((e: any) => `${formatNumber(e.min)} - ${formatNumber(e.max)} houses`),
       datasets: [
         {
-          data: currentData.map((e) => e.count),
+          data: currentData.map((e: any) => e.count),
         },
       ],
     };
@@ -118,17 +117,17 @@ export const StatisticScreen: FC<any> = observer(function StatisticScreen(_props
 
   const {
     themed,
-    theme: { colors },
+    theme,
   } = useAppTheme();
 
   return (
     <Screen preset="scroll" contentContainerStyle={themed($screenContentContainer)}>
-      <GestureHandlerRootView style={styles.container}>
+      <GestureHandlerRootView style={[styles.container, {backgroundColor: theme.colors.background}]}>
         {loading ? (
           <ActivityIndicator size="large" color="#FFD700" />
         ) : (
           <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-            <Text style={styles.title}>Prix des maisons par taille en ft²</Text>
+            <Text style={[styles.title, {color: theme.colors.text}]}>House prices per square ft²</Text>
             <PanGestureHandler
               onGestureEvent={(event) => {
                 const { translationX } = event.nativeEvent;
@@ -144,7 +143,7 @@ export const StatisticScreen: FC<any> = observer(function StatisticScreen(_props
               </View>
             </PanGestureHandler>
 
-            <Text style={styles.title}>Moyenne du prix des maisons par nombre de chambres</Text>
+            <Text style={[styles.title, {color: theme.colors.text}]}>Average House prices by number of bedrooms</Text>
             <PanGestureHandler
               onGestureEvent={(event) => {
                 const { translationX } = event.nativeEvent;
@@ -160,7 +159,7 @@ export const StatisticScreen: FC<any> = observer(function StatisticScreen(_props
               </View>
             </PanGestureHandler>
 
-            <Text style={styles.title}>Moyenne du prix des maisons par ans</Text>
+            <Text style={[styles.title, {color: theme.colors.text}]}>Average house price by year</Text>
             <PanGestureHandler
               onGestureEvent={(event) => {
                 const { translationX } = event.nativeEvent;
@@ -184,7 +183,6 @@ export const StatisticScreen: FC<any> = observer(function StatisticScreen(_props
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#000",
     flex: 1,
     padding: 15,
   },
@@ -192,7 +190,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    color: "#FFD700",
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 12,

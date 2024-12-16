@@ -6,7 +6,7 @@ import { Icon } from "../components"
 import { translate } from "../i18n"
 import { DemoCommunityScreen, DemoShowroomScreen, DemoDebugScreen, LoginScreen } from "../screens"
 import { StatisticScreen } from "@/screens/StatisticScreen"
-import { DemoPodcastListScreen } from "../screens/DemoPodcastListScreen"
+import { DemoPodcastListScreen } from "../screens/UserListings"
 import type { ThemedStyle } from "@/theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
 import { useAppTheme } from "@/utils/useAppTheme"
@@ -15,7 +15,6 @@ export type DemoTabParamList = {
   DemoCommunity: undefined
   DemoShowroom: { queryIndex?: string; itemIndex?: string }
   DemoDebug: undefined
-  DemoPodcastList: undefined
   DemoLogin: undefined
   DemoStatistic : undefined
 }
@@ -66,18 +65,6 @@ export function DemoNavigator() {
           tabBarLabel: "Listings",
           tabBarIcon: ({ focused }) => (
             <Icon icon="community" color={focused ? colors.tint : colors.tintInactive} size={30} />
-          ),
-        }}
-      />
-
-      <Tab.Screen
-        name="DemoPodcastList"
-        component={DemoPodcastListScreen}
-        options={{
-          tabBarAccessibilityLabel: translate("demoNavigator:podcastListTab"),
-          tabBarLabel: "Analysis",
-          tabBarIcon: ({ focused }) => (
-            <Icon icon="podcast" color={focused ? colors.tint : colors.tintInactive} size={30} />
           ),
         }}
       />
