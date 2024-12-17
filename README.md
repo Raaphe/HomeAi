@@ -40,7 +40,6 @@
 **Needed commands**
 - npm i -g yarn
 - yarn install
-- npm i -g expo-cli
 - yarn start
 
 **Components**
