@@ -41,7 +41,7 @@ export const GraphBar = ({ data, screenWidth }: { data: ChartData; screenWidth: 
   );
 };
 
-export const GraphLine = ({ data, screenWidth }: { data: ChartData; screenWidth: number }) => {
+export const GraphLine = ({ data, screenWidth, isbezier }: { data: ChartData; screenWidth: number, isbezier:boolean }) => {
   const { theme } = useAppTheme();
 
   const chartConfig = {
@@ -62,6 +62,7 @@ export const GraphLine = ({ data, screenWidth }: { data: ChartData; screenWidth:
       width={screenWidth}
       height={520}
       chartConfig={chartConfig}
+      bezier = {isbezier}
     />
   );
 };

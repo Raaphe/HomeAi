@@ -9,11 +9,10 @@ const fr: Translations = {
     logOut: "Déconnexion",
   },
   welcomeScreen: {
-    postscript:
-      "psst  — Ce n'est probablement pas à quoi ressemble votre application. (À moins que votre designer ne vous ait donné ces écrans, dans ce cas, mettez la en prod !)",
-    readyForLaunch: "Votre application, presque prête pour le lancement !",
-    exciting: "(ohh, c'est excitant !)",
-    letsGo: "Allons-y !",
+    postscript: "Psst — Prêt à trouver les meilleures offres immobilières aux États-Unis ? (Si votre designer a fait ça, vous êtes prêt à lancer !)",
+    readyForLaunch: "Votre application est prête à prédire les bonnes affaires !",
+    exciting: "(Cela pourrait changer votre stratégie immobilière !)",
+    letsGo: "Commencez à explorer les offres !"
   },
   errorScreen: {
     title: "Quelque chose s'est mal passé !",

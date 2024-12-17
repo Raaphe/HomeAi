@@ -7,13 +7,13 @@ const en = {
     back: "Back",
     logOut: "Log Out",
   },
+  
   welcomeScreen: {
-    postscript:
-      "psst  — This probably isn't what your app looks like. (Unless your designer handed you these screens, and in that case, ship it!)",
-    readyForLaunch: "Your app, almost ready for launch!",
-    exciting: "(ohh, this is exciting!)",
-    letsGo: "Let's go!",
-  },
+    postscript: "Psst — Ready to find the best property deals in the USA? (If your designer built this, you’re all set to launch!)",
+    readyForLaunch: "Your app is ready to predict great deals!",
+    exciting: "(This could change your real estate game!)",
+    letsGo: "Start exploring deals!"
+  },  
   errorScreen: {
     title: "Something went wrong!",
     friendlySubtitle:
