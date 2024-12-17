@@ -26,7 +26,6 @@ interface UserListingsProps {
 
 export const UserListings: FC<UserListingsProps> = observer(({ route }) => {
   const navigation = useNavigation<NavigationProp<AppStackParamList, "Login">>()
-  const createListingNav = useNavigation();
   const {
     authenticationStore: { authToken, setAuthToken },
   } = useStores()
