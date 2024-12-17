@@ -199,6 +199,97 @@ export interface CreateListingDTO {
 /**
  * 
  * @export
+ * @interface Default
+ */
+export interface Default {
+    /**
+     * 
+     * @type {string}
+     * @memberof Default
+     */
+    'address'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof Default
+     */
+    'bathrooms'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Default
+     */
+    'bedrooms'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Default
+     */
+    'building_size'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Default
+     */
+    'city'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Default
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof Default
+     */
+    'images'?: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof Default
+     */
+    'land_size'?: number;
+    /**
+     * 
+     * @type {Price}
+     * @memberof Default
+     */
+    'prices'?: Price;
+    /**
+     * 
+     * @type {string}
+     * @memberof Default
+     */
+    'property_id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Default
+     */
+    'property_type'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Default
+     */
+    'state'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Default
+     */
+    'url'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Default
+     */
+    'zip_code'?: string;
+}
+/**
+ * 
+ * @export
  * @interface HouseDTO
  */
 export interface HouseDTO {
@@ -408,12 +499,6 @@ export interface IUser {
      * @type {string}
      * @memberof IUser
      */
-    '_id'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof IUser
-     */
     'company'?: string;
     /**
      * 
@@ -441,10 +526,10 @@ export interface IUser {
     'last_name'?: string;
     /**
      * 
-     * @type {Array<IProperty>}
+     * @type {Array<Default>}
      * @memberof IUser
      */
-    'listings'?: Array<IProperty>;
+    'listings'?: Array<Default>;
     /**
      * 
      * @type {string}
@@ -475,6 +560,79 @@ export interface IUser {
      * @memberof IUser
      */
     'userName'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListingBase
+ */
+export interface ListingBase {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingBase
+     */
+    'address'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingBase
+     */
+    'bathrooms'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingBase
+     */
+    'bedrooms'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingBase
+     */
+    'building_size'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingBase
+     */
+    'city'?: string;
+    /**
+     * 
+     * @type {Price}
+     * @memberof ListingBase
+     */
+    'prices'?: Price;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingBase
+     */
+    'property_id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingBase
+     */
+    'property_type'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingBase
+     */
+    'state'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingBase
+     */
+    'url'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingBase
+     */
+    'zip_code'?: string;
 }
 /**
  * 
@@ -800,6 +958,85 @@ export interface ListingIdGet500Response {
 /**
  * 
  * @export
+ * @interface ListingOverview
+ */
+export interface ListingOverview {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingOverview
+     */
+    'address'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingOverview
+     */
+    'bathrooms'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingOverview
+     */
+    'bedrooms'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListingOverview
+     */
+    'building_size'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingOverview
+     */
+    'city'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingOverview
+     */
+    'image'?: string;
+    /**
+     * 
+     * @type {Price}
+     * @memberof ListingOverview
+     */
+    'prices'?: Price;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingOverview
+     */
+    'property_id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingOverview
+     */
+    'property_type'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingOverview
+     */
+    'state'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingOverview
+     */
+    'url'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListingOverview
+     */
+    'zip_code'?: string;
+}
+/**
+ * 
+ * @export
  * @interface ListingPost201Response
  */
 export interface ListingPost201Response {
@@ -1038,10 +1275,10 @@ export interface ListingsGet200Response {
     'message'?: string;
     /**
      * 
-     * @type {Array<ListingDetailed>}
+     * @type {Array<IProperty>}
      * @memberof ListingsGet200Response
      */
-    'data'?: Array<ListingDetailed>;
+    'data'?: Array<IProperty>;
 }
 /**
  * 
