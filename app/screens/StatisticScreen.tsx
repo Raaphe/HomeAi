@@ -27,10 +27,12 @@ export const StatisticScreen: FC<any> = observer(function StatisticScreen(_props
   const screenWidth = Dimensions.get("window").width;
   const [priceBySize, setPriceBySize] = useState<Data[] | any>();
   const [avgPriceByBed, setAvgPriceByBed] = useState<Data[] | any>();
+  const [avgPriceByState, setAvgPriceByState] = useState<Data[] | any>();
   const [salesByYear, setSalesByYear] = useState<Data[] | any>();
   const [loading, setLoading] = useState<boolean>(true);
   const [currentIndexSize, setCurrentIndexSize] = useState<number>(0);
   const [currentIndexBed, setCurrentIndexBed] = useState<number>(0);
+  const [currentIndexState, setCurrentIndexState] = useState<number>(0);
   const [currentIndexYear, setCurrentIndexYear] = useState<number>(0);
 
   const formatNumber = (num: number): string => {
@@ -56,9 +58,10 @@ export const StatisticScreen: FC<any> = observer(function StatisticScreen(_props
 
   const setChartDataSize = () => {
     if (!priceBySize) return { labels: [], datasets: [] };
-    const currentData = priceBySize.slice(0, 3);
+    const currentData = priceBySize.slice(currentIndexSize, currentIndexSize + 3);
+    
     return {
-      labels: currentData.map((e: any) => `${formatNumber(e.min)} - ${formatNumber(e.max)} houses`),
+      labels: currentData.map((e: any) => `${formatNumber(e.min)} - ${formatNumber(e.max)} h`),
       datasets: [
         {
           data: currentData.map((e: any) => e.count),
@@ -93,15 +96,31 @@ export const StatisticScreen: FC<any> = observer(function StatisticScreen(_props
     };
   };
 
+  const setChartDataState = () => {
+    if (!avgPriceByState) return { labels: [], datasets: [] };
+    const currentData = avgPriceByState.slice(currentIndexState, currentIndexState + 5);
+    
+    return {
+      labels: currentData.map((e: any) => `${e.state}`),
+      datasets: [
+        {
+          data: currentData.map((e: any) => e.averagePrice),
+        },
+      ],
+    };
+  };
+
   const fetchData = async () => {
     try {
       const client = new api.HistoricDataApi();
       const resPriceBySize = await client.historyPropertiesCountBySizeGet();
       const resAvgPriceByBed = await client.historyAveragePriceByBedroomsGet();
+      const restAvgPriceByState = await client.historyAveragePriceByStateGet();
       const resSalesByYear = await client.historySalesByYearGet();
 
       setPriceBySize(resPriceBySize.data);
       setAvgPriceByBed(resAvgPriceByBed.data);
+      setAvgPriceByState(restAvgPriceByState.data);
       setSalesByYear(resSalesByYear.data);
 
       setLoading(false);
@@ -171,7 +190,25 @@ export const StatisticScreen: FC<any> = observer(function StatisticScreen(_props
               }}
             >
               <View >
-                <GraphLine data={setChartDataYear()} screenWidth={screenWidth} />
+                <GraphLine data={setChartDataYear()} screenWidth={screenWidth} isbezier={false} />
+              </View>
+            </PanGestureHandler>
+
+            <Text style={[styles.title, { color: theme.colors.text }]}>
+              Average house price by state
+            </Text>
+            <PanGestureHandler
+              onGestureEvent={(event) => {
+                const { translationX } = event.nativeEvent;
+                if (translationX > 100) {
+                  handleSwipe("right", setCurrentIndexState, salesByYear?.length ?? 0);
+                } else if (translationX < -100) {
+                  handleSwipe("left", setCurrentIndexState, salesByYear?.length ?? 0);
+                }
+              }}
+            >
+              <View >
+                <GraphLine data={setChartDataState()} screenWidth={screenWidth} isbezier={true} />
               </View>
             </PanGestureHandler>
           </ScrollView>
