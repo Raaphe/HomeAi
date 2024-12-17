@@ -1,7 +1,9 @@
 import { observer } from "mobx-react-lite"
 import { FC, useEffect, useState } from "react"
+import { Button } from "../components";
 import {
   View,
+  ViewStyle,
   TextStyle,
   Text,
   ActivityIndicator
@@ -58,11 +60,29 @@ export const UserListings: FC<UserListingsProps> = observer(({ route }) => {
       {isLoading ? (
         <ActivityIndicator size="large" color="gray" />
       ) : listings.length > 0 ? (
-        listings.map((listingItem, index) => (
-          <EpisodeCard key={index} listing={listingItem} />
-        ))
+        <>
+          {listings.map((listingItem, index) => (
+            <EpisodeCard key={index} listing={listingItem} />
+          ))}
+          <Button
+              style={themed($button)}
+              preset="reversed"
+              onPress={() => navigation.navigate('UserListingUpload')}
+            >
+              Create a listing
+          </Button>
+        </>
       ) : (
-        <Text style={themed($noListingsText)}>No listings available</Text>
+        <>
+          <Text style={themed($noListingsText)}>No listings available</Text>
+          <Button
+              style={themed($button)}
+              preset="reversed"
+              onPress={() => navigation.navigate('UserListingUpload')}
+            >
+              Create a listing
+          </Button>
+        </>
       )}
     </Screen>
   )
@@ -150,3 +170,7 @@ const $noListingsText: ThemedStyle<TextStyle> = ({ colors, spacing }) => ({
   color: colors.textDim,
   marginTop: spacing.lg,
 })
+
+const $button: ThemedStyle<ViewStyle> = ({ spacing }) => ({
+  marginTop: spacing.sm,
+});
