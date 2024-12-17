@@ -9,7 +9,7 @@ const en = {
   },
   
   welcomeScreen: {
-    postscript: "Psst — Ready to find the best property deals in the USA? (If your designer built this, you’re all set to launch!)",
+    postscript: "Psst — Ready to find the best property deals in the USA?",
     readyForLaunch: "Your app is ready to predict great deals!",
     exciting: "(This could change your real estate game!)",
     letsGo: "Start exploring deals!"

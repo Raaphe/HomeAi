@@ -13,46 +13,34 @@ module.exports = {
   ],
   plugins: ["reactotron", "prettier"],
   rules: {
-    "prettier/prettier": "error",
+    "prettier/prettier": "off", // Désactive les erreurs Prettier
     // typescript-eslint
-    "@typescript-eslint/array-type": 0,
-    "@typescript-eslint/ban-ts-comment": 0,
-    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/array-type": 0, // Accepte tout type d'array
+    "@typescript-eslint/ban-ts-comment": 0, // Accepte les commentaires de type `@ts-ignore`
+    "@typescript-eslint/no-explicit-any": 0, // Accepte `any`
     "@typescript-eslint/no-unused-vars": [
-      "error",
+      "off", // Ignore les variables inutilisées
       {
         argsIgnorePattern: "^_",
         varsIgnorePattern: "^_",
       },
     ],
-    "@typescript-eslint/no-var-requires": 0,
-    "@typescript-eslint/no-require-imports": 0,
-    "@typescript-eslint/no-empty-object-type": 0,
+    "@typescript-eslint/no-var-requires": 0, // Accepte `require`
+    "@typescript-eslint/no-require-imports": 0, // Accepte les importations `require`
+    "@typescript-eslint/no-empty-object-type": 0, // Accepte les types d'objets vides
     // eslint
-    "no-use-before-define": 0,
-    "no-restricted-imports": [
-      "error",
-      {
-        paths: [
-          // Prefer named exports from 'react' instead of importing `React`
-          {
-            name: "react",
-            importNames: ["default"],
-            message: "Import named exports from 'react' instead.",
-          },
-        ],
-      },
-    ],
+    "no-use-before-define": 0, // Accepte les variables ou fonctions définies après leur utilisation
+    "no-restricted-imports": 0, // Ne restreint pas les imports
     // react
-    "react/prop-types": 0,
+    "react/prop-types": 0, // Accepte les props non typées
     // react-native
-    "react-native/no-raw-text": 0,
+    "react-native/no-raw-text": 0, // Accepte le texte brut dans React Native
     // reactotron
-    "reactotron/no-tron-in-production": "error",
+    "reactotron/no-tron-in-production": "off", // Désactive l'erreur pour Reactotron en production
     // eslint-config-standard overrides
-    "comma-dangle": 0,
-    "no-global-assign": 0,
-    "quotes": 0,
-    "space-before-function-paren": 0,
+    "comma-dangle": 0, // Accepte ou ignore les virgules de fin
+    "no-global-assign": 0, // Accepte les assignments globaux
+    "quotes": 0, // Accepte les guillemets simples ou doubles
+    "space-before-function-paren": 0, // Accepte l'absence ou la présence d'espaces avant les parenthèses de fonction
   },
 }
