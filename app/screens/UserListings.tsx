@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite"
-import { FC, useEffect, useMemo, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import {
   View,
   TextStyle,
@@ -8,34 +8,57 @@ import {
 } from "react-native"
 import { Screen, Card } from "@/components"
 import { useAppTheme } from "@/utils/useAppTheme"
-import { CreateListingDTO, ListingsApi } from "@/api/generated-client"
+import { CreateListingDTO, UsersApi } from "@/api/generated-client"
 import { $styles, ThemedStyle } from "../theme"
+import { useNavigation, NavigationProp } from "@react-navigation/native"
+import { AppStackParamList } from "../navigators" // Ensure your navigator types are correctly defined
+import { useStores } from "../models"
 
 const ICON_SIZE = 14
 
-export const UserListings: FC<any> = observer(function DemoPodcastListScreen() {
-  const { themed } = useAppTheme()
-  const [listing, setListings] = useState<CreateListingDTO[]>([])
+interface UserListingsProps {
+  route: {
+    params?: Record<string, any>
+  }
+}
 
+export const UserListings: FC<UserListingsProps> = observer(({ route }) => {
+  const navigation = useNavigation<NavigationProp<AppStackParamList, "Login">>()
+  const {
+    authenticationStore: { authToken, setAuthToken },
+  } = useStores()
+  const { themed } = useAppTheme()
+
+  const [listings, setListings] = useState<CreateListingDTO[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    ;(async function load() {
+    (async function load() {
       setIsLoading(true)
-      const response = await new ListingsApi().listingsGet()
-      const tempListings = response.data.data || []
-      setListings(tempListings)
-      setIsLoading(false)
+      try {
+        const response = await new UsersApi().userTokenGet(authToken || "")
+        if (response.data.code !== 200) {
+          setAuthToken("")
+          navigation.navigate("Login")
+          return
+        }
+
+        setListings(response.data.data?.listings || [])
+      } catch (error) {
+        console.error("Error fetching listings:", error)
+      } finally {
+        setIsLoading(false)
+      }
     })()
-  }, [])
+  }, [authToken, navigation, setAuthToken])
 
   return (
     <Screen style={themed($screenContainer)}>
       <Text style={themed($title)}>Your Listings</Text>
       {isLoading ? (
         <ActivityIndicator size="large" color="gray" />
-      ) : listing.length > 0 ? (
-        listing.map((listingItem, index) => (
+      ) : listings.length > 0 ? (
+        listings.map((listingItem, index) => (
           <EpisodeCard key={index} listing={listingItem} />
         ))
       ) : (
@@ -46,7 +69,10 @@ export const UserListings: FC<any> = observer(function DemoPodcastListScreen() {
 })
 
 const EpisodeCard: FC<{ listing: CreateListingDTO }> = ({ listing }) => {
-  const { theme: { colors }, themed } = useAppTheme()
+  const {
+    theme: { colors },
+    themed,
+  } = useAppTheme()
 
   const handlePressCard = () => {
     console.log("Card pressed", listing)
@@ -66,10 +92,12 @@ const EpisodeCard: FC<{ listing: CreateListingDTO }> = ({ listing }) => {
         content={`${listing.address}, ${listing.city}, ${listing.state}, ${listing.zip_code}`}
         FooterComponent={
           <View style={[$styles.row, themed($metadata)]}>
-           <Text style={themed($metadataText)}>{listing.bedrooms} Beds</Text>
+            <Text style={themed($metadataText)}>{listing.bedrooms} Beds</Text>
             <Text style={themed($metadataText)}>{listing.bathrooms} Baths</Text>
             <Text style={themed($metadataText)}>{listing.building_size} sq. foot</Text>
-            <Text style={themed($metadataText)}>{listing.land_size?.toLocaleString()} Acres</Text>
+            <Text style={themed($metadataText)}>
+              {listing.land_size?.toLocaleString()} Acres
+            </Text>
           </View>
         }
       />

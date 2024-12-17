@@ -5,22 +5,24 @@ import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "
 import { useStores } from "../models"
 import { AppStackScreenProps } from "../navigators"
 import type { ThemedStyle } from "@/theme"
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native"
 import { useAppTheme } from "@/utils/useAppTheme"
-import { AuthenticationApi } from "@/api/generated-client"
+import { AuthenticationApi, UsersApi } from "@/api/generated-client"
+import { constructFrom } from "date-fns"
 
 interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
 
-export const LoginScreen: FC<any> = observer(function LoginScreen(_props) {
+export const LoginScreen = observer(function LoginScreen(_props) {
   const authPasswordInput = useRef<TextInput>(null)
-  const navigation = useNavigation()
+  const navigation = useNavigation<AppStackScreenProps<"Login">["navigation"]>() // Add proper navigation typing
 
   const [authPassword, setAuthPassword] = useState("")
   const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [attemptsCount, setAttemptsCount] = useState(0)
+
   const {
-    authenticationStore: { authEmail, setAuthEmail, setAuthToken, validationError },
+    authenticationStore: { authEmail, setAuthEmail, setAuthToken, authToken, validationError },
   } = useStores()
 
   const {
@@ -28,26 +30,43 @@ export const LoginScreen: FC<any> = observer(function LoginScreen(_props) {
     theme: { colors },
   } = useAppTheme()
 
+  useEffect(() => {
+    function checkJwt() {
+      if (authToken !== "")
+        navigation.navigate("UserListings")
+    }
+    checkJwt();
+  }, [])
+
   const error = isSubmitted ? validationError : ""
 
   async function login() {
     setIsSubmitted(true)
     setAttemptsCount(attemptsCount + 1)
 
-    const response = await new AuthenticationApi().authPost({
-      email: authEmail,
-      password: authPassword
-    })
+    try {
+      const response = await new AuthenticationApi().authPost({
+        email: authEmail,
+        password: authPassword,
+      })
 
-    if (response.status !== 200) return
+      if (response?.status !== 200 || !response.data) {
+        console.error("Invalid credentials or server error")
+        return
+      }
 
-    setIsSubmitted(false)
-    setAuthPassword("")
-    setAuthEmail("")
+      const userToken = response.data?.data || ""
 
-    setAuthToken(response.data.data)
+      setIsSubmitted(false)
+      setAuthPassword("")
+      setAuthEmail("")
 
-    navigation.navigate('UserListings')
+      setAuthToken(userToken)
+
+      navigation.navigate("UserListings")
+    } catch (error) {
+      console.error("Login failed:", error)
+    }
   }
 
   const PasswordRightAccessory: ComponentType<TextFieldAccessoryProps> = useMemo(
@@ -73,7 +92,9 @@ export const LoginScreen: FC<any> = observer(function LoginScreen(_props) {
       safeAreaEdges={["top", "bottom"]}
     >
       <Text testID="login-heading" tx="loginScreen:logIn" preset="heading" style={themed($logIn)} />
-      <Text preset="subheading" style={themed($enterDetails)}>Enter your details to get access to your profile and discover more about Home AI</Text>
+      <Text preset="subheading" style={themed($enterDetails)}>
+        Enter your details to get access to your profile and discover more about Home AI
+      </Text>
       {attemptsCount > 2 && (
         <Text tx="loginScreen:hint" size="sm" weight="light" style={themed($hint)} />
       )}
@@ -119,9 +140,7 @@ export const LoginScreen: FC<any> = observer(function LoginScreen(_props) {
       <Button
         testID="signup-button"
         style={themed($tapButton)}
-        onPress={() => {
-          navigation.navigate('SignUpScreen')
-        }}
+        onPress={() => navigation.navigate("SignUpScreen")}
       >
         Don't have an account? Sign up
       </Button>

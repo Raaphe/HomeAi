@@ -11,10 +11,12 @@ export const DemoCommunityScreen = () => {
   const navigation = useNavigation();
   const [location, setLocation] = useState<Location.LocationObject | null>(null);
   const [zipCode, setZipCode] = useState<string>("");
-  const [listings, setListings] = useState<any[any]>([]);
+  const [listings, setListings] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedListingIndex, setSelectedListingIndex] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
+
+  const [searchValue, setSearchValue] = useState<string>("");
 
   const getUserPosition = async (): Promise<void> => {
     try {
@@ -88,6 +90,14 @@ export const DemoCommunityScreen = () => {
     }
   }, [zipCode]);
 
+  const handleSearchChange = () => {
+    setZipCode(searchValue);
+  };
+
+  const handleSearchSubmit = () => {
+    handleSearchChange();
+  };
+
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
@@ -96,18 +106,52 @@ export const DemoCommunityScreen = () => {
     );
   }
 
+  if (error) {
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={[styles.errorText, { color: theme.colors.error }]}>{error}</Text>
+      </View>
+    );
+  }
+
   const selectedListing = listings[selectedListingIndex];
+
+  const defaultZipCode = "11023";
+  const defaultHouses = [
+    {
+      address: "123 Default St",
+      city: "San Francisco",
+      state: "CA",
+      coords: { latitude: 37.7749, longitude: -122.4194 },
+      price: 550000,
+      property_type: "House",
+      bedrooms: 3,
+      bathrooms: 2,
+    },
+    {
+      address: "456 Default Ave",
+      city: "San Francisco",
+      state: "CA",
+      coords: { latitude: 37.7750, longitude: -122.4183 },
+      price: 680000,
+      property_type: "Condo",
+      bedrooms: 2,
+      bathrooms: 1,
+    },
+  ];
+
+  const listingsToDisplay = listings.length > 0 ? listings : defaultHouses;
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-
       <View style={styles.searchBarContainer}>
         <TextInput
-          value={zipCode}
-          onChangeText={setZipCode}
+          value={searchValue}
+          onChangeText={setSearchValue}
           placeholder="Enter zip code"
           placeholderTextColor={theme.colors.text}
           style={[styles.searchBar, { color: theme.colors.text, backgroundColor: theme.colors.background, textAlign: "center" }]}
+          onSubmitEditing={handleSearchSubmit} // Trigger search on "Enter"
         />
       </View>
 
@@ -122,7 +166,7 @@ export const DemoCommunityScreen = () => {
         showsUserLocation={true}
         provider="google"
       >
-        {listings.map((listing: { coords: { latitude: any; longitude: any; }; address: any; }, index: string | number | bigint | ((prevState: number) => number) | null | undefined) => {
+        {listingsToDisplay.map((listing, index) => {
           const isSelected = index === selectedListingIndex;
           const iconColor = isSelected ? theme.colors.background : "#008CBA";
 
@@ -136,7 +180,6 @@ export const DemoCommunityScreen = () => {
               title={`${listing.address}`}
               onPress={() => {
                 setSelectedListingIndex(index);
-
               }}
             >
               <RNImage
@@ -149,10 +192,10 @@ export const DemoCommunityScreen = () => {
       </MapView>
 
       <View style={[styles.detailContainer, { backgroundColor: theme.colors.background }]}>
-        {selectedListing && (
-          <>
+        {selectedListing ? (
+          <View>
             <Text style={[styles.detailTitle, { color: theme.colors.text }]}>
-              {selectedListing.address}, {" "}
+              {selectedListing.address},{" "}
               <Text style={[styles.detailLocation, { color: theme.colors.text }]}>
                 {selectedListing.city}, {selectedListing.state}
               </Text>
@@ -181,7 +224,9 @@ export const DemoCommunityScreen = () => {
             >
               <Text style={[styles.viewButtonText, { color: theme.colors.background }]}>View Details</Text>
             </TouchableOpacity>
-          </>
+          </View>
+        ) : (
+          <Text style={[styles.noListingsText, { color: theme.colors.text }]}>No listings found for this zip code.</Text>
         )}
       </View>
     </View>
@@ -206,10 +251,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderWidth: 1,
     fontWeight: "bold",
-    fontSize: 18
-  },
-  map: {
-    flex: 1
+    fontSize: 18,
   },
   loadingContainer: {
     flex: 1,
@@ -218,6 +260,24 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     fontSize: 20,
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  errorText: {
+    fontSize: 18,
+    textAlign: "center",
+  },
+  noListingsText: {
+    fontSize: 18,
+    textAlign: "center",
+    marginTop: 20,
+  },
+  map: {
+    flex: 1,
   },
   detailContainer: {
     position: "absolute",

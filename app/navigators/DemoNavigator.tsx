@@ -6,17 +6,20 @@ import { Icon } from "../components"
 import { translate } from "../i18n"
 import { DemoCommunityScreen, DemoShowroomScreen, DemoDebugScreen, LoginScreen } from "../screens"
 import { StatisticScreen } from "@/screens/StatisticScreen"
-import { DemoPodcastListScreen } from "../screens/UserListings"
+import { DemoPodcastListScreen, UserListings } from "../screens/UserListings"
 import type { ThemedStyle } from "@/theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
 import { useAppTheme } from "@/utils/useAppTheme"
+import { useStores } from "../models"
+import { observer } from "mobx-react-lite"
+
 
 export type DemoTabParamList = {
   DemoCommunity: undefined
   DemoShowroom: { queryIndex?: string; itemIndex?: string }
   DemoDebug: undefined
   DemoLogin: undefined
-  DemoStatistic : undefined
+  DemoStatistic: undefined
 }
 
 /**
@@ -45,19 +48,20 @@ export function DemoNavigator() {
     theme: { colors },
   } = useAppTheme()
 
+
   return (
     <Tab.Navigator
+      initialRouteName="DemoCommunity"
       screenOptions={{
         headerShown: false,
         tabBarHideOnKeyboard: true,
-        tabBarStyle: themed([$tabBar, { height: bottom + 70 }]),
-        tabBarActiveTintColor: colors.text,
+        tabBarStyle: themed([$tabBar, { paddingBottom: bottom }]),
+        tabBarActiveTintColor: colors.tint,
         tabBarInactiveTintColor: colors.text,
         tabBarLabelStyle: themed($tabBarLabel),
         tabBarItemStyle: themed($tabBarItem),
       }}
     >
-
       <Tab.Screen
         name="DemoCommunity"
         component={DemoCommunityScreen}
