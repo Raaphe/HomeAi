@@ -1,61 +1,61 @@
-import { observer } from "mobx-react-lite";
-import { ComponentType, FC, useEffect, useMemo, useRef, useState } from "react";
-import { TextInput, TextStyle, ViewStyle } from "react-native";
-import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "../components";
-import { useStores } from "../models";
-import { useAppTheme } from "@/utils/useAppTheme";
-import { useNavigation } from "@react-navigation/native";
+import { observer } from "mobx-react-lite"
+import { ComponentType, FC, useEffect, useMemo, useRef, useState } from "react"
+import { TextInput, TextStyle, ViewStyle } from "react-native"
+import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "../components"
+import { useStores } from "../models"
+import { useAppTheme } from "@/utils/useAppTheme"
+import { useNavigation } from "@react-navigation/native"
 import type { ThemedStyle } from "@/theme"
-import { ListingsApi } from "../api/generated-client/api";
+import { ListingsApi } from "../api/generated-client/api"
 
 export const UserListingUpload: FC = observer(function UserListingUpload() {
   // References to text inputs
-  const addressInput = useRef<TextInput>(null);
-  const bathroomsInput = useRef<TextInput>(null);
-  const bedroomsInput = useRef<TextInput>(null);
-  const buildingSizeInput = useRef<TextInput>(null);
-  const cityInput = useRef<TextInput>(null);
-  const descriptionInput = useRef<TextInput>(null);
-  const emailInput = useRef<TextInput>(null);
-  const imagesInput = useRef<TextInput>(null);
-  const landSizeInput = useRef<TextInput>(null);
-  const pricesInput = useRef<TextInput>(null);
-  const propertyIdInput = useRef<TextInput>(null);
-  const propertyTypeInput = useRef<TextInput>(null);
-  const stateInput = useRef<TextInput>(null);
-  const zipCodeInput = useRef<TextInput>(null);
-  const urlInput = useRef<TextInput>(null);
+  const addressInput = useRef<TextInput>(null)
+  const bathroomsInput = useRef<TextInput>(null)
+  const bedroomsInput = useRef<TextInput>(null)
+  const buildingSizeInput = useRef<TextInput>(null)
+  const cityInput = useRef<TextInput>(null)
+  const descriptionInput = useRef<TextInput>(null)
+  const emailInput = useRef<TextInput>(null)
+  const imagesInput = useRef<TextInput>(null)
+  const landSizeInput = useRef<TextInput>(null)
+  const pricesInput = useRef<TextInput>(null)
+  const propertyIdInput = useRef<TextInput>(null)
+  const propertyTypeInput = useRef<TextInput>(null)
+  const stateInput = useRef<TextInput>(null)
+  const zipCodeInput = useRef<TextInput>(null)
+  const urlInput = useRef<TextInput>(null)
 
   // State management for inputs
-  const [address, setAddress] = useState("");
-  const [bathrooms, setBathrooms] = useState(0);
-  const [bedrooms, setBedrooms] = useState(0);
-  const [buildingSize, setBuildingSize] = useState(0);
-  const [city, setCity] = useState("");
-  const [description, setDescription] = useState("");
-  const [email, setEmail] = useState("");
-  const [images, setImages] = useState("");
-  const [landSize, setLandSize] = useState(0);
+  const [address, setAddress] = useState("")
+  const [bathrooms, setBathrooms] = useState(0)
+  const [bedrooms, setBedrooms] = useState(0)
+  const [buildingSize, setBuildingSize] = useState(0)
+  const [city, setCity] = useState("")
+  const [description, setDescription] = useState("")
+  const [email, setEmail] = useState("")
+  const [images, setImages] = useState("")
+  const [landSize, setLandSize] = useState(0)
   const [prices, setPrices] = useState({
     USD: 0,
     CAD: 0,
-    EUR: 0
-  });
-  const [propertyId, setPropertyId] = useState("");
-  const [propertyType, setPropertyType] = useState("");
-  const [state, setState] = useState("");
-  const [zipCode, setZipCode] = useState("");
-  const [url, setUrl] = useState("");
+    EUR: 0,
+  })
+  const [propertyId, setPropertyId] = useState("")
+  const [propertyType, setPropertyType] = useState("")
+  const [state, setState] = useState("")
+  const [zipCode, setZipCode] = useState("")
+  const [url, setUrl] = useState("")
 
   const {
     theme: { colors },
     themed,
-  } = useAppTheme();
+  } = useAppTheme()
 
-  const navigation = useNavigation();
+  const navigation = useNavigation()
   const {
     authenticationStore: { setAuthToken },
-  } = useStores();
+  } = useStores()
 
   // Listing submission function
   async function createListing() {
@@ -76,38 +76,38 @@ export const UserListingUpload: FC = observer(function UserListingUpload() {
         state,
         zip_code: zipCode,
         url,
-      });
+      })
 
       if (response.status === 200) {
         // Handle success
-        console.log("Listing created successfully!");
-        resetForm();
+        console.log("Listing created successfully!")
+        resetForm()
       }
     } catch (error) {
-      console.error("Listing creation error:", error);
+      console.error("Listing creation error:", error)
     }
   }
 
   function resetForm() {
-    setAddress("");
-    setBathrooms(0);
-    setBedrooms(0);
-    setBuildingSize(0);
-    setCity("");
-    setDescription("");
-    setEmail("");
-    setImages("");
-    setLandSize(0);
+    setAddress("")
+    setBathrooms(0)
+    setBedrooms(0)
+    setBuildingSize(0)
+    setCity("")
+    setDescription("")
+    setEmail("")
+    setImages("")
+    setLandSize(0)
     setPrices({
-        USD: 0,
-        CAD: 0,
-        EUR: 0
-    });
-    setPropertyId("");
-    setPropertyType("");
-    setState("");
-    setZipCode("");
-    setUrl("");
+      USD: 0,
+      CAD: 0,
+      EUR: 0,
+    })
+    setPropertyId("")
+    setPropertyType("")
+    setState("")
+    setZipCode("")
+    setUrl("")
   }
 
   return (
@@ -220,12 +220,12 @@ export const UserListingUpload: FC = observer(function UserListingUpload() {
       <TextField
         ref={pricesInput}
         value={prices.USD.toString()}
-        onChangeText={(text) => {        
-            setPrices({
-                USD: Number(text),
-                CAD: Number(text) * 1.42,
-                EUR: Number(text) * 0.95
-            });
+        onChangeText={(text) => {
+          setPrices({
+            USD: Number(text),
+            CAD: Number(text) * 1.42,
+            EUR: Number(text) * 0.95,
+          })
         }}
         containerStyle={themed($textField)}
         label="Price"
@@ -284,42 +284,35 @@ export const UserListingUpload: FC = observer(function UserListingUpload() {
         placeholder="Listing URL"
       />
 
-      <Button
-        style={themed($button)}
-        preset="reversed"
-        onPress={createListing}
-      >
+      <Button style={themed($button)} preset="reversed" onPress={createListing}>
         Create Listing
       </Button>
 
-      <Button
-        style={themed($button)}
-        onPress={() => navigation.goBack()}
-      >
+      <Button style={themed($button)} onPress={() => navigation.goBack()}>
         Go Back
       </Button>
     </Screen>
-  );
-});
+  )
+})
 
 // Styles
 const $screenContentContainer: ThemedStyle<ViewStyle> = ({ spacing }) => ({
   paddingVertical: spacing.xxl,
   paddingHorizontal: spacing.lg,
-});
+})
 
 const $heading: ThemedStyle<TextStyle> = ({ spacing }) => ({
   marginBottom: spacing.sm,
-});
+})
 
 const $subheading: ThemedStyle<TextStyle> = ({ spacing }) => ({
   marginBottom: spacing.lg,
-});
+})
 
 const $textField: ThemedStyle<ViewStyle> = ({ spacing }) => ({
   marginBottom: spacing.lg,
-});
+})
 
 const $button: ThemedStyle<ViewStyle> = ({ spacing }) => ({
   marginTop: spacing.sm,
-});
+})

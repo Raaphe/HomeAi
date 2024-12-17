@@ -9,7 +9,7 @@ const fr: Translations = {
     logOut: "Déconnexion",
   },
   welcomeScreen: {
-    postscript: "Psst — Prêt à trouver les meilleures offres immobilières aux États-Unis ? (Si votre designer a fait ça, vous êtes prêt à lancer !)",
+    postscript: "Psst — Prêt à trouver les meilleures offres immobilières aux États-Unis ?",
     readyForLaunch: "Votre application est prête à prédire les bonnes affaires !",
     exciting: "(Cela pourrait changer votre stratégie immobilière !)",
     letsGo: "Commencez à explorer les offres !"
