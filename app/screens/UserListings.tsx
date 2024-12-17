@@ -10,7 +10,7 @@ import {
 } from "react-native"
 import { Screen, Card } from "@/components"
 import { useAppTheme } from "@/utils/useAppTheme"
-import { CreateListingDTO, UsersApi } from "@/api/generated-client"
+import { CreateListingDTO, ListingsApi, UsersApi } from "@/api/generated-client"
 import { $styles, ThemedStyle } from "../theme"
 import { useNavigation, NavigationProp } from "@react-navigation/native"
 import { AppStackParamList } from "../navigators" // Ensure your navigator types are correctly defined
@@ -71,6 +71,12 @@ export const UserListings: FC<UserListingsProps> = observer(({ route }) => {
             >
               Create a listing
           </Button>
+          <Button
+              style={themed($button)}
+              onPress={() => navigation.goBack()}
+            >
+              Go back
+          </Button>
         </>
       ) : (
         <>
@@ -81,6 +87,12 @@ export const UserListings: FC<UserListingsProps> = observer(({ route }) => {
               onPress={() => navigation.navigate('UserListingUpload')}
             >
               Create a listing
+          </Button>
+          <Button
+              style={themed($button)}
+              onPress={() => navigation.goBack()}
+            >
+              Go back
           </Button>
         </>
       )}
@@ -96,6 +108,22 @@ const EpisodeCard: FC<{ listing: CreateListingDTO }> = ({ listing }) => {
 
   const handlePressCard = () => {
     console.log("Card pressed", listing)
+  }
+
+  const [rerender, setRerender] = useState(true)
+
+  const deleteListing = async (id: string) => {
+    try {
+      if(id !== ""){
+        const response = await new ListingsApi().listingIdDelete(id)
+        if (response.status === 200) {
+          console.log("Listing created successfully!");
+          setRerender(!rerender); //Cause the page to reload
+        }
+      }
+    } catch (error) {
+      console.error("Listing creation error:", error);
+    }
   }
 
   return (
@@ -121,6 +149,13 @@ const EpisodeCard: FC<{ listing: CreateListingDTO }> = ({ listing }) => {
           </View>
         }
       />
+      <Button
+              style={themed($button)}
+              preset="reversed"
+              onPress={() => deleteListing(listing.property_id??"")}
+            >
+              Delete
+      </Button>
     </View>
   )
 }
