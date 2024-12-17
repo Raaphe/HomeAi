@@ -125,7 +125,6 @@ export const LoginScreen = observer(function LoginScreen(_props) {
         secureTextEntry={isAuthPasswordHidden}
         labelTx="loginScreen:passwordFieldLabel"
         placeholderTx="loginScreen:passwordFieldPlaceholder"
-        onSubmitEditing={login}
         RightAccessory={PasswordRightAccessory}
       />
 

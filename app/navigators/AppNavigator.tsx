@@ -17,6 +17,7 @@ import { useAppTheme, useThemeProvider } from "@/utils/useAppTheme"
 import { ComponentProps } from "react"
 import { SignUpScreen } from "@/screens/SignUpScreen"
 import { UserListings } from "@/screens/UserListings"
+import { UserListingUpload } from "@/screens/UserListingUpload"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -38,6 +39,7 @@ export type AppStackParamList = {
   ListingDetails: { url: string }
   SignUpScreen: undefined
   UserListings: undefined
+  UserListingUpload: undefined
   
   // 🔥 Your screens go here
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
@@ -85,6 +87,7 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="SignUpScreen" component={SignUpScreen}/>
           <Stack.Screen name="UserListings" component={UserListings}/>
           <Stack.Screen name="Login" component={Screens.LoginScreen} />
+          <Stack.Screen name="UserListingUpload" component={UserListingUpload}/>
         </>
       }
 
