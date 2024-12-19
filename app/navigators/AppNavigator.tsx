@@ -10,7 +10,7 @@ import { observer } from "mobx-react-lite"
 import * as Screens from "@/screens"
 import Config from "../config"
 import { useStores } from "../models"
-import { DemoNavigator, DemoTabParamList } from "./DemoNavigator"
+import { TabNavigator, TabParamList } from "./TabNavigator"
 import { ListingDetails } from "../screens/ListingDetails"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { useAppTheme, useThemeProvider } from "@/utils/useAppTheme"
@@ -35,7 +35,7 @@ import { UserListingUpload } from "@/screens/UserListingUpload"
 export type AppStackParamList = {
   Welcome: undefined
   Login: undefined
-  Demo: NavigatorScreenParams<DemoTabParamList>
+  Demo: NavigatorScreenParams<TabParamList>
   ListingDetails: { url: string }
   SignUpScreen: undefined
   UserListings: undefined
@@ -82,7 +82,7 @@ const AppStack = observer(function AppStack() {
       {
         <>
           <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
-          <Stack.Screen name="Demo" component={DemoNavigator} />
+          <Stack.Screen name="Demo" component={TabNavigator} />
           <Stack.Screen name="ListingDetails" component={ListingDetails}/>
           <Stack.Screen name="SignUpScreen" component={SignUpScreen}/>
           <Stack.Screen name="UserListings" component={UserListings}/>

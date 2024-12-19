@@ -6,7 +6,7 @@ import { RealEstateAPIApi } from "@/api/generated-client";
 import { useAppTheme } from "@/utils/useAppTheme";
 import { useNavigation } from "@react-navigation/native";
 
-export const DemoCommunityScreen = () => {
+export const CommunityScreen = () => {
   const { theme } = useAppTheme();
   const navigation = useNavigation();
   const [location, setLocation] = useState<Location.LocationObject | null>(null);
