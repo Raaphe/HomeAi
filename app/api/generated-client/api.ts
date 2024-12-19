@@ -170,12 +170,6 @@ export interface CreateListingDTO {
      * @type {string}
      * @memberof CreateListingDTO
      */
-    'property_id'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateListingDTO
-     */
     'property_type'?: string;
     /**
      * 
@@ -284,6 +278,103 @@ export interface Default {
      * 
      * @type {string}
      * @memberof Default
+     */
+    'zip_code'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface EditListingDto
+ */
+export interface EditListingDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof EditListingDto
+     */
+    'address'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof EditListingDto
+     */
+    'bathrooms'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof EditListingDto
+     */
+    'bedrooms'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof EditListingDto
+     */
+    'building_size'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof EditListingDto
+     */
+    'city'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EditListingDto
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EditListingDto
+     */
+    'email'?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof EditListingDto
+     */
+    'images'?: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof EditListingDto
+     */
+    'land_size'?: number;
+    /**
+     * 
+     * @type {Price}
+     * @memberof EditListingDto
+     */
+    'prices'?: Price;
+    /**
+     * 
+     * @type {string}
+     * @memberof EditListingDto
+     */
+    'property_id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EditListingDto
+     */
+    'property_type'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EditListingDto
+     */
+    'state'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EditListingDto
+     */
+    'url'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EditListingDto
      */
     'zip_code'?: string;
 }
@@ -2299,13 +2390,13 @@ export const ListingsApiAxiosParamCreator = function (configuration?: Configurat
         /**
          * Updates an existing property listing with the provided details.
          * @summary Edit an existing listing
-         * @param {CreateListingDTO} createListingDTO 
+         * @param {EditListingDto} editListingDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listingPut: async (createListingDTO: CreateListingDTO, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'createListingDTO' is not null or undefined
-            assertParamExists('listingPut', 'createListingDTO', createListingDTO)
+        listingPut: async (editListingDto: EditListingDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'editListingDto' is not null or undefined
+            assertParamExists('listingPut', 'editListingDto', editListingDto)
             const localVarPath = `/listing`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2329,7 +2420,7 @@ export const ListingsApiAxiosParamCreator = function (configuration?: Configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createListingDTO, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(editListingDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -2422,12 +2513,12 @@ export const ListingsApiFp = function(configuration?: Configuration) {
         /**
          * Updates an existing property listing with the provided details.
          * @summary Edit an existing listing
-         * @param {CreateListingDTO} createListingDTO 
+         * @param {EditListingDto} editListingDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listingPut(createListingDTO: CreateListingDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListingPut200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listingPut(createListingDTO, options);
+        async listingPut(editListingDto: EditListingDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListingPut200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listingPut(editListingDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ListingsApi.listingPut']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -2487,12 +2578,12 @@ export const ListingsApiFactory = function (configuration?: Configuration, baseP
         /**
          * Updates an existing property listing with the provided details.
          * @summary Edit an existing listing
-         * @param {CreateListingDTO} createListingDTO 
+         * @param {EditListingDto} editListingDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listingPut(createListingDTO: CreateListingDTO, options?: RawAxiosRequestConfig): AxiosPromise<ListingPut200Response> {
-            return localVarFp.listingPut(createListingDTO, options).then((request) => request(axios, basePath));
+        listingPut(editListingDto: EditListingDto, options?: RawAxiosRequestConfig): AxiosPromise<ListingPut200Response> {
+            return localVarFp.listingPut(editListingDto, options).then((request) => request(axios, basePath));
         },
         /**
          * Fetches all the property listings from the system.
@@ -2552,13 +2643,13 @@ export class ListingsApi extends BaseAPI {
     /**
      * Updates an existing property listing with the provided details.
      * @summary Edit an existing listing
-     * @param {CreateListingDTO} createListingDTO 
+     * @param {EditListingDto} editListingDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ListingsApi
      */
-    public listingPut(createListingDTO: CreateListingDTO, options?: RawAxiosRequestConfig) {
-        return ListingsApiFp(this.configuration).listingPut(createListingDTO, options).then((request) => request(this.axios, this.basePath));
+    public listingPut(editListingDto: EditListingDto, options?: RawAxiosRequestConfig) {
+        return ListingsApiFp(this.configuration).listingPut(editListingDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
