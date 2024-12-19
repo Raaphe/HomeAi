@@ -12,7 +12,10 @@ import {
   ConfigurationParameters,
 } from "@/api/generated-client"
 
-export const UserListingUpload: FC = observer(function UserListingUpload() {
+export const UserListingUpload = ({ route }: any) => {
+
+  const { update } = route.params;
+
   // References to text inputs
   const addressInput = useRef<TextInput>(null)
   const bathroomsInput = useRef<TextInput>(null)
@@ -93,6 +96,7 @@ export const UserListingUpload: FC = observer(function UserListingUpload() {
       if (response.status === 201) {
         // Handle success
         console.log("Listing created successfully!")
+        await update();
         resetForm()
         navigation.goBack()
       }
@@ -285,7 +289,7 @@ export const UserListingUpload: FC = observer(function UserListingUpload() {
       </Button>
     </Screen>
   )
-})
+}
 
 // Styles
 const $screenContentContainer: ThemedStyle<ViewStyle> = ({ spacing }) => ({

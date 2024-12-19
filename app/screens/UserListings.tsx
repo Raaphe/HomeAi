@@ -11,7 +11,7 @@ import {
 } from "react-native"
 import { Screen, Card } from "@/components"
 import { useAppTheme } from "@/utils/useAppTheme"
-import { CreateListingDTO, EditListingDto, ListingsApi, UsersApi } from "@/api/generated-client"
+import { CreateListingDTO, EditListingDto, IProperty, ListingsApi, UsersApi } from "@/api/generated-client"
 import { $styles, ThemedStyle } from "../theme"
 import { useNavigation, NavigationProp, useFocusEffect } from "@react-navigation/native"
 import { AppStackParamList } from "../navigators" // Ensure your navigator types are correctly defined
@@ -37,12 +37,11 @@ export const UserListings: FC<UserListingsProps> = observer(({ route }) => {
 
   const { themed } = useAppTheme()
 
-  const [listings, setListings] = useState<CreateListingDTO[]>([])
+  const [listings, setListings] = useState<IProperty[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
-  useEffect(() => {
-    (async function load() {
-      setIsLoading(true)
+  const updateListings = async () => {
+    setIsLoading(true)
       try {
         const response = await new UsersApi().userTokenGet(authToken || "")
         if (response.data.code !== 200) {
@@ -50,12 +49,23 @@ export const UserListings: FC<UserListingsProps> = observer(({ route }) => {
           navigation.navigate("Login")
           return
         }
+        setListings(response.data.data?.listings || []);
+      } catch (ex: any) {
+        console.error("Error fetching listings:", ex)
+      } finally {
+        setIsLoading(false);
+      }
+  }
 
-        setListings(response.data.data?.listings || [])
+  useEffect(() => {
+    (async function load() {
+      // setIsLoading(true)
+      try {
+        await updateListings();
       } catch (error) {
         console.error("Error fetching listings:", error)
       } finally {
-        setIsLoading(false)
+        //setIsLoading(false)
       }
     })()
   }, [authToken, navigation, setAuthToken])
@@ -68,12 +78,12 @@ export const UserListings: FC<UserListingsProps> = observer(({ route }) => {
       ) : listings.length > 0 ? (
         <ScrollView>
           {listings.map((listingItem, index) => (
-            <EpisodeCard key={index} listing={listingItem} />
+            <EpisodeCard key={index} listing={listingItem} setListings={async () => await updateListings()} />
           ))}
           <Button
               style={themed($button)}
               preset="reversed"
-              onPress={() => navigation.navigate('UserListingUpload')}
+              onPress={() => navigation.navigate('UserListingUpload', {update: async () => updateListings()})}
             >
               Create a listing
           </Button>
@@ -93,7 +103,7 @@ export const UserListings: FC<UserListingsProps> = observer(({ route }) => {
           <Button
               style={themed($button)}
               preset="reversed"
-              onPress={() => navigation.navigate('UserListingUpload')}
+              onPress={() => navigation.navigate('UserListingUpload', {update: updateListings})}
             >
               Create a listing
           </Button>
@@ -112,7 +122,9 @@ export const UserListings: FC<UserListingsProps> = observer(({ route }) => {
   )
 })
 
-const EpisodeCard: FC<{ listing: EditListingDto }> = ({ listing }) => {
+
+
+const EpisodeCard: FC<{ listing: IProperty, setListings: any }> = ({ listing , setListings}) => {
   const {
     theme: { colors },
     themed,
@@ -136,10 +148,11 @@ const EpisodeCard: FC<{ listing: EditListingDto }> = ({ listing }) => {
         const response = await new ListingsApi(new Configuration(configParam)).listingIdDelete(id)
         if (response.status === 204) {
           console.log("Listing deleted successfully!");
+          setListings();
         }
       }
     } catch (error) {
-      console.error("Listing creation error:", error);
+      console.error("Listing delete error:", error);
     }
   }
 

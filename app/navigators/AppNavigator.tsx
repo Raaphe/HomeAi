@@ -39,7 +39,7 @@ export type AppStackParamList = {
   ListingDetails: { url: string }
   SignUpScreen: undefined
   UserListings: undefined
-  UserListingUpload: undefined
+  UserListingUpload: { update: any }
   
   // 🔥 Your screens go here
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
