@@ -7,6 +7,10 @@ import { useAppTheme } from "@/utils/useAppTheme"
 import { useNavigation } from "@react-navigation/native"
 import type { ThemedStyle } from "@/theme"
 import { ListingsApi } from "../api/generated-client/api"
+import {
+  Configuration,
+  ConfigurationParameters,
+} from "@/api/generated-client"
 
 export const UserListingUpload: FC = observer(function UserListingUpload() {
   // References to text inputs
@@ -20,7 +24,6 @@ export const UserListingUpload: FC = observer(function UserListingUpload() {
   const imagesInput = useRef<TextInput>(null)
   const landSizeInput = useRef<TextInput>(null)
   const pricesInput = useRef<TextInput>(null)
-  const propertyIdInput = useRef<TextInput>(null)
   const propertyTypeInput = useRef<TextInput>(null)
   const stateInput = useRef<TextInput>(null)
   const zipCodeInput = useRef<TextInput>(null)
@@ -41,7 +44,6 @@ export const UserListingUpload: FC = observer(function UserListingUpload() {
     CAD: 0,
     EUR: 0,
   })
-  const [propertyId, setPropertyId] = useState("")
   const [propertyType, setPropertyType] = useState("")
   const [state, setState] = useState("")
   const [zipCode, setZipCode] = useState("")
@@ -54,34 +56,45 @@ export const UserListingUpload: FC = observer(function UserListingUpload() {
 
   const navigation = useNavigation()
   const {
-    authenticationStore: { setAuthToken },
+    authenticationStore: { authToken, authEmail },
   } = useStores()
+
+  const configParam: ConfigurationParameters = {
+    accessToken: authToken,
+  };
+
+  useEffect(() => {
+      if(authToken === ""){
+        navigation.navigate('Login')
+      }
+  }, [])
 
   // Listing submission function
   async function createListing() {
     try {
-      const response = await new ListingsApi().listingPost({
+      console.log(authEmail)
+      const response = await new ListingsApi(new Configuration(configParam)).listingPost({
         address,
         bathrooms,
         bedrooms,
         building_size: buildingSize,
         city,
         description,
-        email,
+        email: authEmail,
         images: images.split(","),
         land_size: landSize,
         prices,
-        property_id: propertyId,
         property_type: propertyType,
         state,
         zip_code: zipCode,
         url,
       })
-
-      if (response.status === 200) {
+      
+      if (response.status === 201) {
         // Handle success
         console.log("Listing created successfully!")
         resetForm()
+        navigation.goBack()
       }
     } catch (error) {
       console.error("Listing creation error:", error)
@@ -103,7 +116,6 @@ export const UserListingUpload: FC = observer(function UserListingUpload() {
       CAD: 0,
       EUR: 0,
     })
-    setPropertyId("")
     setPropertyType("")
     setState("")
     setZipCode("")
@@ -187,16 +199,6 @@ export const UserListingUpload: FC = observer(function UserListingUpload() {
       />
 
       <TextField
-        ref={emailInput}
-        value={email}
-        onChangeText={setEmail}
-        containerStyle={themed($textField)}
-        label="Contact Email"
-        placeholder="Your email"
-        onSubmitEditing={() => imagesInput.current?.focus()}
-      />
-
-      <TextField
         ref={imagesInput}
         value={images}
         onChangeText={setImages}
@@ -231,16 +233,6 @@ export const UserListingUpload: FC = observer(function UserListingUpload() {
         label="Price"
         keyboardType="number-pad"
         placeholder="Price of the property in USD"
-        onSubmitEditing={() => propertyIdInput.current?.focus()}
-      />
-
-      <TextField
-        ref={propertyIdInput}
-        value={propertyId}
-        onChangeText={setPropertyId}
-        containerStyle={themed($textField)}
-        label="Property ID"
-        placeholder="Unique property identifier"
         onSubmitEditing={() => propertyTypeInput.current?.focus()}
       />
 

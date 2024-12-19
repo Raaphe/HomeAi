@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite"
 import { FC, useEffect, useState } from "react"
+import {ScrollView} from "react-native"
 import { Button } from "../components";
 import {
   View,
@@ -10,11 +11,15 @@ import {
 } from "react-native"
 import { Screen, Card } from "@/components"
 import { useAppTheme } from "@/utils/useAppTheme"
-import { CreateListingDTO, ListingsApi, UsersApi } from "@/api/generated-client"
+import { CreateListingDTO, EditListingDto, ListingsApi, UsersApi } from "@/api/generated-client"
 import { $styles, ThemedStyle } from "../theme"
-import { useNavigation, NavigationProp } from "@react-navigation/native"
+import { useNavigation, NavigationProp, useFocusEffect } from "@react-navigation/native"
 import { AppStackParamList } from "../navigators" // Ensure your navigator types are correctly defined
 import { useStores } from "../models"
+import {
+  Configuration,
+  ConfigurationParameters,
+} from "@/api/generated-client";
 
 const ICON_SIZE = 14
 
@@ -27,8 +32,9 @@ interface UserListingsProps {
 export const UserListings: FC<UserListingsProps> = observer(({ route }) => {
   const navigation = useNavigation<NavigationProp<AppStackParamList, "Login">>()
   const {
-    authenticationStore: { authToken, setAuthToken },
+    authenticationStore: { authToken, setAuthToken, logout },
   } = useStores()
+
   const { themed } = useAppTheme()
 
   const [listings, setListings] = useState<CreateListingDTO[]>([])
@@ -60,7 +66,7 @@ export const UserListings: FC<UserListingsProps> = observer(({ route }) => {
       {isLoading ? (
         <ActivityIndicator size="large" color="gray" />
       ) : listings.length > 0 ? (
-        <>
+        <ScrollView>
           {listings.map((listingItem, index) => (
             <EpisodeCard key={index} listing={listingItem} />
           ))}
@@ -72,12 +78,15 @@ export const UserListings: FC<UserListingsProps> = observer(({ route }) => {
               Create a listing
           </Button>
           <Button
-              style={themed($button)}
-              onPress={() => navigation.goBack()}
+              style={themed($buttonBack)}
+              onPress={() => {
+                logout();
+                navigation.goBack();
+              }}
             >
-              Go back
+              Log out
           </Button>
-        </>
+        </ScrollView>
       ) : (
         <>
           <Text style={themed($noListingsText)}>No listings available</Text>
@@ -90,9 +99,12 @@ export const UserListings: FC<UserListingsProps> = observer(({ route }) => {
           </Button>
           <Button
               style={themed($button)}
-              onPress={() => navigation.goBack()}
+              onPress={() => {
+                logout();
+                navigation.goBack();
+              }}
             >
-              Go back
+              Log out
           </Button>
         </>
       )}
@@ -100,25 +112,30 @@ export const UserListings: FC<UserListingsProps> = observer(({ route }) => {
   )
 })
 
-const EpisodeCard: FC<{ listing: CreateListingDTO }> = ({ listing }) => {
+const EpisodeCard: FC<{ listing: EditListingDto }> = ({ listing }) => {
   const {
     theme: { colors },
     themed,
   } = useAppTheme()
 
+  const {
+    authenticationStore: { authToken},
+  } = useStores()
+
+  const configParam: ConfigurationParameters = {
+    accessToken: authToken,
+  };
+
   const handlePressCard = () => {
     console.log("Card pressed", listing)
   }
 
-  const [rerender, setRerender] = useState(true)
-
   const deleteListing = async (id: string) => {
     try {
       if(id !== ""){
-        const response = await new ListingsApi().listingIdDelete(id)
-        if (response.status === 200) {
-          console.log("Listing created successfully!");
-          setRerender(!rerender); //Cause the page to reload
+        const response = await new ListingsApi(new Configuration(configParam)).listingIdDelete(id)
+        if (response.status === 204) {
+          console.log("Listing deleted successfully!");
         }
       }
     } catch (error) {
@@ -208,4 +225,9 @@ const $noListingsText: ThemedStyle<TextStyle> = ({ colors, spacing }) => ({
 
 const $button: ThemedStyle<ViewStyle> = ({ spacing }) => ({
   marginTop: spacing.sm,
+});
+
+const $buttonBack: ThemedStyle<ViewStyle> = ({ spacing }) => ({
+  marginTop: spacing.sm,
+  marginBottom: spacing.sm,
 });

@@ -21,7 +21,7 @@ export const SignUpScreen: FC = observer(function SignUpScreen() {
   // State management
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [authEmail, setAuthEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [authPassword, setAuthPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -36,11 +36,11 @@ export const SignUpScreen: FC = observer(function SignUpScreen() {
 
   const navigation = useNavigation();
   const {
-    authenticationStore: { setAuthToken },
+    authenticationStore: { setAuthToken, setAuthEmail },
   } = useStores();
 
   // Validation error logic (placeholder for real validation)
-  const validationError = isSubmitted && !authEmail ? "Email is required" : "";
+  const validationError = isSubmitted && !email ? "Email is required" : "";
 
   // Password toggle icon logic
   const PasswordRightAccessory: ComponentType<TextFieldAccessoryProps> = useMemo(
@@ -63,7 +63,7 @@ export const SignUpScreen: FC = observer(function SignUpScreen() {
   async function signUp() {
     setIsSubmitted(true);
 
-    if (!authEmail || !authPassword || !firstName || !lastName) {
+    if (!email || !authPassword || !firstName || !lastName) {
       return; // Basic validation
     }
 
@@ -72,15 +72,16 @@ export const SignUpScreen: FC = observer(function SignUpScreen() {
         first_name: firstName,
         last_name: lastName,
         company_name: companyName,
-        email: authEmail,
+        email: email,
         password: authPassword,
         phone: phoneNumber,
         pfp: profilePic,
       });
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         setAuthToken(response.data.data);
-        resetForm();
+        setAuthEmail(email);
+        navigation.navigate('UserListings')
       }
     } catch (error) {
       console.error("Sign-up error:", error);
@@ -90,7 +91,7 @@ export const SignUpScreen: FC = observer(function SignUpScreen() {
   function resetForm() {
     setFirstName("");
     setLastName("");
-    setAuthEmail("");
+    setEmail("");
     setAuthPassword("");
     setPhoneNumber("");
     setCompanyName("");
@@ -113,8 +114,8 @@ export const SignUpScreen: FC = observer(function SignUpScreen() {
 
       <TextField
         ref={emailInput}
-        value={authEmail}
-        onChangeText={setAuthEmail}
+        value={email}
+        onChangeText={setEmail}
         containerStyle={themed($textField)}
         autoCapitalize="none"
         autoComplete="email"
