@@ -5,6 +5,7 @@ import MapView, { Marker } from "react-native-maps";
 import { RealEstateAPIApi } from "@/api/generated-client";
 import { useAppTheme } from "@/utils/useAppTheme";
 import { useNavigation } from "@react-navigation/native";
+import { useStores } from "../models"
 
 export const CommunityScreen = () => {
   const { theme } = useAppTheme();
@@ -17,6 +18,10 @@ export const CommunityScreen = () => {
   const [error, setError] = useState<string | null>(null);
 
   const [searchValue, setSearchValue] = useState<string>("");
+
+  const {
+    authenticationStore: { authEmail, setAuthEmail, setAuthToken, authToken, validationError },
+  } = useStores()
 
   const getUserPosition = async (): Promise<void> => {
     try {
@@ -52,7 +57,7 @@ export const CommunityScreen = () => {
 
     try {
       const response = await new RealEstateAPIApi().listingsAvailableZipCodePost(zipCode, { number_of_listings: 50 });
-      const listingsData = response.data.listings || [];
+      const listingsData = response.data.data || [];
 
       const listingsWithCoords = await Promise.all(
         listingsData.map(async (listing: any) => {
@@ -75,6 +80,7 @@ export const CommunityScreen = () => {
       setLoading(true);
       await getUserPosition();
     };
+    
     fetchData();
   }, []);
 
@@ -86,17 +92,10 @@ export const CommunityScreen = () => {
 
   useEffect(() => {
     if (zipCode) {
-      getListings("10012").finally(() => setLoading(false));
+      getListings(zipCode).finally(() => setLoading(false));
     }
+    console.log(listings)
   }, [zipCode]);
-
-  const handleSearchChange = () => {
-    setZipCode(searchValue);
-  };
-
-  const handleSearchSubmit = () => {
-    handleSearchChange();
-  };
 
   if (loading) {
     return (
@@ -116,45 +115,8 @@ export const CommunityScreen = () => {
 
   const selectedListing = listings[selectedListingIndex];
 
-  const defaultZipCode = "11023";
-  const defaultHouses = [
-    {
-      address: "123 Default St",
-      city: "San Francisco",
-      state: "CA",
-      coords: { latitude: 37.7749, longitude: -122.4194 },
-      price: 550000,
-      property_type: "House",
-      bedrooms: 3,
-      bathrooms: 2,
-    },
-    {
-      address: "456 Default Ave",
-      city: "San Francisco",
-      state: "CA",
-      coords: { latitude: 37.7750, longitude: -122.4183 },
-      price: 680000,
-      property_type: "Condo",
-      bedrooms: 2,
-      bathrooms: 1,
-    },
-  ];
-
-  const listingsToDisplay = listings.length > 0 ? listings : defaultHouses;
-
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <View style={styles.searchBarContainer}>
-        <TextInput
-          value={searchValue}
-          onChangeText={setSearchValue}
-          placeholder="Enter zip code"
-          placeholderTextColor={theme.colors.text}
-          style={[styles.searchBar, { color: theme.colors.text, backgroundColor: theme.colors.background, textAlign: "center" }]}
-          onSubmitEditing={handleSearchSubmit} // Trigger search on "Enter"
-        />
-      </View>
-
       <MapView
         style={styles.map}
         initialRegion={{
@@ -166,7 +128,7 @@ export const CommunityScreen = () => {
         showsUserLocation={true}
         provider="google"
       >
-        {listingsToDisplay.map((listing, index) => {
+        {listings.map((listing, index) => {
           const isSelected = index === selectedListingIndex;
           const iconColor = isSelected ? theme.colors.background : "#008CBA";
 
@@ -192,7 +154,7 @@ export const CommunityScreen = () => {
       </MapView>
 
       <View style={[styles.detailContainer, { backgroundColor: theme.colors.background }]}>
-        {selectedListing ? (
+        {listings.length > 0 ? (
           <View>
             <Text style={[styles.detailTitle, { color: theme.colors.text }]}>
               {selectedListing.address},{" "}

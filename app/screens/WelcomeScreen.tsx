@@ -26,14 +26,6 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
     navigation.navigate("Demo", { screen: "DemoShowroom", params: {} });
   }
 
-  useHeader(
-    {
-      rightTx: "common:logOut",
-      onRightPress: logout
-    },
-    [logout]
-  );
-
   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"]);
 
   return (

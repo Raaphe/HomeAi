@@ -32,7 +32,8 @@ export const LoginScreen = observer(function LoginScreen(_props) {
 
   useEffect(() => {
     function checkJwt() {
-      if (authToken !== "")
+      console.log(authToken)
+      if (authToken !== undefined && authToken !== "")
         navigation.navigate("UserListings")
     }
     checkJwt();
@@ -59,7 +60,6 @@ export const LoginScreen = observer(function LoginScreen(_props) {
 
       setIsSubmitted(false)
       setAuthPassword("")
-      setAuthEmail("")
 
       setAuthToken(userToken)
 

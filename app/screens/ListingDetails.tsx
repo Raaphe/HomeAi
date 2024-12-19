@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export const ListingDetails = ({ route }: any) => {
   const navigation = useNavigation();
-  const { jwt } = route.params;
+  const { jwt, url } = route.params;
   const { theme } = useAppTheme();
   const [listingDetails, setListingDetails] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
