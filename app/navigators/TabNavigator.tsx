@@ -4,9 +4,8 @@ import { TextStyle, ViewStyle } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Icon } from "../components"
 import { translate } from "../i18n"
-import { DemoCommunityScreen, DemoShowroomScreen, DemoDebugScreen, LoginScreen } from "../screens"
+import { CommunityScreen, DemoShowroomScreen, DebugScreen, LoginScreen } from "../screens"
 import { StatisticScreen } from "@/screens/StatisticScreen"
-import { DemoPodcastListScreen, UserListings } from "../screens/UserListings"
 import type { ThemedStyle } from "@/theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
 import { useAppTheme } from "@/utils/useAppTheme"
@@ -14,12 +13,12 @@ import { useStores } from "../models"
 import { observer } from "mobx-react-lite"
 
 
-export type DemoTabParamList = {
-  DemoCommunity: undefined
+export type TabParamList = {
+  Community: undefined
   DemoShowroom: { queryIndex?: string; itemIndex?: string }
-  DemoDebug: undefined
-  DemoLogin: undefined
-  DemoStatistic: undefined
+  Debug: undefined
+  Login: undefined
+  Statistic: undefined
 }
 
 /**
@@ -27,12 +26,12 @@ export type DemoTabParamList = {
  *
  * More info: https://reactnavigation.org/docs/typescript/#organizing-types
  */
-export type DemoTabScreenProps<T extends keyof DemoTabParamList> = CompositeScreenProps<
-  BottomTabScreenProps<DemoTabParamList, T>,
+export type TabScreenProps<T extends keyof TabParamList> = CompositeScreenProps<
+  BottomTabScreenProps<TabParamList, T>,
   AppStackScreenProps<keyof AppStackParamList>
 >
 
-const Tab = createBottomTabNavigator<DemoTabParamList>()
+const Tab = createBottomTabNavigator<TabParamList>()
 
 /**
  * This is the main navigator for the demo screens with a bottom tab bar.
@@ -41,7 +40,7 @@ const Tab = createBottomTabNavigator<DemoTabParamList>()
  * More info: https://reactnavigation.org/docs/bottom-tab-navigator/
  * @returns {JSX.Element} The rendered `DemoNavigator`.
  */
-export function DemoNavigator() {
+export function TabNavigator() {
   const { bottom } = useSafeAreaInsets()
   const {
     themed,
@@ -51,7 +50,7 @@ export function DemoNavigator() {
 
   return (
     <Tab.Navigator
-      initialRouteName="DemoCommunity"
+      initialRouteName="Community"
       screenOptions={{
         headerShown: false,
         tabBarHideOnKeyboard: true,
@@ -63,8 +62,8 @@ export function DemoNavigator() {
       }}
     >
       <Tab.Screen
-        name="DemoCommunity"
-        component={DemoCommunityScreen}
+        name="Community"
+        component={CommunityScreen}
         options={{
           tabBarLabel: "Listings",
           tabBarIcon: ({ focused }) => (
@@ -74,7 +73,7 @@ export function DemoNavigator() {
       />
 
       <Tab.Screen
-        name="DemoLogin"
+        name="Login"
         component={LoginScreen}
         options={{
           tabBarLabel: "Profile",
@@ -85,7 +84,7 @@ export function DemoNavigator() {
       />
 
       <Tab.Screen
-        name="DemoStatistic"
+        name="Statistic"
         component={StatisticScreen}
         options={{
           tabBarLabel: "Statistic",
@@ -96,8 +95,8 @@ export function DemoNavigator() {
       />
 
       <Tab.Screen
-        name="DemoDebug"
-        component={DemoDebugScreen}
+        name="Debug"
+        component={DebugScreen}
         options={{
           tabBarLabel: "About",
           tabBarIcon: ({ focused }) => (

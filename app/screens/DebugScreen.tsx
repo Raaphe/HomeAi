@@ -10,7 +10,7 @@ import {
   ViewStyle,
 } from "react-native"
 import { Button, ListItem, Screen, Text } from "../components"
-import { DemoTabScreenProps } from "../navigators/DemoNavigator"
+import { TabScreenProps } from "../navigators/TabNavigator"
 import type { ThemedStyle } from "@/theme"
 import { $styles } from "../theme"
 import { isRTL } from "../i18n"
@@ -27,7 +27,7 @@ function openLinkInBrowser(url: string) {
 
 const usingHermes = typeof HermesInternal === "object" && HermesInternal !== null
 
-export const DemoDebugScreen: FC<DemoTabScreenProps<"DemoDebug">> = function DemoDebugScreen(
+export const DebugScreen: FC<TabScreenProps<"Debug">> = function DebugScreen(
   _props,
 ) {
   const { setThemeContextOverride, themeContext, themed } = useAppTheme()
@@ -38,7 +38,7 @@ export const DemoDebugScreen: FC<DemoTabScreenProps<"DemoDebug">> = function Dem
   // @ts-expect-error
   const usingFabric = global.nativeFabricUIManager != null
 
-  const demoReactotron = useMemo(
+  const Reactotron = useMemo(
     () => async () => {
       if (__DEV__) {
         console.tron.display({
@@ -77,11 +77,11 @@ export const DemoDebugScreen: FC<DemoTabScreenProps<"DemoDebug">> = function Dem
     >
       <Text
         style={themed($reportBugsLink)}
-        tx="demoDebugScreen:reportBugs"
+        tx="DebugScreen:reportBugs"
         onPress={() => openLinkInBrowser("https://github.com/infinitered/ignite/issues")}
       />
 
-      <Text style={themed($title)} preset="heading" tx="demoDebugScreen:title" />
+      <Text style={themed($title)} preset="heading" tx="DebugScreen:title" />
       <Text preset="bold">Current system theme: {colorScheme}</Text>
       <Text preset="bold">Current app theme: {themeContext}</Text>
       <Button onPress={resetTheme} text={`Reset`} />
@@ -140,8 +140,8 @@ export const DemoDebugScreen: FC<DemoTabScreenProps<"DemoDebug">> = function Dem
         />
       </View>
       <View style={themed($buttonContainer)}>
-        <Button style={themed($button)} tx="demoDebugScreen:reactotron" onPress={demoReactotron} />
-        <Text style={themed($hint)} tx={`demoDebugScreen:${Platform.OS}ReactotronHint` as const} />
+        <Button style={themed($button)} tx="DebugScreen:reactotron" onPress={Reactotron} />
+        <Text style={themed($hint)} tx={`DebugScreen:${Platform.OS}ReactotronHint` as const} />
       </View>
       <View style={themed($buttonContainer)}>
         <Button style={themed($button)} tx="common:logOut" onPress={logout} />
